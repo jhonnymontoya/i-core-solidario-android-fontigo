@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
-    android:foreground="@drawable/bg_login"
+    android:background="@drawable/login_bg"
     >
 
     <androidx.constraintlayout.widget.Guideline
@@ -21,4 +21,71 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_end="24dp" />
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/alpha_blank_icon"
+        app:layout_constraintEnd_toStartOf="@+id/glDer"
+        app:layout_constraintStart_toStartOf="@+id/glIzq"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edUser"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:hint="@string/login_username"
+        android:inputType="text"
+        android:background="@drawable/login_et_bg"
+        android:padding="16dp"
+        android:drawableRight="@drawable/ic_login_et_user"
+        android:textColorHint="@color/login_form_details"
+        app:layout_constraintEnd_toStartOf="@+id/glDer"
+        app:layout_constraintStart_toStartOf="@+id/glIzq"
+        app:layout_constraintTop_toBottomOf="@+id/ivLogo" />
+
+    <EditText
+        android:id="@+id/edPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/login_password"
+        android:inputType="textPassword"
+        android:background="@drawable/login_et_bg"
+        android:padding="16dp"
+        android:drawableRight="@drawable/ic_login_et_password"
+        android:textColorHint="@color/login_form_details"
+        app:layout_constraintEnd_toStartOf="@+id/glDer"
+        app:layout_constraintStart_toStartOf="@+id/glIzq"
+        app:layout_constraintTop_toBottomOf="@+id/edUser" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/login_login"
+        android:textAllCaps="false"
+        android:background="@drawable/login_btn_bg"
+        android:textColor="@color/login_form_details_medium"
+        app:layout_constraintEnd_toStartOf="@+id/glDer"
+        app:layout_constraintStart_toStartOf="@+id/glIzq"
+        app:layout_constraintTop_toBottomOf="@+id/edPassword" />
+
+    <TextView
+        android:id="@+id/tvForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Olvide mi contraseña"
+        android:clickable="true"
+        android:focusable="true"
+        android:autoLink="all"
+        app:layout_constraintEnd_toStartOf="@+id/glDer"
+        app:layout_constraintStart_toStartOf="@+id/glIzq"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
