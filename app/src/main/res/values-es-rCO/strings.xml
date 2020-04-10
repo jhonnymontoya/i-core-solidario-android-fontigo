@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Ais</string>
     <string name="login_username">Usuario</string>
     <string name="login_password">Contraseña</string>
     <string name="login_login">Ingresar</string>
     <string name="login_forgot_password">¿Olvidó su contraseña?</string>
+    <string name="login_error_login">Usuario o contraseña no válida</string>
+    <string name="login_volver">Volver</string>
+    <string name="login_restore_message">Ingrese su usuario, Le enviaremos un link para restaurar su contraseña.</string>
+    <string name="login_restore">Enviar</string>
 </resources>
