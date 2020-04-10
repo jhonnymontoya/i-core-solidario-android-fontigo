@@ -36,56 +36,54 @@
         android:id="@+id/edUser"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginBottom="16dp"
+        android:drawableRight="@drawable/ic_login_et_user"
         android:hint="@string/login_username"
         android:inputType="text"
-        android:background="@drawable/login_et_bg"
-        android:padding="16dp"
-        android:drawableRight="@drawable/ic_login_et_user"
-        android:textColorHint="@color/login_form_details"
+        app:layout_constraintBottom_toTopOf="@+id/edPassword"
         app:layout_constraintEnd_toStartOf="@+id/glDer"
         app:layout_constraintStart_toStartOf="@+id/glIzq"
-        app:layout_constraintTop_toBottomOf="@+id/ivLogo" />
+        style="@style/Login_EditText"/>
 
     <EditText
         android:id="@+id/edPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawableRight="@drawable/ic_login_et_password"
         android:hint="@string/login_password"
         android:inputType="textPassword"
-        android:background="@drawable/login_et_bg"
-        android:padding="16dp"
-        android:drawableRight="@drawable/ic_login_et_password"
-        android:textColorHint="@color/login_form_details"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
         app:layout_constraintEnd_toStartOf="@+id/glDer"
         app:layout_constraintStart_toStartOf="@+id/glIzq"
-        app:layout_constraintTop_toBottomOf="@+id/edUser" />
+        style="@style/Login_EditText"/>
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/login_btn_bg"
         android:text="@string/login_login"
         android:textAllCaps="false"
-        android:background="@drawable/login_btn_bg"
-        android:textColor="@color/login_form_details_medium"
+        android:textColor="@color/blanco"
+        android:enabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/tvForgotPassword"
         app:layout_constraintEnd_toStartOf="@+id/glDer"
-        app:layout_constraintStart_toStartOf="@+id/glIzq"
-        app:layout_constraintTop_toBottomOf="@+id/edPassword" />
+        app:layout_constraintStart_toStartOf="@+id/glIzq" />
 
     <TextView
         android:id="@+id/tvForgotPassword"
+        style="@style/Login_Link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Olvide mi contraseña"
+        android:layout_marginBottom="140dp"
+        android:autoLink="all"
         android:clickable="true"
         android:focusable="true"
-        android:autoLink="all"
+        android:text="@string/login_forgot_password"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/glDer"
-        app:layout_constraintStart_toStartOf="@+id/glIzq"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+        app:layout_constraintStart_toStartOf="@+id/glIzq" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

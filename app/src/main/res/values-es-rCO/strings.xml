@@ -4,4 +4,5 @@
     <string name="login_username">Usuario</string>
     <string name="login_password">Contraseña</string>
     <string name="login_login">Ingresar</string>
+    <string name="login_forgot_password">¿Olvidó su contraseña?</string>
 </resources>
