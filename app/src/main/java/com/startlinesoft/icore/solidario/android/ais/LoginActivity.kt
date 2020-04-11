@@ -1,13 +1,14 @@
 package com.startlinesoft.icore.solidario.android.ais
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.startlinesoft.icore.solidario.android.ais.databinding.LoginMainBinding
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
@@ -38,9 +39,27 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         if (v == bnd.btnLogin) {
-            Toast.makeText(this, "Click 3d", Toast.LENGTH_SHORT).show()
+            bnd.progressBar.visibility = View.VISIBLE
+            Thread(object : Runnable {
+                var progressStatus = 0
+                override fun run() {
+                    while (progressStatus < 50) {
+                        progressStatus += 1
+                        try {
+                            Thread.sleep(100)
+                        } catch (e: InterruptedException) {
+                        }
+                    }
+                    bnd.progressBar.post(object: Runnable {
+                        override fun run() {
+                            bnd.progressBar.visibility = View.GONE
+                        }
+                    })
+                }
+            }).start()
             bnd.tvErrror.visibility = View.VISIBLE
         }
+
         if (v == bnd.tvForgotPassword) {
             bnd.tvErrror.visibility = View.GONE
             val usuario = bnd.etUser.text.toString().trim { it <= ' ' }

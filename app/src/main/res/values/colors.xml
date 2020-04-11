@@ -3,13 +3,19 @@
 
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#4158d0</color>
-    <color name="colorAccent">#ff5684</color>
+    <color name="colorAccent">#FF5684</color>
+
 
     <color name="error">#770000</color>
     <color name="blanco">#ffffff</color>
     <color name="azul">#4158d0</color>
     <color name="purpura">#c850c0</color>
 
+    <color name="progressBar">#5E000000</color>
+
+    <color name="login_boton_disabled">#ED6D94</color>
+    <color name="login_boton_enabled">#ED5583</color>
+    <color name="login_boton_pressed">#D44C75</color>
     <color name="login_form_details">#ccFFFFFF</color>
     <color name="login_form_details_light">#1aFFFFFF</color>
     <color name="login_form_details_medium">#66FFFFFF</color>

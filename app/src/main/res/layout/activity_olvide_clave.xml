@@ -66,6 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:background="@drawable/login_btn_bg"
+        android:stateListAnimator="@null"
         android:enabled="false"
         android:text="@string/login_restore"
         android:textAllCaps="false"
@@ -87,5 +88,24 @@
         app:layout_constraintEnd_toStartOf="@+id/glDer"
         app:layout_constraintStart_toStartOf="@+id/glIzq"
         style="@style/Login_Link"/>
+
+    <LinearLayout
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:background="@color/progressBar"
+        android:visibility="gone">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTintMode="multiply"
+            android:indeterminateTint="@color/blanco"
+            style="?android:progressBarStyleLarge"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
