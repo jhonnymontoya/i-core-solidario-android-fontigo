@@ -38,7 +38,7 @@ class OlvideClaveActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         if(v == bnd.btnSubmit) {
-            
+
             bnd.progressBar.visibility = View.VISIBLE
             Thread(object : Runnable {
                 var progressStatus = 0
