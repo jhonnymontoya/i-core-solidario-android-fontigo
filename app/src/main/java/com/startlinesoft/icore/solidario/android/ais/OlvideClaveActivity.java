@@ -7,7 +7,15 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
+import com.startlinesoft.icore.solidario.ApiClient;
+import com.startlinesoft.icore.solidario.ApiException;
+import com.startlinesoft.icore.solidario.Configuration;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityOlvideClaveBinding;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreApiClient;
+import com.startlinesoft.icore.solidario.api.LoginApi;
+import com.startlinesoft.icore.solidario.api.models.ForgotPassword;
+
+import java.io.IOException;
 
 public class OlvideClaveActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -48,7 +56,31 @@ public class OlvideClaveActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         if(v.equals(bnd.btnSubmit)) {
-            finish();
+            ApiClient cliente = ICoreApiClient.getApiClient();
+            LoginApi loginApi = new LoginApi(cliente);
+
+            ForgotPassword forgotPassword = new ForgotPassword();
+            String usuario = bnd.etUser.getText().toString().trim();
+            forgotPassword.setUsuario(usuario);
+
+            bnd.progressBar.setVisibility(View.VISIBLE);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        loginApi.sendResetLinkEmail(forgotPassword);
+                    } catch (ApiException e) {
+                        e.printStackTrace();
+                    }
+                    bnd.progressBar.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            bnd.progressBar.setVisibility(View.GONE);
+                            finish();
+                        }
+                    });
+                }
+            }).start();
         }
 
         if(v.equals(bnd.tvVolver)) {
