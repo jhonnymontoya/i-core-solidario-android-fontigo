@@ -8,4 +8,5 @@
     <string name="login_volver">Back</string>
     <string name="login_restore_message">Enter your user below, We\'ll send you a link to restore your password.</string>
     <string name="login_restore">Submit</string>
+    <string name="token_info" translatable="false">com.startlinesoft.icore.solidario.android.ais.TOKEN_INFO</string>
 </resources>
