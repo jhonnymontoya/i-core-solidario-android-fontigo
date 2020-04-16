@@ -8,9 +8,16 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
+import com.startlinesoft.icore.solidario.ApiClient;
+import com.startlinesoft.icore.solidario.ApiException;
 import com.startlinesoft.icore.solidario.android.ais.databinding.LoginMainBinding;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreApiClient;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
+import com.startlinesoft.icore.solidario.api.LoginApi;
+import com.startlinesoft.icore.solidario.api.models.LoginInfo;
+import com.startlinesoft.icore.solidario.api.models.LoginToken;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends ICoreAppCompatActivity implements View.OnClickListener {
 
     private LoginMainBinding bnd;
 
@@ -46,27 +53,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if(v.equals(bnd.btnLogin)) {
+            this.verificarRed();
+
+            ApiClient cliente = ICoreApiClient.getApiClient();
+            LoginApi loginApi = new LoginApi(cliente);
+
+            LoginInfo loginInfo = new LoginInfo();
+            loginInfo.setUsuario(bnd.etUser.getText().toString());
+            loginInfo.setPassword(bnd.etPassword.getText().toString());
+
             bnd.progressBar.setVisibility(View.VISIBLE);
             new Thread(new Runnable() {
-                int progressStatus = 0;
                 @Override
                 public void run() {
-                    while(progressStatus < 50) {
-                        progressStatus += 1;
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                        }
+                    try {
+                        LoginToken loginToken = loginApi.login(loginInfo);
+                        putToken(loginToken.getToken());
+                        ICoreApiClient.setToken(loginToken.getToken());
+
+                        Intent i = new Intent(getBaseContext(), DashBoardActivity.class);
+                        startActivity(i);
+                        finish();
+                    } catch (ApiException e) {
+                        bnd.tvErrror.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                bnd.tvErrror.setVisibility(View.VISIBLE);
+                                bnd.progressBar.setVisibility(View.GONE);
+                            }
+                        });
                     }
-                    bnd.progressBar.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            bnd.progressBar.setVisibility(View.GONE);
-                        }
-                    });
                 }
             }).start();
-            bnd.tvErrror.setVisibility(View.VISIBLE);
         }
 
         if(v.equals(bnd.tvForgotPassword)) {
