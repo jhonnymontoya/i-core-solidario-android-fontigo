@@ -8,4 +8,11 @@
     <string name="login_volver">Volver</string>
     <string name="login_restore_message">Ingrese su usuario, Le enviaremos un link para restaurar su contraseña.</string>
     <string name="login_restore">Enviar</string>
+    <string name="logout">Salir</string>
+    <string name="ahorros">Ahorros</string>
+    <string name="creditos">Creditos</string>
+    <string name="abonado">Abonado</string>
+    <string name="del_total">del total</string>
+    <string name="recaudos_nomina">Recaudos de nómina</string>
+    <string name="aplicado">Aplicado</string>
 </resources>

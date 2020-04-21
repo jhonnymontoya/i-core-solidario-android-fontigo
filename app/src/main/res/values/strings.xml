@@ -9,4 +9,12 @@
     <string name="login_restore_message">Enter your user below, We\'ll send you a link to restore your password.</string>
     <string name="login_restore">Submit</string>
     <string name="token_info" translatable="false">com.startlinesoft.icore.solidario.android.ais.TOKEN_INFO</string>
+    <string name="descripcion_imagen" translatable="false">Avatar</string>
+    <string name="logout">Logout</string>
+    <string name="ahorros">Savings</string>
+    <string name="creditos">Credits</string>
+    <string name="abonado">Paid</string>
+    <string name="del_total">of the total</string>
+    <string name="recaudos_nomina">Payroll</string>
+    <string name="aplicado">Apply on</string>
 </resources>

@@ -5,9 +5,9 @@
     <color name="colorPrimaryDark">#4158d0</color>
     <color name="colorAccent">#FF5684</color>
 
-
     <color name="error">#770000</color>
-    <color name="blanco">#ffffff</color>
+    <color name="blanco">#fafafa</color>
+    <color name="negro">#000000</color>
     <color name="azul">#4158d0</color>
     <color name="purpura">#c850c0</color>
 
