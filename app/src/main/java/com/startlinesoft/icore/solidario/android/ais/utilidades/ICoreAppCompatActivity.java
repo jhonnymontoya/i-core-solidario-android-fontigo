@@ -2,22 +2,93 @@ package com.startlinesoft.icore.solidario.android.ais.utilidades;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.startlinesoft.icore.solidario.ApiClient;
+import com.startlinesoft.icore.solidario.ApiException;
+import com.startlinesoft.icore.solidario.android.ais.DashBoardActivity;
+import com.startlinesoft.icore.solidario.android.ais.LoginActivity;
 import com.startlinesoft.icore.solidario.android.ais.R;
+import com.startlinesoft.icore.solidario.api.LoginApi;
 
 public class ICoreAppCompatActivity extends AppCompatActivity {
 
     private static final String TOKEN = "TOKEN";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+    }
+
+    /**
+     * Sale del sistema
+     */
+    protected void logout() {
+        this.verificarRed();
+
+        ApiClient cliente = ICoreApiClient.getApiClient();
+        LoginApi loginApi = new LoginApi(cliente);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    loginApi.logout();
+                } catch (ApiException e) {}
+                Intent i = new Intent(getBaseContext(), LoginActivity.class);
+                startActivity(i);
+                finish();
+            }
+        }).start();
+    }
+
+    /**
+     * Valida que se encuentre logueado, de lo contrario lo envia al login
+     */
+    protected void validarLogin() {
+        this.verificarRed();
+        if(this.isSetToken()) {
+            ICoreApiClient.setToken(this.getToken());
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    boolean esTokenValido =  ICoreApiClient.esTokenValido();
+                    if(esTokenValido == false) {
+                        //No es válido e ir al login
+                        Intent i = new Intent(getBaseContext(), LoginActivity.class);
+                        removeToken();
+                        startActivity(i);
+                        finish();
+                    }
+                }
+            }).start();
+        }
+        else {
+            Intent i = new Intent(getBaseContext(), LoginActivity.class);
+            this.removeToken();
+            startActivity(i);
+            finish();
+        }
+    }
 
     /**
      * Retorna true o false si en el almacen interno se enuentra un token
