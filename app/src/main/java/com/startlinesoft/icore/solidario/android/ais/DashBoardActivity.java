@@ -24,6 +24,7 @@ import com.startlinesoft.icore.solidario.android.ais.models.SocioViewModel;
 import com.startlinesoft.icore.solidario.android.ais.models.SocioViewModelFactory;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreApiClient;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
 import com.startlinesoft.icore.solidario.api.LoginApi;
 import com.startlinesoft.icore.solidario.api.SocioApi;
 import com.startlinesoft.icore.solidario.api.models.Ahorros;
@@ -78,11 +79,13 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
                 if(socio.getRecaudo().size() > 0) {
                     Recaudo recaudo = socio.getRecaudo().get(0);
                     bnd.tvTotalAplicado.setText(String.format("$%s", recaudo.getTotalAplicado()));
-                    bnd.tvFechaAplicacion.setText(recaudo.getFechaRecaudo());
+                    bnd.tvFechaAplicacion.setText(
+                            ICoreGeneral.reverseFecha(recaudo.getFechaRecaudo())
+                    );
                 }
                 else {
                     bnd.tvTotalAplicado.setText(String.format("$0"));
-                    bnd.tvFechaAplicacion.setText(String.format("0000-00-00"));
+                    bnd.tvFechaAplicacion.setText(String.format("00-00-0000"));
                 }
 
             }
