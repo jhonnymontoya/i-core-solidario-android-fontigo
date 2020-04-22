@@ -66,9 +66,12 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
                 Ahorros ahorros = socio.getAhorros();
                 Creditos creditos = socio.getCreditos();
 
+                // Título de la entidad
+                bnd.tbToolbar.setTitle(socio.getSiglaEntidad());
+
                 bnd.ivImagen.setImageBitmap(bitmap);
                 bnd.tvTotalAhorros.setText(String.format("$%s", ahorros.getTotalAhorros()));
-                bnd.tvTotalCreditos.setText(String.format("$%s", creditos.getTotal()));
+                bnd.tvTotalCreditos.setText(String.format("$%s", creditos.getTotalSaldoCapital()));
                 bnd.pbPorcentajeAbonado.setProgress(creditos.getPorcentajeAbonado());
                 bnd.tvPorcentajeAbonado.setText(String.format("%s%%", creditos.getPorcentajeAbonado()));
 
