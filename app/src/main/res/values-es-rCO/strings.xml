@@ -18,4 +18,6 @@
     <string name="accion_documentacion">Documentación</string>
     <string name="accion_simulador">Simulador</string>
     <string name="accion_solicitar_credito">Solicitar crédito</string>
+    <string name="incremento_en">Incrementó</string>
+    <string name="ultimo_mes">en el último mes</string>
 </resources>
