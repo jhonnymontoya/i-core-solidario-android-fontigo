@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/accion_documentacion"
-        android:title="Documentación"
+        android:title="@string/accion_documentacion"
         android:icon="@drawable/ic_action_documentacion"/>
 
     <item android:id="@+id/accion_simulador_credito"
-        android:title="Simulador Créditos"
+        android:title="@string/accion_simulador"
         android:icon="@drawable/ic_action_simulador_credito"/>
 
     <item android:id="@+id/accion_solicitar_credito"
-        android:title="Solicitar crédito"
+        android:title="@string/accion_solicitar_credito"
         android:icon="@drawable/ic_action_solicitar_credito"/>
 
 </menu>
