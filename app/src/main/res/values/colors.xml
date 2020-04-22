@@ -11,6 +11,10 @@
     <color name="azul">#4158d0</color>
     <color name="purpura">#c850c0</color>
 
+    <color name="ahorros">#28a745</color>
+    <color name="creditos">#ffc107</color>
+    <color name="recaudos">#007bff</color>
+
     <color name="progressBar">#5E000000</color>
 
     <color name="login_boton_disabled">#ED6D94</color>
