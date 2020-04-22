@@ -108,6 +108,39 @@
                         android:textColor="@color/negro"
                         android:textSize="40sp"
                         android:textStyle="bold"/>
+
+                    <ProgressBar
+                        android:id="@+id/pbPorcentajeIncremento"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:progress="0"/>
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/calibri"
+                            android:layout_marginEnd="5dp"
+                            android:text="@string/incremento_en" />
+                        <TextView
+                            android:id="@+id/tvPorcentajeIncremento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/calibri"
+                            android:layout_marginEnd="5dp"
+                            android:text="@null"
+                            android:textColor="@color/negro"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/calibri"
+                            android:text="@string/ultimo_mes" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <!-- Fin tarjeta de ahorros -->
