@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@id/appBarLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bnvMenu"
         android:padding="16dp">
 
         <LinearLayout
@@ -71,11 +71,20 @@
 
             <!-- Tarjeta de ahorros -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cvAhorros"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
                 app:cardCornerRadius="5dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_ahorros"
+                    android:scaleType="fitEnd"
+                    android:foreground="@color/ahorros"
+                    android:alpha="0.1"
+                    android:contentDescription="@null"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -105,11 +114,20 @@
 
             <!-- Tarjeta de créditos -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cvCreditos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
                 app:cardCornerRadius="5dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_creditos"
+                    android:scaleType="fitEnd"
+                    android:foreground="@color/creditos"
+                    android:alpha="0.1"
+                    android:contentDescription="@null"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -174,11 +192,20 @@
 
             <!-- Tarjeta de recaudos -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cvRecaudos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
                 app:cardCornerRadius="5dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_recaudos"
+                    android:scaleType="fitEnd"
+                    android:foreground="@color/recaudos"
+                    android:alpha="0.1"
+                    android:contentDescription="@null"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -233,14 +260,15 @@
     </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnvMenu"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
-        android:background="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu="@menu/dashboard_items"/>
 
     <LinearLayout
         android:id="@+id/progressBar"
