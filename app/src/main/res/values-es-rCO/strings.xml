@@ -20,4 +20,8 @@
     <string name="accion_solicitar_credito">Solicitar crédito</string>
     <string name="incremento_en">Incrementó</string>
     <string name="ultimo_mes">en el último mes</string>
+    <string name="perfil">Perfil</string>
+    <string name="beneficiarios">Beneficiarios</string>
+    <string name="acerca_de">Acerca de</string>
+    <string name="actualizar_clave">Actualizar contraseña</string>
 </resources>

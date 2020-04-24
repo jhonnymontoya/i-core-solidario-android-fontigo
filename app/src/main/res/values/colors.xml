@@ -23,4 +23,8 @@
     <color name="login_form_details">#ccFFFFFF</color>
     <color name="login_form_details_light">#1aFFFFFF</color>
     <color name="login_form_details_medium">#66FFFFFF</color>
+
+    <color name="info_boton_disabled">#E0CAD6</color>
+    <color name="info_boton_enabled">#FAFAFA</color>
+    <color name="info_boton_pressed">#EFEFEF</color>
 </resources>

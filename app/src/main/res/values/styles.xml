@@ -23,4 +23,12 @@
         <item name="android:textColor">@color/blanco</item>
     </style>
 
+    <style name="info_button">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:background">@drawable/info_btn_bg</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
 </resources>
