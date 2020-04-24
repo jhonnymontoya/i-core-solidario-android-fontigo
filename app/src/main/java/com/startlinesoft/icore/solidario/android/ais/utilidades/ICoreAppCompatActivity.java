@@ -38,6 +38,15 @@ public class ICoreAppCompatActivity extends AppCompatActivity {
     }
 
     /**
+     * Remueve el título de la barra ToolBar
+     */
+    protected void removerTituloBarra() {
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+    }
+
+    /**
      * Sale del sistema
      */
     protected void logout() {
@@ -52,6 +61,7 @@ public class ICoreAppCompatActivity extends AppCompatActivity {
                     loginApi.logout();
                 } catch (ApiException e) {}
                 Intent i = new Intent(getBaseContext(), LoginActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
                 finish();
             }
