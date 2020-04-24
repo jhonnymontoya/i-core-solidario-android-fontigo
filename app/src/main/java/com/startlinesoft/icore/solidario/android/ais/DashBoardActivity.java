@@ -37,6 +37,7 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
 
     private ActivityDashBoardBinding bnd;
     private SocioViewModel socioViewModel;
+    private Socio socio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
         socioViewModel.getSocio().observe(this, new Observer<Socio>() {
             @Override
             public void onChanged(Socio socio) {
+                DashBoardActivity.this.socio = socio;
                 bnd.progressBar.setVisibility(View.GONE);
                 Bitmap bitmap = BitmapFactory.decodeByteArray(
                         socio.getImagen(),
@@ -95,6 +97,8 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
             }
         });
 
+        bnd.ivImagen.setOnClickListener(this);
+
         bnd.cvAhorros.setOnClickListener(this);
         bnd.cvCreditos.setOnClickListener(this);
         bnd.cvRecaudos.setOnClickListener(this);
@@ -109,6 +113,14 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
 
     @Override
     public void onClick(View v) {
+        // Ir a info de cuenta
+        if(v.equals(bnd.ivImagen)) {
+            Intent i = new Intent(this, InfoActivity.class);
+            i.putExtra("SOCIO", socio);
+            startActivity(i);
+            return;
+        }
+
         // Ir a Ahorros
         if(v.equals(bnd.cvAhorros)) {
             Toast.makeText(this, "Click en tarjeta de ahorros", Toast.LENGTH_SHORT).show();
