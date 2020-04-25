@@ -50,8 +50,6 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
 
         setSupportActionBar(bnd.tbToolbar);
 
-        //tb.setNavigationIcon();
-
         socioViewModel = new ViewModelProvider(getViewModelStore(), new SocioViewModelFactory())
                 .get(SocioViewModel.class);
 
@@ -78,11 +76,15 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
                 bnd.pbPorcentajeIncremento.setProgress(ahorros.getPorcentajeIncremento());
                 bnd.tvPorcentajeIncremento.setText(String.format("%s%%", ahorros.getPorcentajeIncremento()));
 
-                bnd.tvTotalCreditos.setText(String.format("$%s", creditos.getTotalSaldoCapital()));
-                bnd.pbPorcentajeAbonado.setProgress(creditos.getPorcentajeAbonado());
-                bnd.tvPorcentajeAbonado.setText(String.format("%s%%", creditos.getPorcentajeAbonado()));
+                if(creditos.getTotalSaldoCapital().contentEquals("0") == false || creditos.getCodeudas().size() > 0) {
+                    bnd.cvCreditos.setVisibility(View.VISIBLE);
+                    bnd.tvTotalCreditos.setText(String.format("$%s", creditos.getTotalSaldoCapital()));
+                    bnd.pbPorcentajeAbonado.setProgress(creditos.getPorcentajeAbonado());
+                    bnd.tvPorcentajeAbonado.setText(String.format("%s%%", creditos.getPorcentajeAbonado()));
+                }
 
                 if(socio.getRecaudo().size() > 0) {
+                    bnd.cvRecaudos.setVisibility(View.VISIBLE);
                     Recaudo recaudo = socio.getRecaudo().get(0);
                     bnd.tvTotalAplicado.setText(String.format("$%s", recaudo.getTotalAplicado()));
                     bnd.tvFechaAplicacion.setText(
@@ -90,6 +92,7 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
                     );
                 }
                 else {
+                    bnd.cvRecaudos.setVisibility(View.GONE);
                     bnd.tvTotalAplicado.setText(String.format("$0"));
                     bnd.tvFechaAplicacion.setText(String.format("00-00-0000"));
                 }
