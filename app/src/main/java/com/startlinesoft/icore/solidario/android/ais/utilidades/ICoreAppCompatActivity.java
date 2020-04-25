@@ -91,6 +91,7 @@ public class ICoreAppCompatActivity extends AppCompatActivity {
         }
         else {
             Intent i = new Intent(getBaseContext(), LoginActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             this.removeToken();
             startActivity(i);
             finish();
