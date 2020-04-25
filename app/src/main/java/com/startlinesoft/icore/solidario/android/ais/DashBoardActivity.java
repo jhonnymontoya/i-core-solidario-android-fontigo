@@ -1,10 +1,6 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -13,23 +9,15 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.startlinesoft.icore.solidario.ApiClient;
-import com.startlinesoft.icore.solidario.ApiException;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityDashBoardBinding;
 import com.startlinesoft.icore.solidario.android.ais.models.SocioViewModel;
 import com.startlinesoft.icore.solidario.android.ais.models.SocioViewModelFactory;
-import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreApiClient;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
-import com.startlinesoft.icore.solidario.api.LoginApi;
-import com.startlinesoft.icore.solidario.api.SocioApi;
 import com.startlinesoft.icore.solidario.api.models.Ahorros;
 import com.startlinesoft.icore.solidario.api.models.Creditos;
-import com.startlinesoft.icore.solidario.api.models.LoginInfo;
 import com.startlinesoft.icore.solidario.api.models.Recaudo;
 import com.startlinesoft.icore.solidario.api.models.Socio;
 
@@ -126,22 +114,25 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
 
         // Ir a Ahorros
         if(v.equals(bnd.cvAhorros)) {
-            Toast.makeText(this, "Click en tarjeta de ahorros", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, AhorrosActivity.class);
+            i.putExtra("SOCIO", socio);
+            startActivity(i);
             return;
         }
 
         // Ir a Créditos
         if(v.equals(bnd.cvCreditos)) {
+            //TODO: Implementar redirección a la actividad de créditos
             Toast.makeText(this, "Click en tarjeta de créditos", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Ir a Recaudos
         if(v.equals(bnd.cvRecaudos)) {
+            //TODO: Implementar redirección a la actividad de recaudos
             Toast.makeText(this, "Click en tarjeta de recaudos", Toast.LENGTH_SHORT).show();
             return;
         }
-        //this.logout();
     }
 
     @Override
@@ -150,14 +141,17 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
         final int SIMULADOR_CREDITO = 1;
         final int SOLICITAR_CREDITO = 2;
         if(item.equals(bnd.bnvMenu.getMenu().getItem(DOCUMENTACION))) {
+            //TODO: Implementar redirección a la actividad de documentación
             Toast.makeText(this, "Click documentación", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(item.equals(bnd.bnvMenu.getMenu().getItem(SIMULADOR_CREDITO))) {
+            //TODO: Implementar redirección a la actividad del simulador de crédito
             Toast.makeText(this, "Click Simulador de crédito", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(item.equals(bnd.bnvMenu.getMenu().getItem(SOLICITAR_CREDITO))) {
+            //TODO: Implementar redirección a la actividad de solicitud de crédito
             Toast.makeText(this, "Click solicitud de crédito", Toast.LENGTH_SHORT).show();
             return false;
         }
