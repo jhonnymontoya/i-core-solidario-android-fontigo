@@ -24,4 +24,8 @@
     <string name="beneficiarios">Beneficiarios</string>
     <string name="acerca_de">Acerca de</string>
     <string name="actualizar_clave">Actualizar contraseña</string>
+    <string name="tasa_ea">Tasa E.A.</string>
+    <string name="sdats">SDATs</string>
+    <string name="ahorros_generales">Ahorros generales</string>
+    <string name="ahorros_programados">Ahorros programados</string>
 </resources>

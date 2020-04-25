@@ -29,8 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:fontFamily="@font/calibri"
-                    android:text="APORTES SOCIALES" />
+                    android:fontFamily="@font/calibri" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -43,7 +42,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/calibri"
                         android:textSize="12sp"
-                        android:text="Tasa E.A." />
+                        android:text="@string/tasa_ea" />
 
                     <TextView
                         android:id="@+id/tvTasa"
@@ -51,8 +50,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="3dp"
                         android:fontFamily="@font/calibri"
-                        android:textSize="12sp"
-                        android:text="5.00%" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -70,8 +68,7 @@
                     android:fontFamily="@font/calibri"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/ivIr"
-                    android:text="$10.000.000" />
+                    app:layout_constraintEnd_toStartOf="@id/ivIr" />
 
                 <ImageView
                     android:id="@+id/ivIr"
