@@ -130,8 +130,9 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
 
         // Ir a Recaudos
         if(v.equals(bnd.cvRecaudos)) {
-            //TODO: Implementar redirección a la actividad de recaudos
-            Toast.makeText(this, "Click en tarjeta de recaudos", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, RecaudosActivity.class);
+            i.putExtra("SOCIO", socio);
+            startActivity(i);
             return;
         }
     }
