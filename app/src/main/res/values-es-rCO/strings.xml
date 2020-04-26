@@ -10,7 +10,7 @@
     <string name="login_restore">Enviar</string>
     <string name="logout">Salir</string>
     <string name="ahorros">Ahorros</string>
-    <string name="creditos">Creditos</string>
+    <string name="creditos">Créditos</string>
     <string name="abonado">Abonado</string>
     <string name="del_total">del total</string>
     <string name="recaudos_nomina">Recaudos de nómina</string>
@@ -28,4 +28,5 @@
     <string name="sdats">SDATs</string>
     <string name="ahorros_generales">Ahorros generales</string>
     <string name="ahorros_programados">Ahorros programados</string>
+    <string name="codeudas">Codeudas</string>
 </resources>

@@ -25,7 +25,7 @@ public class CodeudaAdapter extends RecyclerView.Adapter<CodeudaViewHolder> {
     @Override
     public CodeudaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.codeuda_item, parent, false);
+                    .inflate(R.layout.codeuda_item, parent, false);
         CodeudaViewHolder cvh = new CodeudaViewHolder(v);
         return cvh;
     }
