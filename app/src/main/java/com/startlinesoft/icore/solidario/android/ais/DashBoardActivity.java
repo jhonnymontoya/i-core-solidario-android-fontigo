@@ -122,8 +122,9 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
 
         // Ir a Créditos
         if(v.equals(bnd.cvCreditos)) {
-            //TODO: Implementar redirección a la actividad de créditos
-            Toast.makeText(this, "Click en tarjeta de créditos", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, CreditosActivity.class);
+            i.putExtra("SOCIO", socio);
+            startActivity(i);
             return;
         }
 
