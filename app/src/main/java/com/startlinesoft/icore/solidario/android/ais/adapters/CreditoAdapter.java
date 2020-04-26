@@ -1,0 +1,45 @@
+package com.startlinesoft.icore.solidario.android.ais.adapters;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.startlinesoft.icore.solidario.android.ais.R;
+import com.startlinesoft.icore.solidario.api.models.Credito;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CreditoAdapter extends RecyclerView.Adapter<CreditoViewHolder> {
+
+    private List<Credito> creditos = new ArrayList<Credito>();
+
+    public CreditoAdapter(List<Credito> creditos) {
+        this.creditos = creditos;
+    }
+
+    @NonNull
+    @Override
+    public CreditoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.credito_item, parent, false);
+        CreditoViewHolder cvh = new CreditoViewHolder(v);
+        return cvh;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull CreditoViewHolder holder, int position) {
+        Credito credito = creditos.get(position);
+        holder.getTvModalidad().setText(credito.getModalidad());
+        holder.getTvNumeroObligacion().setText(credito.getNumeroObligacion());
+        holder.getTvSaldo().setText(String.format("$%s", credito.getSaldoCapital()));
+    }
+
+    @Override
+    public int getItemCount() {
+        return creditos.size();
+    }
+}
