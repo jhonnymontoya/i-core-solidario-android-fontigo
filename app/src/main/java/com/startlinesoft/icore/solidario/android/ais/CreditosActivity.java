@@ -13,6 +13,8 @@ import android.view.View;
 import com.startlinesoft.icore.solidario.android.ais.adapters.CodeudaAdapter;
 import com.startlinesoft.icore.solidario.android.ais.adapters.CreditoAdapter;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityCreditosBinding;
+import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
+import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
 import com.startlinesoft.icore.solidario.api.models.Codeuda;
 import com.startlinesoft.icore.solidario.api.models.Credito;
@@ -21,7 +23,7 @@ import com.startlinesoft.icore.solidario.api.models.Socio;
 
 import java.util.List;
 
-public class CreditosActivity extends ICoreAppCompatActivity implements View.OnClickListener {
+public class CreditosActivity extends ICoreAppCompatActivity implements View.OnClickListener, ICoreRecyclerViewItemListener {
 
     private ActivityCreditosBinding bnd;
     private Socio socio;
@@ -59,7 +61,9 @@ public class CreditosActivity extends ICoreAppCompatActivity implements View.OnC
         //Créditos
         bnd.rvCreditos.setLayoutManager(new LinearLayoutManager(this));
         List<Credito> creditos = listaCreditos.getCreditos();
-        bnd.rvCreditos.setAdapter(new CreditoAdapter(creditos));
+        CreditoAdapter ca = new CreditoAdapter(creditos);
+        ca.setOnItemClickListener(this);
+        bnd.rvCreditos.setAdapter(ca);
 
         //Codeudas
         if(listaCreditos.getCodeudas().size() > 0) {
@@ -90,5 +94,15 @@ public class CreditosActivity extends ICoreAppCompatActivity implements View.OnC
 
         //TODO: Implementar acciones aqui
 
+    }
+
+    @Override
+    public void onRecyclerViewItemClick(View v, int posicion, Integer id, TipoRecyclerViewItem tipo) {
+        System.out.println("v: " + v.getClass().toString());
+        System.out.println("pos: " + posicion);
+        System.out.println("ID: " + id);
+        System.out.println("Tipo: " + tipo);
+
+        //TODO: Implementar opción
     }
 }

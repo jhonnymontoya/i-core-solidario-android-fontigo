@@ -1,7 +1,6 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
@@ -12,13 +11,15 @@ import android.view.View;
 
 import com.startlinesoft.icore.solidario.android.ais.adapters.RecaudoAdapter;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityRecaudosBinding;
+import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
+import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
 import com.startlinesoft.icore.solidario.api.models.Recaudo;
 import com.startlinesoft.icore.solidario.api.models.Socio;
 
 import java.util.List;
 
-public class RecaudosActivity extends ICoreAppCompatActivity implements View.OnClickListener {
+public class RecaudosActivity extends ICoreAppCompatActivity implements View.OnClickListener, ICoreRecyclerViewItemListener {
 
     private ActivityRecaudosBinding bnd;
     private Socio socio;
@@ -53,7 +54,9 @@ public class RecaudosActivity extends ICoreAppCompatActivity implements View.OnC
 
         List<Recaudo> recaudos = socio.getRecaudo();
         bnd.rvRecaudos.setLayoutManager(new LinearLayoutManager(this));
-        bnd.rvRecaudos.setAdapter(new RecaudoAdapter(recaudos));
+        RecaudoAdapter adapter = new RecaudoAdapter(recaudos);
+        adapter.setOnItemClickListener(this);
+        bnd.rvRecaudos.setAdapter(adapter);
     }
 
     @Override
@@ -74,5 +77,15 @@ public class RecaudosActivity extends ICoreAppCompatActivity implements View.OnC
         }
 
         //TODO: Implementar acciones aqui
+    }
+
+    @Override
+    public void onRecyclerViewItemClick(View v, int posicion, Integer id, TipoRecyclerViewItem tipo) {
+        System.out.println("v: " + v.getClass().toString());
+        System.out.println("pos: " + posicion);
+        System.out.println("ID: " + id);
+        System.out.println("Tipo: " + tipo);
+
+        //TODO: Implementar opción
     }
 }

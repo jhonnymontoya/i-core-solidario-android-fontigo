@@ -13,6 +13,8 @@ import com.startlinesoft.icore.solidario.android.ais.adapters.AhorroGeneralAdapt
 import com.startlinesoft.icore.solidario.android.ais.adapters.AhorroProgramadoAdapter;
 import com.startlinesoft.icore.solidario.android.ais.adapters.SDATAdapter;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityAhorrosBinding;
+import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
+import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
 import com.startlinesoft.icore.solidario.api.models.AhorroGeneral;
 import com.startlinesoft.icore.solidario.api.models.AhorroProgramado;
@@ -22,7 +24,7 @@ import com.startlinesoft.icore.solidario.api.models.Socio;
 
 import java.util.List;
 
-public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnClickListener {
+public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnClickListener, ICoreRecyclerViewItemListener {
 
     private ActivityAhorrosBinding bnd;
     private Socio socio;
@@ -60,13 +62,17 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
         //Ahorros generales
         bnd.rvAhorrosGenerales.setLayoutManager(new LinearLayoutManager(this));
         List<AhorroGeneral> ahorrosGenerales = ahorros.getAhorrosGenerales();
-        bnd.rvAhorrosGenerales.setAdapter(new AhorroGeneralAdapter(ahorrosGenerales));
+        AhorroGeneralAdapter aga = new AhorroGeneralAdapter(ahorrosGenerales);
+        aga.setOnItemClickListener(this);
+        bnd.rvAhorrosGenerales.setAdapter(aga);
 
         //Ahorros programados
         if(ahorros.getAhorrosProgramados().size() > 0) {
             bnd.rvAhorrosProgramados.setLayoutManager(new LinearLayoutManager(this));
             List<AhorroProgramado> ahorrosProgramados = ahorros.getAhorrosProgramados();
-            bnd.rvAhorrosProgramados.setAdapter(new AhorroProgramadoAdapter(ahorrosProgramados));
+            AhorroProgramadoAdapter apa = new AhorroProgramadoAdapter(ahorrosProgramados);
+            apa.setOnItemClickListener(this);
+            bnd.rvAhorrosProgramados.setAdapter(apa);
             bnd.cvAhorrosProgramados.setVisibility(View.VISIBLE);
         }
 
@@ -74,7 +80,9 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
         if(ahorros.getSdATs().size() > 0) {
             bnd.rvSDAT.setLayoutManager(new LinearLayoutManager(this));
             List<SDAT> sdats = ahorros.getSdATs();
-            bnd.rvSDAT.setAdapter(new SDATAdapter(sdats));
+            SDATAdapter sa = new SDATAdapter(sdats);
+            sa.setOnItemClickListener(this);
+            bnd.rvSDAT.setAdapter(sa);
             bnd.cvSDAT.setVisibility(View.VISIBLE);
         }
 
@@ -100,5 +108,15 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
         }
 
         //TODO: Implementar acciones aqui
+    }
+
+    @Override
+    public void onRecyclerViewItemClick(View v, int posicion, Integer id, TipoRecyclerViewItem tipo) {
+        System.out.println("v: " + v.getClass().toString());
+        System.out.println("pos: " + posicion);
+        System.out.println("ID: " + id);
+        System.out.println("Tipo: " + tipo);
+
+        //TODO: Implementar opción
     }
 }

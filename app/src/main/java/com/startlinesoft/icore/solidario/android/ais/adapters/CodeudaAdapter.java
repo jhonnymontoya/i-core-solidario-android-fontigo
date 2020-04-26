@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.startlinesoft.icore.solidario.android.ais.R;
+import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
 import com.startlinesoft.icore.solidario.api.models.Codeuda;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class CodeudaAdapter extends RecyclerView.Adapter<CodeudaViewHolder> {
 
+    private ICoreRecyclerViewItemListener listener;
     private List<Codeuda> codeudas = new ArrayList<Codeuda>();
 
     public CodeudaAdapter(List<Codeuda> codeudas) {
@@ -26,7 +28,7 @@ public class CodeudaAdapter extends RecyclerView.Adapter<CodeudaViewHolder> {
     public CodeudaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.codeuda_item, parent, false);
-        CodeudaViewHolder cvh = new CodeudaViewHolder(v);
+        CodeudaViewHolder cvh = new CodeudaViewHolder(v, listener);
         return cvh;
     }
 
@@ -36,10 +38,17 @@ public class CodeudaAdapter extends RecyclerView.Adapter<CodeudaViewHolder> {
         holder.getTvDeudor().setText(codeuda.getDeudor());
         holder.getTvNumeroObligacion().setText(codeuda.getNumeroObligacion());
         holder.getTvSaldo().setText(String.format("$%s", codeuda.getSaldoCapital()));
+
+        holder.setPosicion(position);
+        holder.setId(null);
     }
 
     @Override
     public int getItemCount() {
         return codeudas.size();
+    }
+
+    public void setOnItemClickListener(ICoreRecyclerViewItemListener listener) {
+        this.listener = listener;
     }
 }

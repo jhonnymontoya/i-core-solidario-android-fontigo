@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.startlinesoft.icore.solidario.android.ais.R;
+import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
 import com.startlinesoft.icore.solidario.api.models.Credito;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class CreditoAdapter extends RecyclerView.Adapter<CreditoViewHolder> {
 
+    private ICoreRecyclerViewItemListener listener;
     private List<Credito> creditos = new ArrayList<Credito>();
 
     public CreditoAdapter(List<Credito> creditos) {
@@ -26,7 +28,7 @@ public class CreditoAdapter extends RecyclerView.Adapter<CreditoViewHolder> {
     public CreditoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.credito_item, parent, false);
-        CreditoViewHolder cvh = new CreditoViewHolder(v);
+        CreditoViewHolder cvh = new CreditoViewHolder(v, listener);
         return cvh;
     }
 
@@ -36,10 +38,17 @@ public class CreditoAdapter extends RecyclerView.Adapter<CreditoViewHolder> {
         holder.getTvModalidad().setText(credito.getModalidad());
         holder.getTvNumeroObligacion().setText(credito.getNumeroObligacion());
         holder.getTvSaldo().setText(String.format("$%s", credito.getSaldoCapital()));
+
+        holder.setPosicion(position);
+        holder.setId(credito.getId());
     }
 
     @Override
     public int getItemCount() {
         return creditos.size();
+    }
+
+    public void setOnItemClickListener(ICoreRecyclerViewItemListener listener) {
+        this.listener = listener;
     }
 }
