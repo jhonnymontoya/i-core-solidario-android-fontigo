@@ -81,11 +81,10 @@ public class RecaudosActivity extends ICoreAppCompatActivity implements View.OnC
 
     @Override
     public void onRecyclerViewItemClick(View v, int posicion, Integer id, TipoRecyclerViewItem tipo) {
-        System.out.println("v: " + v.getClass().toString());
-        System.out.println("pos: " + posicion);
-        System.out.println("ID: " + id);
-        System.out.println("Tipo: " + tipo);
-
-        //TODO: Implementar opción
+        Intent i = new Intent(this, DetalleRecaudoActivity.class);
+        i.putExtra("SOCIO", socio);
+        i.putExtra("RECAUDO", socio.getRecaudo().get(posicion));
+        startActivity(i);
+        return;
     }
 }
