@@ -27,4 +27,7 @@
     <color name="info_boton_disabled">#E0CAD6</color>
     <color name="info_boton_enabled">#FAFAFA</color>
     <color name="info_boton_pressed">#EFEFEF</color>
+
+    <color name="item_valor">#4158d0</color>
+    <color name="item_tasa">#28a745</color>
 </resources>
