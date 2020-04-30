@@ -16,7 +16,7 @@
             android:minHeight="70dp"
             android:paddingTop="10dp"
             android:paddingStart="10dp"
-            android:paddingEnd="0dp"
+            android:paddingEnd="10dp"
             android:paddingBottom="10dp"
             android:orientation="horizontal"
             android:baselineAligned="false">
