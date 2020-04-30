@@ -27,8 +27,9 @@
     <string name="actualizar_clave">Change password</string>
     <string name="acerca_de">About</string>
     <string name="tasa_ea">Rate A.E.</string>
-    <string name="ahorros_generales">General Savings</string>
-    <string name="ahorros_programados">Programed savings</string>
+    <string name="ahorros_generales">General</string>
+    <string name="ahorros_programados">Programed</string>
     <string name="sdats">SDATs</string>
     <string name="codeudas">Codeudas</string>
+    <string name="no_existen_registros_para_mostrar">There are no records to display</string>
 </resources>

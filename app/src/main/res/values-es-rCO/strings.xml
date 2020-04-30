@@ -26,7 +26,8 @@
     <string name="actualizar_clave">Actualizar contraseña</string>
     <string name="tasa_ea">Tasa E.A.</string>
     <string name="sdats">SDATs</string>
-    <string name="ahorros_generales">Ahorros generales</string>
-    <string name="ahorros_programados">Ahorros programados</string>
+    <string name="ahorros_generales">Generales</string>
+    <string name="ahorros_programados">Programados</string>
     <string name="codeudas">Codeudas</string>
+    <string name="no_existen_registros_para_mostrar">No existen registros para mostrar</string>
 </resources>
