@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TabHost;
 
 import com.startlinesoft.icore.solidario.android.ais.adapters.CodeudaAdapter;
 import com.startlinesoft.icore.solidario.android.ais.adapters.CreditoAdapter;
@@ -56,21 +57,40 @@ public class CreditosActivity extends ICoreAppCompatActivity implements View.OnC
         bnd.ivImagen.setImageBitmap(bitmap);
         bnd.ivImagen.setOnClickListener(this);
 
+        bnd.tabHost.setup();
+
+        TabHost.TabSpec tabSpec = bnd.tabHost.newTabSpec("creditos");
+        tabSpec.setIndicator(getText(R.string.creditos));
+        tabSpec.setContent(R.id.tabCreditos);
+        bnd.tabHost.addTab(tabSpec);
+
+        tabSpec = bnd.tabHost.newTabSpec("codeudas");
+        tabSpec.setIndicator(getText(R.string.codeudas));
+        tabSpec.setContent(R.id.tabCodeudas);
+        bnd.tabHost.addTab(tabSpec);
+
         Creditos listaCreditos = socio.getCreditos();
 
         //Créditos
-        bnd.rvCreditos.setLayoutManager(new LinearLayoutManager(this));
-        List<Credito> creditos = listaCreditos.getCreditos();
-        CreditoAdapter ca = new CreditoAdapter(creditos);
-        ca.setOnItemClickListener(this);
-        bnd.rvCreditos.setAdapter(ca);
+        if(listaCreditos.getCreditos().size() > 0) {
+            bnd.rvCreditos.setLayoutManager(new LinearLayoutManager(this));
+            List<Credito> creditos = listaCreditos.getCreditos();
+            CreditoAdapter ca = new CreditoAdapter(creditos);
+            ca.setOnItemClickListener(this);
+            bnd.rvCreditos.setAdapter(ca);
+        }
+        else {
+            bnd.tvCreditosSinRegistros.setVisibility(View.VISIBLE);
+        }
 
         //Codeudas
         if(listaCreditos.getCodeudas().size() > 0) {
             bnd.rvCodeudas.setLayoutManager(new LinearLayoutManager(this));
             List<Codeuda> codeudas = listaCreditos.getCodeudas();
             bnd.rvCodeudas.setAdapter(new CodeudaAdapter(codeudas));
-            bnd.cvCodeudas.setVisibility(View.VISIBLE);
+        }
+        else {
+            bnd.tvCodeudasSinRegistros.setVisibility(View.VISIBLE);
         }
     }
 

@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TabHost;
 
 import com.startlinesoft.icore.solidario.android.ais.adapters.RecaudoAdapter;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityRecaudosBinding;
@@ -52,11 +53,24 @@ public class RecaudosActivity extends ICoreAppCompatActivity implements View.OnC
         bnd.ivImagen.setImageBitmap(bitmap);
         bnd.ivImagen.setOnClickListener(this);
 
+        bnd.tabHost.setup();
+
+        TabHost.TabSpec tabSpec = bnd.tabHost.newTabSpec("recaudos");
+        tabSpec.setIndicator(getText(R.string.recaudos_nomina));
+        tabSpec.setContent(R.id.tabRecaudos);
+        bnd.tabHost.addTab(tabSpec);
+
         List<Recaudo> recaudos = socio.getRecaudo();
-        bnd.rvRecaudos.setLayoutManager(new LinearLayoutManager(this));
-        RecaudoAdapter adapter = new RecaudoAdapter(recaudos);
-        adapter.setOnItemClickListener(this);
-        bnd.rvRecaudos.setAdapter(adapter);
+
+        if(recaudos.size() > 0) {
+            bnd.rvRecaudos.setLayoutManager(new LinearLayoutManager(this));
+            RecaudoAdapter adapter = new RecaudoAdapter(recaudos);
+            adapter.setOnItemClickListener(this);
+            bnd.rvRecaudos.setAdapter(adapter);
+        }
+        else {
+            bnd.tvRecaudosSinRegistros.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

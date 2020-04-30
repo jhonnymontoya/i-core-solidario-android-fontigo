@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TabHost;
 
 import com.startlinesoft.icore.solidario.android.ais.adapters.AhorroGeneralAdapter;
 import com.startlinesoft.icore.solidario.android.ais.adapters.AhorroProgramadoAdapter;
@@ -57,14 +58,36 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
         bnd.ivImagen.setImageBitmap(bitmap);
         bnd.ivImagen.setOnClickListener(this);
 
+        bnd.tabHost.setup();
+
+        TabHost.TabSpec tabSpec = bnd.tabHost.newTabSpec("generales");
+        tabSpec.setIndicator(getText(R.string.ahorros_generales));
+        tabSpec.setContent(R.id.tabGenerales);
+        bnd.tabHost.addTab(tabSpec);
+
+        tabSpec = bnd.tabHost.newTabSpec("programados");
+        tabSpec.setIndicator(getText(R.string.ahorros_programados));
+        tabSpec.setContent(R.id.tabProgramados);
+        bnd.tabHost.addTab(tabSpec);
+
+        tabSpec = bnd.tabHost.newTabSpec("sdats");
+        tabSpec.setIndicator(getText(R.string.sdats));
+        tabSpec.setContent(R.id.tabSDAT);
+        bnd.tabHost.addTab(tabSpec);
+
         Ahorros ahorros = socio.getAhorros();
 
         //Ahorros generales
-        bnd.rvAhorrosGenerales.setLayoutManager(new LinearLayoutManager(this));
-        List<AhorroGeneral> ahorrosGenerales = ahorros.getAhorrosGenerales();
-        AhorroGeneralAdapter aga = new AhorroGeneralAdapter(ahorrosGenerales);
-        aga.setOnItemClickListener(this);
-        bnd.rvAhorrosGenerales.setAdapter(aga);
+        if(ahorros.getAhorrosGenerales().size() > 0) {
+            bnd.rvAhorrosGenerales.setLayoutManager(new LinearLayoutManager(this));
+            List<AhorroGeneral> ahorrosGenerales = ahorros.getAhorrosGenerales();
+            AhorroGeneralAdapter aga = new AhorroGeneralAdapter(ahorrosGenerales);
+            aga.setOnItemClickListener(this);
+            bnd.rvAhorrosGenerales.setAdapter(aga);
+        }
+        else {
+            bnd.tvGeneralesSinRegistros.setVisibility(View.VISIBLE);
+        }
 
         //Ahorros programados
         if(ahorros.getAhorrosProgramados().size() > 0) {
@@ -73,7 +96,9 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
             AhorroProgramadoAdapter apa = new AhorroProgramadoAdapter(ahorrosProgramados);
             apa.setOnItemClickListener(this);
             bnd.rvAhorrosProgramados.setAdapter(apa);
-            bnd.cvAhorrosProgramados.setVisibility(View.VISIBLE);
+        }
+        else {
+            bnd.tvProgramadosSinRegistros.setVisibility(View.VISIBLE);
         }
 
         //SDATs
@@ -83,7 +108,9 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
             SDATAdapter sa = new SDATAdapter(sdats);
             sa.setOnItemClickListener(this);
             bnd.rvSDAT.setAdapter(sa);
-            bnd.cvSDAT.setVisibility(View.VISIBLE);
+        }
+        else {
+            bnd.tvSDATSinRegistros.setVisibility(View.VISIBLE);
         }
 
     }
