@@ -21,73 +21,90 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="24dp" />
 
-    <ImageView
-        android:id="@+id/ivLogo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="80dp"
-        android:src="@mipmap/ic_launcher"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintEnd_toStartOf="@+id/glDer"
-        app:layout_constraintStart_toStartOf="@+id/glIzq"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/login_restore_message"
-        android:textStyle="normal"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:textColor="@color/blanco"
-        app:layout_constraintBottom_toTopOf="@+id/etUser"
-        app:layout_constraintEnd_toStartOf="@+id/glDer"
-        app:layout_constraintStart_toStartOf="@+id/glIzq" />
-
-    <EditText
-        android:id="@+id/etUser"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:drawableEnd="@drawable/ic_login_et_user"
-        android:inputType="text"
-        android:hint="@string/login_username"
-        android:autofillHints="@string/login_username"
-        app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
-        app:layout_constraintEnd_toStartOf="@+id/glDer"
-        app:layout_constraintStart_toStartOf="@+id/glIzq"
-        style="@style/Login_EditText"/>
-
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/login_btn_bg"
-        android:stateListAnimator="@null"
-        android:enabled="false"
-        android:text="@string/login_restore"
-        android:textAllCaps="false"
-        android:textColor="@color/blanco"
-        app:layout_constraintBottom_toTopOf="@+id/tvVolver"
-        app:layout_constraintEnd_toStartOf="@+id/glDer"
-        app:layout_constraintStart_toStartOf="@+id/glIzq" />
-
-    <TextView
-        android:id="@+id/tvVolver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="180dp"
-        android:autoLink="all"
-        android:clickable="true"
-        android:focusable="true"
-        android:text="@string/login_volver"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/glDer"
-        app:layout_constraintStart_toStartOf="@+id/glIzq"
-        style="@style/Login_Link"/>
+        app:layout_constraintEnd_toEndOf="@id/glDer"
+        app:layout_constraintStart_toStartOf="@id/glIzq"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:layout_weight="0.5">
+
+                <ImageView
+                    android:id="@+id/ivLogo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/ic_launcher"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/login_restore_message"
+                    android:textStyle="normal"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:textColor="@color/blanco" />
+
+                <EditText
+                    android:id="@+id/etUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:drawableEnd="@drawable/ic_login_et_user"
+                    android:inputType="text"
+                    android:hint="@string/login_username"
+                    android:autofillHints="@string/login_username"
+                    style="@style/Login_EditText"/>
+
+                <Button
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/login_btn_bg"
+                    android:stateListAnimator="@null"
+                    android:enabled="false"
+                    android:text="@string/login_restore"
+                    android:textAllCaps="false"
+                    android:textColor="@color/blanco" />
+
+                <TextView
+                    android:id="@+id/tvVolver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="all"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/login_volver"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/glDer"
+                    app:layout_constraintStart_toStartOf="@+id/glIzq"
+                    style="@style/Login_Link"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/progressBar"

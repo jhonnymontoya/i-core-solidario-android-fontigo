@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,104 +20,118 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="24dp" />
 
-    <ImageView
-        android:id="@+id/ivLogo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="80dp"
-        android:src="@mipmap/ic_launcher"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintEnd_toStartOf="@+id/glDer"
-        app:layout_constraintStart_toStartOf="@+id/glIzq"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/etUser"
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:drawableEnd="@drawable/ic_login_et_user"
-        android:inputType="text"
-        android:hint="@string/login_username"
-        android:autofillHints="@string/login_username"
-        app:layout_constraintBottom_toTopOf="@+id/etPassword"
-        app:layout_constraintEnd_toStartOf="@+id/glDer"
-        app:layout_constraintStart_toStartOf="@+id/glIzq"
-        style="@style/Login_EditText"/>
-
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:drawableEnd="@drawable/ic_login_et_password"
-        android:inputType="textPassword"
-        android:hint="@string/login_password"
-        android:autofillHints="@string/login_password"
-        app:layout_constraintBottom_toTopOf="@+id/tvErrror"
-        app:layout_constraintEnd_toStartOf="@+id/glDer"
-        app:layout_constraintStart_toStartOf="@+id/glIzq"
-        style="@style/Login_EditText"/>
-
-    <TextView
-        android:id="@+id/tvErrror"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:text="@string/login_error_login"
-        android:textColor="@color/error"
-        android:padding="1dp"
-        android:textSize="18sp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
-        app:layout_constraintEnd_toStartOf="@+id/glDer"
-        app:layout_constraintStart_toStartOf="@+id/glIzq" />
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/login_btn_bg"
-        android:stateListAnimator="@null"
-        android:text="@string/login_login"
-        android:textAllCaps="false"
-        android:textColor="@color/blanco"
-        android:enabled="false"
-        app:layout_constraintBottom_toTopOf="@+id/tvForgotPassword"
-        app:layout_constraintEnd_toStartOf="@+id/glDer"
-        app:layout_constraintStart_toStartOf="@+id/glIzq" />
-
-    <TextView
-        android:id="@+id/tvForgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="140dp"
-        android:autoLink="all"
-        android:clickable="true"
-        android:focusable="true"
-        android:text="@string/login_forgot_password"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/glDer"
-        app:layout_constraintStart_toStartOf="@+id/glIzq"
-        style="@style/Login_Link"/>
+        app:layout_constraintEnd_toEndOf="@id/glDer"
+        app:layout_constraintStart_toStartOf="@id/glIzq"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:layout_weight="0.5">
+
+                <ImageView
+                    android:id="@+id/ivLogo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/ic_launcher"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/etUser"
+                    style="@style/Login_EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:autofillHints="@string/login_username"
+                    android:drawableEnd="@drawable/ic_login_et_user"
+                    android:hint="@string/login_username"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    style="@style/Login_EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:autofillHints="@string/login_password"
+                    android:drawableEnd="@drawable/ic_login_et_password"
+                    android:hint="@string/login_password"
+                    android:inputType="textPassword" />
+
+                <TextView
+                    android:id="@+id/tvErrror"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:padding="1dp"
+                    android:text="@string/login_error_login"
+                    android:textColor="@color/error"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/login_btn_bg"
+                    android:enabled="false"
+                    android:stateListAnimator="@null"
+                    android:text="@string/login_login"
+                    android:textAllCaps="false"
+                    android:textColor="@color/blanco" />
+
+                <TextView
+                    android:id="@+id/tvForgotPassword"
+                    style="@style/Login_Link"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoLink="all"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/login_forgot_password"
+                    android:textAlignment="center" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:background="@color/progressBar"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center"
-        android:background="@color/progressBar"
+        android:orientation="vertical"
         android:visibility="gone">
+
         <ProgressBar
+            style="?android:progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:indeterminateTintMode="multiply"
             android:indeterminateTint="@color/blanco"
-            style="?android:progressBarStyleLarge"/>
+            android:indeterminateTintMode="multiply" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
