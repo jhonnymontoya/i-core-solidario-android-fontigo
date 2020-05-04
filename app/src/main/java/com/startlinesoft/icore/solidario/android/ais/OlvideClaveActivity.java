@@ -9,7 +9,6 @@ import android.view.View;
 
 import com.startlinesoft.icore.solidario.ApiClient;
 import com.startlinesoft.icore.solidario.ApiException;
-import com.startlinesoft.icore.solidario.Configuration;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityOlvideClaveBinding;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreApiClient;
 import com.startlinesoft.icore.solidario.api.LoginApi;

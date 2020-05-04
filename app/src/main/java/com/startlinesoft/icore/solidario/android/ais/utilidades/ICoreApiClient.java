@@ -1,8 +1,5 @@
 package com.startlinesoft.icore.solidario.android.ais.utilidades;
 
-import android.os.Build;
-import android.webkit.WebView;
-
 import com.startlinesoft.icore.solidario.ApiClient;
 import com.startlinesoft.icore.solidario.ApiException;
 import com.startlinesoft.icore.solidario.Configuration;

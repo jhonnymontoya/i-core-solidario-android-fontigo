@@ -1,13 +1,9 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityInfoBinding;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;

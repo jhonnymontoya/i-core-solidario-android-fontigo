@@ -1,7 +1,5 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;

@@ -10,7 +10,6 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -18,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.startlinesoft.icore.solidario.ApiClient;
 import com.startlinesoft.icore.solidario.ApiException;
-import com.startlinesoft.icore.solidario.android.ais.DashBoardActivity;
 import com.startlinesoft.icore.solidario.android.ais.LoginActivity;
 import com.startlinesoft.icore.solidario.android.ais.R;
 import com.startlinesoft.icore.solidario.api.LoginApi;
