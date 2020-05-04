@@ -15,6 +15,7 @@ import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityRecaudo
 import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
 import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
 import com.startlinesoft.icore.solidario.api.models.Recaudo;
 import com.startlinesoft.icore.solidario.api.models.Socio;
 
@@ -23,7 +24,6 @@ import java.util.List;
 public class RecaudosActivity extends ICoreAppCompatActivity implements View.OnClickListener, ICoreRecyclerViewItemListener {
 
     private ActivityRecaudosBinding bnd;
-    private Socio socio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +34,6 @@ public class RecaudosActivity extends ICoreAppCompatActivity implements View.OnC
         //Se valida token activo
         this.validarLogin();
 
-        socio = (Socio) getIntent().getSerializableExtra("SOCIO");
-
         setSupportActionBar(bnd.tbToolbar);
         bnd.tbToolbar.setNavigationIcon(R.drawable.ic_angle_left);
         bnd.tbToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -45,12 +43,7 @@ public class RecaudosActivity extends ICoreAppCompatActivity implements View.OnC
             }
         });
 
-        Bitmap bitmap = BitmapFactory.decodeByteArray(
-                socio.getImagen(),
-                0,
-                socio.getImagen().length
-        );
-        bnd.ivImagen.setImageBitmap(bitmap);
+        bnd.ivImagen.setImageBitmap(ICoreGeneral.getSocioImagen());
         bnd.ivImagen.setOnClickListener(this);
 
         bnd.tabHost.setup();
@@ -60,7 +53,7 @@ public class RecaudosActivity extends ICoreAppCompatActivity implements View.OnC
         tabSpec.setContent(R.id.tabRecaudos);
         bnd.tabHost.addTab(tabSpec);
 
-        List<Recaudo> recaudos = socio.getRecaudo();
+        List<Recaudo> recaudos = ICoreGeneral.getSocio().getRecaudo();
 
         if(recaudos.size() > 0) {
             bnd.rvRecaudos.setLayoutManager(new LinearLayoutManager(this));
@@ -85,7 +78,6 @@ public class RecaudosActivity extends ICoreAppCompatActivity implements View.OnC
         // Ir a info de cuenta
         if(v.equals(bnd.ivImagen)) {
             Intent i = new Intent(this, InfoActivity.class);
-            i.putExtra("SOCIO", socio);
             startActivity(i);
             return;
         }
@@ -96,8 +88,7 @@ public class RecaudosActivity extends ICoreAppCompatActivity implements View.OnC
     @Override
     public void onRecyclerViewItemClick(View v, int posicion, Integer id, TipoRecyclerViewItem tipo) {
         Intent i = new Intent(this, DetalleRecaudoActivity.class);
-        i.putExtra("SOCIO", socio);
-        i.putExtra("RECAUDO", socio.getRecaudo().get(posicion));
+        i.putExtra("RECAUDO", ICoreGeneral.getSocio().getRecaudo().get(posicion));
         startActivity(i);
         return;
     }

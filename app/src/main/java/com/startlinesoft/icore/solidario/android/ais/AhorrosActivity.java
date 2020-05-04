@@ -21,6 +21,7 @@ import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerView
 import com.startlinesoft.icore.solidario.android.ais.models.DetalleAhorroViewModel;
 import com.startlinesoft.icore.solidario.android.ais.models.DetalleAhorroViewModelFactory;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
 import com.startlinesoft.icore.solidario.api.models.AhorroGeneral;
 import com.startlinesoft.icore.solidario.api.models.AhorroProgramado;
 import com.startlinesoft.icore.solidario.api.models.Ahorros;
@@ -33,7 +34,6 @@ import java.util.List;
 public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnClickListener, ICoreRecyclerViewItemListener {
 
     private ActivityAhorrosBinding bnd;
-    private Socio socio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +44,6 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
         //Se valida token activo
         this.validarLogin();
 
-        socio = (Socio) getIntent().getSerializableExtra("SOCIO");
-
         setSupportActionBar(bnd.tbToolbar);
         bnd.tbToolbar.setNavigationIcon(R.drawable.ic_angle_left);
         bnd.tbToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -55,12 +53,7 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
             }
         });
 
-        Bitmap bitmap = BitmapFactory.decodeByteArray(
-                socio.getImagen(),
-                0,
-                socio.getImagen().length
-        );
-        bnd.ivImagen.setImageBitmap(bitmap);
+        bnd.ivImagen.setImageBitmap(ICoreGeneral.getSocioImagen());
         bnd.ivImagen.setOnClickListener(this);
 
         bnd.tabHost.setup();
@@ -80,7 +73,7 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
         tabSpec.setContent(R.id.tabSDAT);
         bnd.tabHost.addTab(tabSpec);
 
-        Ahorros ahorros = socio.getAhorros();
+        Ahorros ahorros = ICoreGeneral.getSocio().getAhorros();
 
         //Ahorros generales
         if(ahorros.getAhorrosGenerales().size() > 0) {
@@ -133,7 +126,6 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
         // Ir a info de cuenta
         if(v.equals(bnd.ivImagen)) {
             Intent i = new Intent(this, InfoActivity.class);
-            i.putExtra("SOCIO", socio);
             startActivity(i);
             return;
         }

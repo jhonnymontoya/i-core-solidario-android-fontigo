@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityInfoBinding;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
 import com.startlinesoft.icore.solidario.api.models.Socio;
 
 public class InfoActivity extends ICoreAppCompatActivity implements View.OnClickListener {
@@ -27,12 +28,7 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
         //Se valida token activo
         this.validarLogin();
 
-        socio = (Socio) getIntent().getSerializableExtra("SOCIO");
-        Bitmap bitmap = BitmapFactory.decodeByteArray(
-                socio.getImagen(),
-                0,
-                socio.getImagen().length
-        );
+        socio = ICoreGeneral.getSocio();
         String identificacion = String.format("%s %s", socio.getTipoIdentificacion(), socio.getIdentificacion());
 
         setSupportActionBar(bnd.tbToolbar);
@@ -44,7 +40,7 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
             }
         });
 
-        bnd.ivImagen.setImageBitmap(bitmap);
+        bnd.ivImagen.setImageBitmap(ICoreGeneral.getSocioImagen());
         bnd.tvNombre.setText(socio.getNombre());
         bnd.tvIdentificacion.setText(identificacion);
         bnd.tvNombreEntidad.setText(socio.getEntidad());

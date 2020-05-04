@@ -23,7 +23,6 @@ import java.util.List;
 public class DetalleRecaudoActivity extends ICoreAppCompatActivity implements View.OnClickListener {
 
     private ActivityDetalleRecaudoBinding bnd;
-    private Socio socio;
     private Recaudo recaudo;
 
     @Override
@@ -35,7 +34,6 @@ public class DetalleRecaudoActivity extends ICoreAppCompatActivity implements Vi
         //Se valida token activo
         this.validarLogin();
 
-        socio = (Socio) getIntent().getSerializableExtra("SOCIO");
         recaudo = (Recaudo) getIntent().getSerializableExtra("RECAUDO");
 
         setSupportActionBar(bnd.tbToolbar);
@@ -47,12 +45,7 @@ public class DetalleRecaudoActivity extends ICoreAppCompatActivity implements Vi
             }
         });
 
-        Bitmap bitmap = BitmapFactory.decodeByteArray(
-                socio.getImagen(),
-                0,
-                socio.getImagen().length
-        );
-        bnd.ivImagen.setImageBitmap(bitmap);
+        bnd.ivImagen.setImageBitmap(ICoreGeneral.getSocioImagen());
         bnd.ivImagen.setOnClickListener(this);
 
         String fecha = ICoreGeneral.reverseFecha(recaudo.getFechaRecaudo());
@@ -75,7 +68,6 @@ public class DetalleRecaudoActivity extends ICoreAppCompatActivity implements Vi
         // Ir a info de cuenta
         if(v.equals(bnd.ivImagen)) {
             Intent i = new Intent(this, InfoActivity.class);
-            i.putExtra("SOCIO", socio);
             startActivity(i);
             return;
         }

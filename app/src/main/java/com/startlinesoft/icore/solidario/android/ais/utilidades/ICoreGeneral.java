@@ -1,6 +1,13 @@
 package com.startlinesoft.icore.solidario.android.ais.utilidades;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import com.startlinesoft.icore.solidario.api.models.Socio;
+
 public class ICoreGeneral {
+
+    private static Socio socio;
 
     /**
      * Retorna una fecha de formato yyyy-mm-dd a dd-mm-yyyy
@@ -15,5 +22,22 @@ public class ICoreGeneral {
         String fechaFormateada = "%s-%s-%s";
         fechaFormateada = String.format(fechaFormateada, tmp[2], tmp[1], tmp[0]);
         return fechaFormateada;
+    }
+
+    public static Socio getSocio() {
+        return ICoreGeneral.socio;
+    }
+
+    public static void setSocio(Socio socio) {
+        ICoreGeneral.socio = socio;
+    }
+
+    public static Bitmap getSocioImagen() {
+        Bitmap bitmap = BitmapFactory.decodeByteArray(
+                ICoreGeneral.getSocio().getImagen(),
+                0,
+                ICoreGeneral.getSocio().getImagen().length
+        );
+        return bitmap;
     }
 }

@@ -46,19 +46,16 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
             @Override
             public void onChanged(Socio socio) {
                 DashBoardActivity.this.socio = socio;
+                ICoreGeneral.setSocio(socio);
                 bnd.progressBar.setVisibility(View.GONE);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(
-                        socio.getImagen(),
-                        0,
-                        socio.getImagen().length
-                );
+
                 Ahorros ahorros = socio.getAhorros();
                 Creditos creditos = socio.getCreditos();
 
                 // Título de la entidad
                 bnd.tbToolbar.setTitle(socio.getSiglaEntidad());
 
-                bnd.ivImagen.setImageBitmap(bitmap);
+                bnd.ivImagen.setImageBitmap(ICoreGeneral.getSocioImagen());
 
                 bnd.tvTotalAhorros.setText(String.format("$%s", ahorros.getTotalAhorros()));
                 bnd.pbPorcentajeIncremento.setProgress(ahorros.getPorcentajeIncremento());
@@ -81,8 +78,8 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
                 }
                 else {
                     bnd.cvRecaudos.setVisibility(View.GONE);
-                    bnd.tvTotalAplicado.setText(String.format("$0"));
-                    bnd.tvFechaAplicacion.setText(String.format("00-00-0000"));
+                    bnd.tvTotalAplicado.setText("$0");
+                    bnd.tvFechaAplicacion.setText("00-00-0000");
                 }
 
             }
@@ -107,7 +104,6 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
         // Ir a info de cuenta
         if(v.equals(bnd.ivImagen)) {
             Intent i = new Intent(this, InfoActivity.class);
-            i.putExtra("SOCIO", socio);
             startActivity(i);
             return;
         }
@@ -115,7 +111,6 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
         // Ir a Ahorros
         if(v.equals(bnd.cvAhorros)) {
             Intent i = new Intent(this, AhorrosActivity.class);
-            i.putExtra("SOCIO", socio);
             startActivity(i);
             return;
         }
@@ -123,7 +118,6 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
         // Ir a Créditos
         if(v.equals(bnd.cvCreditos)) {
             Intent i = new Intent(this, CreditosActivity.class);
-            i.putExtra("SOCIO", socio);
             startActivity(i);
             return;
         }
@@ -131,7 +125,6 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
         // Ir a Recaudos
         if(v.equals(bnd.cvRecaudos)) {
             Intent i = new Intent(this, RecaudosActivity.class);
-            i.putExtra("SOCIO", socio);
             startActivity(i);
             return;
         }

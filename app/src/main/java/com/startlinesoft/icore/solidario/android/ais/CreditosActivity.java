@@ -17,6 +17,7 @@ import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityCredito
 import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
 import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
 import com.startlinesoft.icore.solidario.api.models.Codeuda;
 import com.startlinesoft.icore.solidario.api.models.Credito;
 import com.startlinesoft.icore.solidario.api.models.Creditos;
@@ -27,7 +28,6 @@ import java.util.List;
 public class CreditosActivity extends ICoreAppCompatActivity implements View.OnClickListener, ICoreRecyclerViewItemListener {
 
     private ActivityCreditosBinding bnd;
-    private Socio socio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +38,6 @@ public class CreditosActivity extends ICoreAppCompatActivity implements View.OnC
         //Se valida token activo
         this.validarLogin();
 
-        socio = (Socio) getIntent().getSerializableExtra("SOCIO");
-
         setSupportActionBar(bnd.tbToolbar);
         bnd.tbToolbar.setNavigationIcon(R.drawable.ic_angle_left);
         bnd.tbToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -49,12 +47,7 @@ public class CreditosActivity extends ICoreAppCompatActivity implements View.OnC
             }
         });
 
-        Bitmap bitmap = BitmapFactory.decodeByteArray(
-                socio.getImagen(),
-                0,
-                socio.getImagen().length
-        );
-        bnd.ivImagen.setImageBitmap(bitmap);
+        bnd.ivImagen.setImageBitmap(ICoreGeneral.getSocioImagen());
         bnd.ivImagen.setOnClickListener(this);
 
         bnd.tabHost.setup();
@@ -69,7 +62,7 @@ public class CreditosActivity extends ICoreAppCompatActivity implements View.OnC
         tabSpec.setContent(R.id.tabCodeudas);
         bnd.tabHost.addTab(tabSpec);
 
-        Creditos listaCreditos = socio.getCreditos();
+        Creditos listaCreditos = ICoreGeneral.getSocio().getCreditos();
 
         //Créditos
         if(listaCreditos.getCreditos().size() > 0) {
@@ -107,7 +100,6 @@ public class CreditosActivity extends ICoreAppCompatActivity implements View.OnC
         // Ir a info de cuenta
         if(v.equals(bnd.ivImagen)) {
             Intent i = new Intent(this, InfoActivity.class);
-            i.putExtra("SOCIO", socio);
             startActivity(i);
             return;
         }
