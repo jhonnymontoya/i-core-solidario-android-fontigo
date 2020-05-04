@@ -65,7 +65,7 @@
                     android:autofillHints="@string/login_username"
                     android:drawableEnd="@drawable/ic_login_et_user"
                     android:hint="@string/login_username"
-                    android:inputType="text" />
+                    android:inputType="number" />
 
                 <EditText
                     android:id="@+id/etPassword"
