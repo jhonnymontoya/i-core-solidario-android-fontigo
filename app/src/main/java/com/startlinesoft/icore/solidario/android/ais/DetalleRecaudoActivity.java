@@ -1,22 +1,18 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 
-import com.startlinesoft.icore.solidario.android.ais.adapters.RecaudoDetalleAdapter;
+import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.RecaudoDetalleAdapter;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityDetalleRecaudoBinding;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
 import com.startlinesoft.icore.solidario.api.models.ConceptoRecaudo;
 import com.startlinesoft.icore.solidario.api.models.Recaudo;
-import com.startlinesoft.icore.solidario.api.models.Socio;
 
 import java.util.List;
 

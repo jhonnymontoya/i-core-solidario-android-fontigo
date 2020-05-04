@@ -1,4 +1,4 @@
-package com.startlinesoft.icore.solidario.android.ais.adapters;
+package com.startlinesoft.icore.solidario.android.ais.adapters.viewHolders;
 
 import android.view.View;
 import android.widget.TextView;

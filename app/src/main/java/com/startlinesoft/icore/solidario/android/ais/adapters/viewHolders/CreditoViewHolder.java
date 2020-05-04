@@ -1,4 +1,4 @@
-package com.startlinesoft.icore.solidario.android.ais.adapters;
+package com.startlinesoft.icore.solidario.android.ais.adapters.viewHolders;
 
 import android.view.View;
 import android.widget.TextView;
@@ -11,27 +11,25 @@ import com.startlinesoft.icore.solidario.android.ais.R;
 import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
 import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
 
-public class AhorroViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class CreditoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private ICoreRecyclerViewItemListener listener;
 
     private int posicion;
     private Integer id;
     private CardView cv;
-    private TextView tvNombre;
-    private TextView tvTasa;
+    private TextView tvModalidad;
+    private TextView tvNumeroObligacion;
     private TextView tvSaldo;
-    private TipoRecyclerViewItem tipo;
 
-    public AhorroViewHolder(@NonNull View itemView, ICoreRecyclerViewItemListener listener, TipoRecyclerViewItem tipo) {
+    public CreditoViewHolder(@NonNull View itemView, ICoreRecyclerViewItemListener listener) {
         super(itemView);
         this.listener = listener;
-        cv = (CardView) itemView.findViewById(R.id.cvAhorro);
-        tvNombre = (TextView) itemView.findViewById(R.id.tvNombre);
-        tvTasa = (TextView) itemView.findViewById(R.id.tvTasa);
+        cv = (CardView) itemView.findViewById(R.id.cvCredito);
+        tvModalidad = (TextView) itemView.findViewById(R.id.tvModalidad);
+        tvNumeroObligacion = (TextView) itemView.findViewById(R.id.tvNumeroObligacion);
         tvSaldo = (TextView) itemView.findViewById(R.id.tvSaldo);
 
-        this.tipo = tipo;
         cv.setOnClickListener(this);
     }
 
@@ -47,12 +45,12 @@ public class AhorroViewHolder extends RecyclerView.ViewHolder implements View.On
         return cv;
     }
 
-    public TextView getTvNombre() {
-        return tvNombre;
+    public TextView getTvModalidad() {
+        return tvModalidad;
     }
 
-    public TextView getTvTasa() {
-        return tvTasa;
+    public TextView getTvNumeroObligacion() {
+        return tvNumeroObligacion;
     }
 
     public TextView getTvSaldo() {
@@ -62,7 +60,7 @@ public class AhorroViewHolder extends RecyclerView.ViewHolder implements View.On
     @Override
     public void onClick(View v) {
         if (listener != null) {
-            listener.onRecyclerViewItemClick(v, posicion, id, tipo);
+            listener.onRecyclerViewItemClick(v, posicion, id, TipoRecyclerViewItem.CREDITO);
         }
     }
 }

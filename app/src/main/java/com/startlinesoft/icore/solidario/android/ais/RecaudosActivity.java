@@ -4,20 +4,17 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TabHost;
 
-import com.startlinesoft.icore.solidario.android.ais.adapters.RecaudoAdapter;
+import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.RecaudoAdapter;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityRecaudosBinding;
 import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
 import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
 import com.startlinesoft.icore.solidario.api.models.Recaudo;
-import com.startlinesoft.icore.solidario.api.models.Socio;
 
 import java.util.List;
 

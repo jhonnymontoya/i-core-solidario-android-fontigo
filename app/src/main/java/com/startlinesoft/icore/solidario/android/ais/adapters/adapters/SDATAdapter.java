@@ -1,4 +1,4 @@
-package com.startlinesoft.icore.solidario.android.ais.adapters;
+package com.startlinesoft.icore.solidario.android.ais.adapters.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,19 +8,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.startlinesoft.icore.solidario.android.ais.R;
+import com.startlinesoft.icore.solidario.android.ais.adapters.viewHolders.AhorroViewHolder;
 import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
 import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
-import com.startlinesoft.icore.solidario.api.models.AhorroProgramado;
+import com.startlinesoft.icore.solidario.api.models.SDAT;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AhorroProgramadoAdapter extends RecyclerView.Adapter<AhorroViewHolder> {
+public class SDATAdapter extends RecyclerView.Adapter<AhorroViewHolder> {
 
     private ICoreRecyclerViewItemListener listener;
-    List<AhorroProgramado> ahorros = new ArrayList<AhorroProgramado>();
+    private List<SDAT> ahorros = new ArrayList<SDAT>();
 
-    public AhorroProgramadoAdapter(List<AhorroProgramado> ahorros) {
+    public SDATAdapter(List<SDAT> ahorros) {
         this.ahorros = ahorros;
     }
 
@@ -28,20 +29,20 @@ public class AhorroProgramadoAdapter extends RecyclerView.Adapter<AhorroViewHold
     @Override
     public AhorroViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.ahorro_item, parent, false);
-        AhorroViewHolder avh = new AhorroViewHolder(v, listener, TipoRecyclerViewItem.AHORRO_PROGRAMADO);
+                .inflate(R.layout.ahorro_item, parent, false);
+        AhorroViewHolder avh = new AhorroViewHolder(v, listener, TipoRecyclerViewItem.SDAT);
         return avh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull AhorroViewHolder holder, int position) {
-        AhorroProgramado ahorro = ahorros.get(position);
-        holder.getTvNombre().setText(ahorro.getModalidad());
+        SDAT ahorro = ahorros.get(position);
+        holder.getTvNombre().setText(ahorro.getTipo());
         holder.getTvTasa().setText(String.format("%s%%", ahorro.getTasaEA()));
         holder.getTvSaldo().setText(String.format("$%s", ahorro.getSaldo()));
 
         holder.setPosicion(position);
-        holder.setId(ahorro.getId());
+        holder.setId(ahorro.getNumeroDeposito());
     }
 
     @Override

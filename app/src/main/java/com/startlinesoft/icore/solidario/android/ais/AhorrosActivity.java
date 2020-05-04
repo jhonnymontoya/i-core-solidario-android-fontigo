@@ -6,15 +6,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TabHost;
 
-import com.startlinesoft.icore.solidario.android.ais.adapters.AhorroGeneralAdapter;
-import com.startlinesoft.icore.solidario.android.ais.adapters.AhorroProgramadoAdapter;
-import com.startlinesoft.icore.solidario.android.ais.adapters.SDATAdapter;
+import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.AhorroGeneralAdapter;
+import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.AhorroProgramadoAdapter;
+import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.SDATAdapter;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityAhorrosBinding;
 import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
 import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
@@ -27,7 +25,6 @@ import com.startlinesoft.icore.solidario.api.models.AhorroProgramado;
 import com.startlinesoft.icore.solidario.api.models.Ahorros;
 import com.startlinesoft.icore.solidario.api.models.DetalleAhorro;
 import com.startlinesoft.icore.solidario.api.models.SDAT;
-import com.startlinesoft.icore.solidario.api.models.Socio;
 
 import java.util.List;
 
@@ -147,7 +144,6 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
         }
 
         if(tipo == TipoRecyclerViewItem.AHORRO_PROGRAMADO || tipo == TipoRecyclerViewItem.AHORRO_GENERAL) {
-            final DetalleAhorro[] detalleAhorro = new DetalleAhorro[1];
             DetalleAhorroViewModel detalleAhorroViewModel = new ViewModelProvider(
                     getViewModelStore(),
                     new DetalleAhorroViewModelFactory(id)
@@ -157,9 +153,10 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
             detalleAhorroViewModel.getDetalleAhorro().observe(this, new Observer<DetalleAhorro>() {
                 @Override
                 public void onChanged(DetalleAhorro detalleAhorros) {
-                    detalleAhorro[0] = detalleAhorros;
                     bnd.progressBar.setVisibility(View.GONE);
-                    System.out.println(detalleAhorro[0]);
+                    Intent i = new Intent(getBaseContext(), DetalleAhorroActivity.class);
+                    i.putExtra("AHORRO", detalleAhorros);
+                    startActivity(i);
                 }
             });
         }

@@ -1,18 +1,15 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TabHost;
 
-import com.startlinesoft.icore.solidario.android.ais.adapters.CodeudaAdapter;
-import com.startlinesoft.icore.solidario.android.ais.adapters.CreditoAdapter;
+import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.CodeudaAdapter;
+import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.CreditoAdapter;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityCreditosBinding;
 import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
 import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
@@ -21,7 +18,6 @@ import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
 import com.startlinesoft.icore.solidario.api.models.Codeuda;
 import com.startlinesoft.icore.solidario.api.models.Credito;
 import com.startlinesoft.icore.solidario.api.models.Creditos;
-import com.startlinesoft.icore.solidario.api.models.Socio;
 
 import java.util.List;
 

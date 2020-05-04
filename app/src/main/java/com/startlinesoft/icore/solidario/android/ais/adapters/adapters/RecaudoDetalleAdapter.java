@@ -1,4 +1,4 @@
-package com.startlinesoft.icore.solidario.android.ais.adapters;
+package com.startlinesoft.icore.solidario.android.ais.adapters.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.startlinesoft.icore.solidario.android.ais.R;
+import com.startlinesoft.icore.solidario.android.ais.adapters.viewHolders.RecaudoDetalleViewHolder;
 import com.startlinesoft.icore.solidario.api.models.ConceptoRecaudo;
 
 import java.util.ArrayList;
