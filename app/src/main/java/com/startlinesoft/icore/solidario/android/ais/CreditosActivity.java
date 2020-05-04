@@ -8,16 +8,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TabHost;
 
+import com.startlinesoft.icore.solidario.ApiException;
 import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.CodeudaAdapter;
 import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.CreditoAdapter;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityCreditosBinding;
 import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
 import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreApiClient;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
+import com.startlinesoft.icore.solidario.api.CreditosApi;
 import com.startlinesoft.icore.solidario.api.models.Codeuda;
 import com.startlinesoft.icore.solidario.api.models.Credito;
 import com.startlinesoft.icore.solidario.api.models.Creditos;
+import com.startlinesoft.icore.solidario.api.models.DetalleCredito;
 
 import java.util.List;
 
@@ -99,18 +103,43 @@ public class CreditosActivity extends ICoreAppCompatActivity implements View.OnC
             startActivity(i);
             return;
         }
-
-        //TODO: Implementar acciones aqui
-
     }
 
     @Override
     public void onRecyclerViewItemClick(View v, int posicion, Integer id, TipoRecyclerViewItem tipo) {
-        System.out.println("v: " + v.getClass().toString());
-        System.out.println("pos: " + posicion);
-        System.out.println("ID: " + id);
-        System.out.println("Tipo: " + tipo);
 
-        //TODO: Implementar opción
+        //Se valida token activo
+        this.validarLogin();
+
+        // Créditos
+        if(tipo == TipoRecyclerViewItem.CREDITO) {
+            CreditosApi creditosApi = new CreditosApi(ICoreApiClient.getApiClient());
+            bnd.progressBar.setVisibility(View.VISIBLE);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        DetalleCredito  detalleCredito = creditosApi.obtenerCredito(id);
+                        bnd.progressBar.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                bnd.progressBar.setVisibility(View.GONE);
+                                Intent i = new Intent(getBaseContext(), DetalleCreditoActivity.class);
+                                i.putExtra("CREDITO", detalleCredito);
+                                startActivity(i);
+                            }
+                        });
+                    } catch (ApiException e) {
+                        bnd.progressBar.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                bnd.progressBar.setVisibility(View.GONE);
+                            }
+                        });
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
     }
 }
