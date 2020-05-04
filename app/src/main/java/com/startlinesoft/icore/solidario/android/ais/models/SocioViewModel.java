@@ -22,6 +22,7 @@ public class SocioViewModel extends ViewModel {
                 try {
                     socio.postValue(socioApi.socio());;
                 } catch (ApiException e) {
+                    e.printStackTrace();
                 }
             }
         }).start();
