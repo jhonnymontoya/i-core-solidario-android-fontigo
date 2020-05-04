@@ -9,6 +9,8 @@ import com.startlinesoft.icore.solidario.Configuration;
 import com.startlinesoft.icore.solidario.api.LoginApi;
 import com.startlinesoft.icore.solidario.auth.HttpBearerAuth;
 
+import java.util.Locale;
+
 public class ICoreApiClient {
 
     private static String token = "";
@@ -17,6 +19,12 @@ public class ICoreApiClient {
         ApiClient cliente = Configuration.getDefaultApiClient();
         //cliente.setBasePath("https://test.i-core.co/api");
         cliente.setUserAgent(ICoreApiClient.getFirmaDevice());
+
+        //Adicion de versión de api al cliente
+        cliente.addDefaultHeader("apiVersion", "1.0.0");
+
+        //Adicion de idioma del dispositivo
+        cliente.addDefaultHeader("codigoIdioma", Locale.getDefault().getISO3Language());
 
         if(ICoreApiClient.token.length() > 0) {
             HttpBearerAuth auth = (HttpBearerAuth) cliente.getAuthentication("icore_auth");
