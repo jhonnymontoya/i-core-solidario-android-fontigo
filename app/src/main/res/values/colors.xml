@@ -10,6 +10,7 @@
     <color name="negro">#000000</color>
     <color name="azul">#4158d0</color>
     <color name="purpura">#c850c0</color>
+    <color name="rojo">#ff0000</color>
 
     <color name="ahorros">#28a745</color>
     <color name="creditos">#ffc107</color>
