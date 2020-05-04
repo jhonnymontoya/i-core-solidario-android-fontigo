@@ -1,6 +1,8 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
@@ -16,10 +18,13 @@ import com.startlinesoft.icore.solidario.android.ais.adapters.SDATAdapter;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityAhorrosBinding;
 import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
 import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
+import com.startlinesoft.icore.solidario.android.ais.models.DetalleAhorroViewModel;
+import com.startlinesoft.icore.solidario.android.ais.models.DetalleAhorroViewModelFactory;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
 import com.startlinesoft.icore.solidario.api.models.AhorroGeneral;
 import com.startlinesoft.icore.solidario.api.models.AhorroProgramado;
 import com.startlinesoft.icore.solidario.api.models.Ahorros;
+import com.startlinesoft.icore.solidario.api.models.DetalleAhorro;
 import com.startlinesoft.icore.solidario.api.models.SDAT;
 import com.startlinesoft.icore.solidario.api.models.Socio;
 
@@ -118,7 +123,6 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        //removerTituloBarra();
         // Título de la entidad
         bnd.tbToolbar.setTitle(getString(R.string.ahorros));
     }
@@ -134,7 +138,6 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
             return;
         }
 
-        //TODO: Implementar acciones aqui
     }
 
     @Override
@@ -143,6 +146,31 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
         System.out.println("pos: " + posicion);
         System.out.println("ID: " + id);
         System.out.println("Tipo: " + tipo);
+
+        //Se valida token activo
+        this.validarLogin();
+
+        if(tipo == TipoRecyclerViewItem.SDAT) {
+            //TODO: Solo SDAT
+        }
+
+        if(tipo == TipoRecyclerViewItem.AHORRO_PROGRAMADO || tipo == TipoRecyclerViewItem.AHORRO_GENERAL) {
+            final DetalleAhorro[] detalleAhorro = new DetalleAhorro[1];
+            DetalleAhorroViewModel detalleAhorroViewModel = new ViewModelProvider(
+                    getViewModelStore(),
+                    new DetalleAhorroViewModelFactory(id)
+            ).get(DetalleAhorroViewModel.class);
+
+            bnd.progressBar.setVisibility(View.VISIBLE);
+            detalleAhorroViewModel.getDetalleAhorro().observe(this, new Observer<DetalleAhorro>() {
+                @Override
+                public void onChanged(DetalleAhorro detalleAhorros) {
+                    detalleAhorro[0] = detalleAhorros;
+                    bnd.progressBar.setVisibility(View.GONE);
+                    System.out.println(detalleAhorro[0]);
+                }
+            });
+        }
 
         //TODO: Implementar opción
     }
