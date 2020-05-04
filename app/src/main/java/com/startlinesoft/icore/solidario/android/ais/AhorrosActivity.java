@@ -1,8 +1,6 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
@@ -10,16 +8,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TabHost;
 
+import com.startlinesoft.icore.solidario.ApiException;
 import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.AhorroGeneralAdapter;
 import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.AhorroProgramadoAdapter;
 import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.SDATAdapter;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityAhorrosBinding;
 import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
 import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
-import com.startlinesoft.icore.solidario.android.ais.models.DetalleAhorroViewModel;
-import com.startlinesoft.icore.solidario.android.ais.models.DetalleAhorroViewModelFactory;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreApiClient;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
+import com.startlinesoft.icore.solidario.api.AhorrosApi;
 import com.startlinesoft.icore.solidario.api.models.AhorroGeneral;
 import com.startlinesoft.icore.solidario.api.models.AhorroProgramado;
 import com.startlinesoft.icore.solidario.api.models.Ahorros;
@@ -144,21 +143,33 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
         }
 
         if(tipo == TipoRecyclerViewItem.AHORRO_PROGRAMADO || tipo == TipoRecyclerViewItem.AHORRO_GENERAL) {
-            DetalleAhorroViewModel detalleAhorroViewModel = new ViewModelProvider(
-                    getViewModelStore(),
-                    new DetalleAhorroViewModelFactory(id)
-            ).get(DetalleAhorroViewModel.class);
-
+            AhorrosApi ahorrosApi = new AhorrosApi(ICoreApiClient.getApiClient());
             bnd.progressBar.setVisibility(View.VISIBLE);
-            detalleAhorroViewModel.getDetalleAhorro().observe(this, new Observer<DetalleAhorro>() {
+            new Thread(new Runnable() {
                 @Override
-                public void onChanged(DetalleAhorro detalleAhorros) {
-                    bnd.progressBar.setVisibility(View.GONE);
-                    Intent i = new Intent(getBaseContext(), DetalleAhorroActivity.class);
-                    i.putExtra("AHORRO", detalleAhorros);
-                    startActivity(i);
+                public void run() {
+                    try {
+                        DetalleAhorro detalleAhorro = ahorrosApi.obtenerAhorro(id);
+                        bnd.progressBar.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                bnd.progressBar.setVisibility(View.GONE);
+                                Intent i = new Intent(getBaseContext(), DetalleAhorroActivity.class);
+                                i.putExtra("AHORRO", detalleAhorro);
+                                startActivity(i);
+                            }
+                        });
+                    } catch (ApiException e) {
+                        bnd.progressBar.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                bnd.progressBar.setVisibility(View.GONE);
+                            }
+                        });
+                        e.printStackTrace();
+                    }
                 }
-            });
+            }).start();
         }
 
         //TODO: Implementar opción
