@@ -1,35 +1,3 @@
 <resources>
-    <string name="app_name" translatable="false">Ais</string>
-    <string name="login_username">User</string>
-    <string name="login_password">Password</string>
-    <string name="login_login">Login</string>
-    <string name="login_forgot_password">Forgot password?</string>
-    <string name="login_error_login">Invalid user or password</string>
-    <string name="login_volver">Back</string>
-    <string name="login_restore_message">Enter your user below, We\'ll send you a link to restore your password.</string>
-    <string name="login_restore">Submit</string>
-    <string name="token_info" translatable="false">com.startlinesoft.icore.solidario.android.ais.TOKEN_INFO</string>
-    <string name="descripcion_imagen" translatable="false">Avatar</string>
-    <string name="logout">Logout</string>
-    <string name="ahorros">Savings</string>
-    <string name="creditos">Credits</string>
-    <string name="abonado">Paid</string>
-    <string name="del_total">of the total</string>
-    <string name="recaudos_nomina">Payroll</string>
-    <string name="aplicado">Apply on</string>
-    <string name="accion_documentacion">Documents</string>
-    <string name="accion_simulador">Simulator</string>
-    <string name="accion_solicitar_credito">Request credit</string>
-    <string name="incremento_en">Increased by</string>
-    <string name="ultimo_mes">in last month</string>
-    <string name="perfil">Profile</string>
-    <string name="beneficiarios">Beneficiaries</string>
-    <string name="actualizar_clave">Change password</string>
-    <string name="acerca_de">About</string>
-    <string name="tasa_ea">Rate A.E.</string>
-    <string name="ahorros_generales">General</string>
-    <string name="ahorros_programados">Programed</string>
-    <string name="sdats">SDATs</string>
-    <string name="codeudas">Codeudas</string>
-    <string name="no_existen_registros_para_mostrar">There are no records to display</string>
+    <string name="app_name">Ais</string>
 </resources>

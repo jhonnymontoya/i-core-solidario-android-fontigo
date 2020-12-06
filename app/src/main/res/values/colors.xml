@@ -1,34 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#4158d0</color>
-    <color name="colorAccent">#FF5684</color>
-
-    <color name="error">#770000</color>
-    <color name="blanco">#fafafa</color>
-    <color name="negro">#000000</color>
-    <color name="azul">#4158d0</color>
-    <color name="purpura">#c850c0</color>
-    <color name="rojo">#ff0000</color>
-
-    <color name="ahorros">#28a745</color>
-    <color name="creditos">#ffc107</color>
-    <color name="recaudos">#007bff</color>
-
-    <color name="progressBar">#5E000000</color>
-
-    <color name="login_boton_disabled">#ED6D94</color>
-    <color name="login_boton_enabled">#ED5583</color>
-    <color name="login_boton_pressed">#D44C75</color>
-    <color name="login_form_details">#ccFFFFFF</color>
-    <color name="login_form_details_light">#1aFFFFFF</color>
-    <color name="login_form_details_medium">#66FFFFFF</color>
-
-    <color name="info_boton_disabled">#E0CAD6</color>
-    <color name="info_boton_enabled">#FAFAFA</color>
-    <color name="info_boton_pressed">#EFEFEF</color>
-
-    <color name="item_valor">#4158d0</color>
-    <color name="item_tasa">#28a745</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
 </resources>
