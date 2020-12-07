@@ -195,6 +195,8 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View v) {
-        this.vibrar();
+        if(this.isVibradorActivado() == true){
+            this.vibrar();
+        }
     }
 }
