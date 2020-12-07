@@ -1,5 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+    <!-- Theme.MaterialComponents.DayNight.NoActionBar -->
+    <!-- Theme.AppCompat.Light.NoActionBar -->
     <style name="Theme.Ais" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
