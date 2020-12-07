@@ -7,7 +7,11 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -19,7 +23,7 @@ import com.startlinesoft.icore.solidario.android.ais.LoginActivity;
 import com.startlinesoft.icore.solidario.android.ais.R;
 import com.startlinesoft.icore.solidario.api.LoginApi;
 
-public class ICoreAppCompatActivity extends AppCompatActivity {
+public class ICoreAppCompatActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TOKEN = "TOKEN";
 
@@ -151,5 +155,24 @@ public class ICoreAppCompatActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(ICoreAppCompatActivity.TOKEN);
         editor.commit();
+    }
+
+    protected void vibrar() {
+        Vibrator vibrator = (Vibrator) this.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+        if(vibrator != null){
+            VibrationEffect effect = null;
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+                effect = VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK);
+            }
+            else {
+                effect = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
+            }
+            vibrator.vibrate(effect);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        this.vibrar();
     }
 }
