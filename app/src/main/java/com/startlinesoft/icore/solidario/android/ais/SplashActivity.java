@@ -2,13 +2,41 @@ package com.startlinesoft.icore.solidario.android.ais;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-public class SplashActivity extends AppCompatActivity {
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreApiClient;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
+
+public class SplashActivity extends ICoreAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        this.verificarRed();
+
+        if (this.isSetToken() == true) {
+            ICoreApiClient.setToken(this.getToken());
+            boolean esTokenValido = ICoreApiClient.esTokenValido();
+            Intent i;
+            if(esTokenValido == true){
+                //Sí es válido, ir a dashboard
+                //i = new Intent(getBaseContext(), DashBoardActivity.class);
+            }
+            else{
+                //No es válido, ir al login
+                i = new Intent(getBaseContext(), LoginActivity.class);
+                this.removerToken();
+            }
+            this.startActivity(i);
+            finish();
+        } else {
+            Intent i = new Intent(this, LoginActivity.class);
+            this.removerToken();
+            this.startActivity(i);
+            finish();
+        }
     }
 }
