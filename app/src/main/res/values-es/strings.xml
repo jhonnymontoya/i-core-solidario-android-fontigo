@@ -2,4 +2,11 @@
 <resources>
     <string name="network_error">La conexión a internet es requerida, por favor verifique su conexión a internet</string>
     <string name="network_retry">Reintentar</string>
+    <string name="login_username">Usuario</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_login">Ingresar</string>
+    <string name="login_forgotPassword">¿Olvidó su contraseña?</string>
+    <string name="login_volver">Volver</string>
+    <string name="login_restoreMessage">Ingrese su usuario, Le enviaremos un link para restaurar su contraseña.</string>
+    <string name="login_restore">Enviar</string>
 </resources>

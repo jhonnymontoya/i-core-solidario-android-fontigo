@@ -3,4 +3,11 @@
     <string name="network_error">Internet connection is required, please check your internet connection</string>
     <string name="network_retry">Retry</string>
     <string name="app_preferences" translatable="false">com.startlinesoft.icore.solidario.android.ais.PREFERENCES</string>
+    <string name="login_username">User</string>
+    <string name="login_password">Password</string>
+    <string name="login_login">Login</string>
+    <string name="login_forgotPassword">Forgot password?</string>
+    <string name="login_volver">Back</string>
+    <string name="login_restoreMessage">Enter your user below, We\\\'ll send you a link to restore your password.</string>
+    <string name="login_restore">Submit</string>
 </resources>
