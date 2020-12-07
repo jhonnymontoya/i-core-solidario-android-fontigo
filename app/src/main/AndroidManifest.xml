@@ -5,23 +5,18 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Ais">
-        <activity
-            android:name=".DashBoardActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".LoginActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".SplashActivity"
-            android:screenOrientation="portrait">
+        android:theme="@style/Theme.Ais"
+        android:allowBackup="false">
+        <activity android:name=".DashBoardActivity" android:screenOrientation="portrait" />
+        <activity android:name=".LoginActivity" android:screenOrientation="portrait" />
+        <activity android:name=".SplashActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
