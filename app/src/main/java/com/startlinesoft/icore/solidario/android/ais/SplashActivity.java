@@ -23,17 +23,19 @@ public class SplashActivity extends ICoreAppCompatActivity {
             Intent i;
             if(esTokenValido == true){
                 //Sí es válido, ir a dashboard
-                //i = new Intent(getBaseContext(), DashBoardActivity.class);
+                i = new Intent(getBaseContext(), DashBoardActivity.class);
             }
             else{
                 //No es válido, ir al login
                 i = new Intent(getBaseContext(), LoginActivity.class);
                 this.removerToken();
             }
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             this.startActivity(i);
             finish();
         } else {
             Intent i = new Intent(this, LoginActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             this.removerToken();
             this.startActivity(i);
             finish();
