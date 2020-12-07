@@ -16,6 +16,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.startlinesoft.icore.solidario.ApiClient;
 import com.startlinesoft.icore.solidario.ApiException;
@@ -24,8 +25,6 @@ import com.startlinesoft.icore.solidario.android.ais.R;
 import com.startlinesoft.icore.solidario.api.LoginApi;
 
 public class ICoreAppCompatActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private static final String TOKEN = "TOKEN";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -134,41 +133,64 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
 
     protected boolean isSetToken() {
         SharedPreferences sp = this.getAlmacenDePreferencias();
-        return sp.contains(ICoreAppCompatActivity.TOKEN);
+        return sp.contains(ICoreConstantes.TOKEN);
     }
 
     protected String getToken() {
         SharedPreferences sp = this.getAlmacenDePreferencias();
-        String token = sp.getString(ICoreAppCompatActivity.TOKEN, null);
+        String token = sp.getString(ICoreConstantes.TOKEN, null);
         return token;
     }
 
     protected void putToken(String token) {
         SharedPreferences sp = this.getAlmacenDePreferencias();
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString(ICoreAppCompatActivity.TOKEN, token);
+        editor.putString(ICoreConstantes.TOKEN, token);
         editor.commit();
     }
 
     protected void removerToken() {
         SharedPreferences sp = this.getAlmacenDePreferencias();
         SharedPreferences.Editor editor = sp.edit();
-        editor.remove(ICoreAppCompatActivity.TOKEN);
+        editor.remove(ICoreConstantes.TOKEN);
         editor.commit();
     }
 
     protected void vibrar() {
-        Vibrator vibrator = (Vibrator) this.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-        if(vibrator != null){
+        Vibrator vibrator = this.getVibrador();
+        if (this.hasVibrador() == true) {
             VibrationEffect effect = null;
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 effect = VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK);
-            }
-            else {
+            } else {
                 effect = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
             }
             vibrator.vibrate(effect);
         }
+    }
+
+    private boolean hasVibrador() {
+        Vibrator vibrator = this.getVibrador();
+        return vibrator != null ? true : false;
+    }
+
+    private Vibrator getVibrador() {
+        Vibrator v = (Vibrator) this.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+        return v;
+    }
+
+    private SharedPreferences getSharedPreferences() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        return sp;
+    }
+
+    private boolean isVibradorActivado() {
+        if(this.hasVibrador() == false){
+            return false;
+        }
+        SharedPreferences sp = this.getAlmacenDePreferencias();
+        boolean res = sp.getBoolean(ICoreConstantes.PREFERENCE_VIBRADOR, true);
+        return res;
     }
 
     @Override
