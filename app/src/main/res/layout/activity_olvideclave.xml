@@ -93,15 +93,13 @@
                 <TextView
                     android:id="@+id/tvVolver"
                     style="@style/Login_Link"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autoLink="all"
                     android:clickable="true"
                     android:focusable="true"
                     android:text="@string/login_volver"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/glDer"
-                    app:layout_constraintStart_toStartOf="@+id/glIzq" />
+                    android:textAlignment="center"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
