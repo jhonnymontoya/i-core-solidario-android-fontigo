@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TabHost;
 
+import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.AhorroGeneralAdapter;
+import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.AhorroProgramadoAdapter;
+import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.SDATAdapter;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityAhorrosBinding;
 import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
 import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
