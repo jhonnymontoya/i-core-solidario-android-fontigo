@@ -40,6 +40,7 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
         this.bnd.progressBar.setVisibility(View.VISIBLE);
         socioViewModel.getSocio().observe(this, socio -> {
             this.socio = socio;
+            ICoreGeneral.setSocio(socio);
             this.bnd.progressBar.setVisibility(View.GONE);
 
             Ahorros ahorros = socio.getAhorros();
@@ -48,7 +49,7 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
             // Título de la entidad
             this.bnd.tbToolbar.setTitle(socio.getSiglaEntidad());
 
-            this.bnd.ivImagen.setImageBitmap(ICoreGeneral.getSocioImagen(socio));
+            this.bnd.ivImagen.setImageBitmap(ICoreGeneral.getSocioImagen());
 
             this.bnd.tvTotalAhorros.setText(String.format("$%s", ahorros.getTotalAhorros()));
             this.bnd.pbPorcentajeIncremento.setProgress(ahorros.getPorcentajeIncremento());
