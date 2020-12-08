@@ -12,4 +12,7 @@
     <string name="ahorros">Ahorros</string>
     <string name="incremento_en">Incrementó</string>
     <string name="ultimo_mes">en el último mes</string>
+    <string name="creditos">Créditos</string>
+    <string name="abonado">Abonado</string>
+    <string name="del_total">del total</string>
 </resources>

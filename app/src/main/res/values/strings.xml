@@ -13,4 +13,7 @@
     <string name="ahorros">Savings</string>
     <string name="incremento_en">Increased by</string>
     <string name="ultimo_mes">in last month</string>
+    <string name="creditos">Credits</string>
+    <string name="abonado">Paid</string>
+    <string name="del_total">of the total</string>
 </resources>
