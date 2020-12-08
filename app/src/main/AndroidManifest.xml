@@ -16,16 +16,19 @@
         android:theme="@style/Theme.Ais">
         <activity
             android:name=".OlvideClaveActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Ais.Login" />
         <activity
             android:name=".DashBoardActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Ais.Login" />
         <activity
             android:name=".SplashActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Ais.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
