@@ -1,18 +1,20 @@
 package com.startlinesoft.icore.solidario.android.ais.utilidades;
 
+import com.startlinesoft.icore.solidario.ApiCallback;
 import com.startlinesoft.icore.solidario.ApiClient;
 import com.startlinesoft.icore.solidario.ApiException;
 import com.startlinesoft.icore.solidario.Configuration;
 import com.startlinesoft.icore.solidario.api.LoginApi;
 import com.startlinesoft.icore.solidario.auth.HttpBearerAuth;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class ICoreApiClient {
 
     private static String token = "";
     private static final String BASEPATH = "https://%s.i-core.co/api";
-    private static final String PROYECTO = "test";
     private static final String APIVERSION = "1.0.0";
 
     public static ApiClient getApiClient() {
@@ -35,7 +37,7 @@ public class ICoreApiClient {
     }
 
     private static String getBasePath() {
-        String basePath = String.format(ICoreApiClient.BASEPATH, ICoreApiClient.PROYECTO);
+        String basePath = String.format(ICoreApiClient.BASEPATH, ICoreConstantes.PROYECTO);
         return basePath;
     }
 
@@ -49,16 +51,20 @@ public class ICoreApiClient {
 
     public static boolean esTokenValido() {
         LoginApi loginApi = new LoginApi(ICoreApiClient.getApiClient());
-        try {
-            loginApi.ping();
-            return true;
-        } catch (ApiException e) {
-            if (e.getCode() == 401) {
-                return false;
-            } else {
-                return false;
+        final boolean[] res = {false};
+        Thread t = new Thread(() ->{
+            try {
+                loginApi.ping();
+                res[0] = true;
+            } catch (ApiException e) {
+                res[0] = false;
             }
-        }
+        });
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException ignored) {}
+        return res[0];
     }
 
 }
