@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Toast;
 
 import com.startlinesoft.icore.solidario.ApiClient;
 import com.startlinesoft.icore.solidario.ApiException;
@@ -15,6 +14,9 @@ import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatAc
 import com.startlinesoft.icore.solidario.api.LoginApi;
 import com.startlinesoft.icore.solidario.api.models.LoginInfo;
 import com.startlinesoft.icore.solidario.api.models.LoginToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoginActivity extends ICoreAppCompatActivity implements View.OnClickListener {
 
@@ -66,26 +68,46 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
             loginInfo.setPassword(bnd.etPassword.getText().toString());
 
             bnd.progressBar.setVisibility(View.VISIBLE);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        LoginToken loginToken = loginApi.login(loginInfo);
-                        putToken(loginToken.getToken());
-                        ICoreApiClient.setToken(loginToken.getToken());
+            new Thread(() -> {
+                try {
+                    LoginToken loginToken = loginApi.login(loginInfo);
+                    putToken(loginToken.getToken());
+                    ICoreApiClient.setToken(loginToken.getToken());
 
-                        Intent i = new Intent(getBaseContext(), DashBoardActivity.class);
-                        startActivity(i);
-                        finish();
-                    } catch (ApiException e) {
-                        bnd.tvError.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                bnd.tvError.setVisibility(View.VISIBLE);
-                                bnd.progressBar.setVisibility(View.GONE);
-                            }
-                        });
-                    }
+                    Intent i = new Intent(getBaseContext(), DashBoardActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                    finish();
+                } catch (ApiException e) {
+                    bnd.tvError.post(() -> {
+                        String msg;
+                        switch (e.getCode()) {
+                            case 400: //Entradas no válidas
+                            case 422: //Entradas no procesables
+                            case 429: //Demasiados intentos
+                                msg = "Datos no válidos";
+                                break;
+                            case 426: //Se requiere actualización
+                                msg = "Se requiere actualización";
+                                break;
+                            case 401:
+                                msg = "Usuario o contraseña no válidos";
+                                break;
+                            case 412:
+                                try {
+                                    msg = new JSONObject(e.getResponseBody()).getString("message");
+                                } catch (JSONException je) {
+                                    msg = "App Movil no activa";
+                                }
+                                break;
+                            default:
+                                msg = "Entradas no válidos";
+                                break;
+                        }
+                        bnd.tvError.setText(msg);
+                        bnd.tvError.setVisibility(View.VISIBLE);
+                        bnd.progressBar.setVisibility(View.GONE);
+                    });
                 }
             }).start();
         }
