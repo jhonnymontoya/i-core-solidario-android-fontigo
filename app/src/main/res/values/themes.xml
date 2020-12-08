@@ -10,7 +10,7 @@
     </style>
 
     <style name="Theme.Ais.Login" parent="Theme.Ais">
-        <item name="android:windowBackground">@color/colorPrimaryVariant</item>
+        <item name="android:windowBackground">@drawable/login_bg</item>
     </style>
 
     <style name="Login_Link">
