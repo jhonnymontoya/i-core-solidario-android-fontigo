@@ -31,8 +31,7 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
     protected void validarLogin() {
         this.verificarRed();
         if (this.isSetToken()) {
-            boolean esTokenValido = ICoreApiClient.esTokenValido();
-            if (esTokenValido == false) {
+            if (!ICoreApiClient.esTokenValido()) {
                 //Token existe pero no es válido o ya venció
                 Intent i = new Intent(this.getBaseContext(), LoginActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -77,17 +76,14 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
     }
 
     protected void verificarRed() {
-        if (this.isOnline() == false) {
+        if (!this.isOnline()) {
             AlertDialog.Builder msg = new AlertDialog.Builder(this);
             msg.setTitle(this.getString(R.string.app_name));
             msg.setMessage(this.getString(R.string.network_error));
             msg.setCancelable(false);
-            msg.setPositiveButton(this.getString(R.string.network_retry), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if (isOnline() == false) {
-                        msg.create().show();
-                    }
+            msg.setPositiveButton(this.getString(R.string.network_retry), (dialog, which) -> {
+                if (!isOnline()) {
+                    msg.create().show();
                 }
             });
             msg.create().show();
@@ -108,10 +104,7 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
         if (nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
             return true;
         }
-        if (nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-            return true;
-        }
-        return false;
+        return nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR);
     }
 
     protected boolean isSetToken() {
