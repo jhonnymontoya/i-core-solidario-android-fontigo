@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">Ais</string>
     <string name="network_error">Internet connection is required, please check your internet connection</string>
     <string name="network_retry">Retry</string>
-    <string name="app_preferences" translatable="false">com.startlinesoft.icore.solidario.android.ais.PREFERENCES</string>
     <string name="login_username">User</string>
     <string name="login_password">Password</string>
     <string name="login_login">Login</string>
