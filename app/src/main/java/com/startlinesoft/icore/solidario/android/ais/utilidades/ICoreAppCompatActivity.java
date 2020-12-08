@@ -1,7 +1,6 @@
 package com.startlinesoft.icore.solidario.android.ais.utilidades;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -11,7 +10,6 @@ import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -76,13 +74,13 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
     }
 
     protected void verificarRed() {
-        if (!this.isOnline()) {
+        if (this.isNotOnline()) {
             AlertDialog.Builder msg = new AlertDialog.Builder(this);
             msg.setTitle(this.getString(R.string.app_name));
             msg.setMessage(this.getString(R.string.network_error));
             msg.setCancelable(false);
             msg.setPositiveButton(this.getString(R.string.network_retry), (dialog, which) -> {
-                if (!isOnline()) {
+                if (isNotOnline()) {
                     msg.create().show();
                 }
             });
@@ -90,21 +88,21 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
         }
     }
 
-    private boolean isOnline() {
+    private boolean isNotOnline() {
         ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         Network n = cm.getActiveNetwork();
         if (n == null) {
-            return false;
+            return true;
         }
 
         NetworkCapabilities nc = cm.getNetworkCapabilities(n);
         if (nc == null) {
-            return false;
-        }
-        if (nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
             return true;
         }
-        return nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR);
+        if (nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+            return false;
+        }
+        return !nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR);
     }
 
     protected boolean isSetToken() {
