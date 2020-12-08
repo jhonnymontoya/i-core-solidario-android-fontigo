@@ -8,12 +8,11 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
@@ -25,16 +24,6 @@ import com.startlinesoft.icore.solidario.android.ais.R;
 import com.startlinesoft.icore.solidario.api.LoginApi;
 
 public class ICoreAppCompatActivity extends AppCompatActivity implements View.OnClickListener {
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-    }
 
     /**
      * Valida que se encuentre logueado, de lo contrario lo envia al login screen
@@ -70,8 +59,7 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
         LoginApi loginApi = new LoginApi(cliente);
         try {
             loginApi.logout();
-        } catch (ApiException e) {
-        }
+        } catch (ApiException ignored) {}
         this.removerToken();
         Intent i = new Intent(getBaseContext(), LoginActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -126,40 +114,34 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
         return false;
     }
 
-    private SharedPreferences getAlmacenDePreferencias() {
-        String nombreRecurso = this.getString(R.string.app_preferences);
-        return this.getSharedPreferences(nombreRecurso, Context.MODE_PRIVATE);
-    }
-
     protected boolean isSetToken() {
-        SharedPreferences sp = this.getAlmacenDePreferencias();
+        SharedPreferences sp = this.getAlmacenPreferencias();
         return sp.contains(ICoreConstantes.TOKEN);
     }
 
     protected String getToken() {
-        SharedPreferences sp = this.getAlmacenDePreferencias();
-        String token = sp.getString(ICoreConstantes.TOKEN, null);
-        return token;
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        return sp.getString(ICoreConstantes.TOKEN, null);
     }
 
     protected void putToken(String token) {
-        SharedPreferences sp = this.getAlmacenDePreferencias();
+        SharedPreferences sp = this.getAlmacenPreferencias();
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(ICoreConstantes.TOKEN, token);
-        editor.commit();
+        editor.apply();
     }
 
     protected void removerToken() {
-        SharedPreferences sp = this.getAlmacenDePreferencias();
+        SharedPreferences sp = this.getAlmacenPreferencias();
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(ICoreConstantes.TOKEN);
-        editor.commit();
+        editor.apply();
     }
 
     protected void vibrar() {
         Vibrator vibrator = this.getVibrador();
-        if (this.hasVibrador() == true) {
-            VibrationEffect effect = null;
+        if (this.hasVibrador()) {
+            VibrationEffect effect;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 effect = VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK);
             } else {
@@ -171,31 +153,28 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
 
     private boolean hasVibrador() {
         Vibrator vibrator = this.getVibrador();
-        return vibrator != null ? true : false;
+        return vibrator != null;
     }
 
     private Vibrator getVibrador() {
-        Vibrator v = (Vibrator) this.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-        return v;
+        return (Vibrator) this.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
     }
 
-    private SharedPreferences getSharedPreferences() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        return sp;
+    private SharedPreferences getAlmacenPreferencias() {
+        return PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     private boolean isVibradorActivado() {
-        if(this.hasVibrador() == false){
+        if(!this.hasVibrador()){
             return false;
         }
-        SharedPreferences sp = this.getAlmacenDePreferencias();
-        boolean res = sp.getBoolean(ICoreConstantes.PREFERENCE_VIBRADOR, true);
-        return res;
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        return sp.getBoolean(ICoreConstantes.PREFERENCE_VIBRADOR, true);
     }
 
     @Override
     public void onClick(View v) {
-        if(this.isVibradorActivado() == true){
+        if(this.isVibradorActivado()){
             this.vibrar();
         }
     }
