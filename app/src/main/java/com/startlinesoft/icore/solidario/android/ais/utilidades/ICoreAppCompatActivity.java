@@ -156,7 +156,7 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
         return PreferenceManager.getDefaultSharedPreferences(this);
     }
 
-    private boolean isVibradorActivado() {
+    protected boolean isVibradorActivado() {
         if (!this.hasVibrador()) {
             return false;
         }
