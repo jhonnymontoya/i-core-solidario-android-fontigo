@@ -25,4 +25,5 @@
     <string name="ahorros_generales">General</string>
     <string name="ahorros_programados">Programed</string>
     <string name="sdats">SDATs</string>
+    <string name="tasa_ea">Rate A.E.</string>
 </resources>
