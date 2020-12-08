@@ -14,6 +14,7 @@ public class SplashActivity extends ICoreAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        this.inicializarPreferencias();
         new Handler().postDelayed(tarea, 1000);
     }
 

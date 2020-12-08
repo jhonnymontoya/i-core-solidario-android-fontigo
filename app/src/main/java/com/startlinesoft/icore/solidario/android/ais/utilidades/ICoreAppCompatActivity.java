@@ -56,7 +56,8 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
         LoginApi loginApi = new LoginApi(cliente);
         try {
             loginApi.logout();
-        } catch (ApiException ignored) {}
+        } catch (ApiException ignored) {
+        }
         this.removerToken();
         Intent i = new Intent(getBaseContext(), LoginActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -156,16 +157,35 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
     }
 
     private boolean isVibradorActivado() {
-        if(!this.hasVibrador()){
+        if (!this.hasVibrador()) {
             return false;
         }
         SharedPreferences sp = this.getAlmacenPreferencias();
         return sp.getBoolean(ICoreConstantes.PREFERENCE_VIBRADOR, true);
     }
 
+    /**
+     * En el almacen de preferencias, inicializa con llaves predefinidas
+     */
+    protected void inicializarPreferencias() {
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        SharedPreferences.Editor editor = null;
+        if(!sp.contains(ICoreConstantes.PREFERENCE_VIBRADOR)){
+            editor = sp.edit();
+            editor.putBoolean(ICoreConstantes.PREFERENCE_VIBRADOR, true);
+        }
+        if(!sp.contains(ICoreConstantes.PREFERENCE_TOUCHID)){
+            editor = sp.edit();
+            editor.putBoolean(ICoreConstantes.PREFERENCE_TOUCHID, false);
+        }
+        if(editor != null){
+            editor.apply();
+        }
+    }
+
     @Override
     public void onClick(View v) {
-        if(this.isVibradorActivado()){
+        if (this.isVibradorActivado()) {
             this.vibrar();
         }
     }
