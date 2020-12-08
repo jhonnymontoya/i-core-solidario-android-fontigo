@@ -21,4 +21,5 @@
     <string name="accion_documentacion">Documents</string>
     <string name="accion_simulador">Simulator</string>
     <string name="accion_solicitar_credito">Request credit</string>
+    <string name="no_existen_registros_para_mostrar">There are no records to display</string>
 </resources>
