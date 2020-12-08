@@ -1,10 +1,10 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-public class DashBoardActivity extends AppCompatActivity {
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
+
+public class DashBoardActivity extends ICoreAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
