@@ -7,6 +7,8 @@ import com.startlinesoft.icore.solidario.api.models.Socio;
 
 public class ICoreGeneral {
 
+    private static Socio socio;
+
     /**
      * Retorna una fecha de formato yyyy-mm-dd a dd-mm-yyyy
      *
@@ -23,8 +25,20 @@ public class ICoreGeneral {
         return fechaFormateada;
     }
 
-    public static Bitmap getSocioImagen(Socio socio) {
-        return BitmapFactory.decodeByteArray(socio.getImagen(), 0, socio.getImagen().length);
+    public static Bitmap getSocioImagen() {
+        return BitmapFactory.decodeByteArray(
+                ICoreGeneral.getSocio().getImagen(),
+                0,
+                ICoreGeneral.getSocio().getImagen().length
+        );
+    }
+
+    public static Socio getSocio() {
+        return ICoreGeneral.socio;
+    }
+
+    public static void setSocio(Socio socio) {
+        ICoreGeneral.socio = socio;
     }
 
 }
