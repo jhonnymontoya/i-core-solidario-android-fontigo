@@ -3,9 +3,14 @@
     <!-- Theme.MaterialComponents.DayNight.NoActionBar -->
     <!-- Theme.AppCompat.Light.NoActionBar -->
     <style name="Theme.Ais" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowAnimationStyle">@null</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/colorPrimaryVariant</item>
+    </style>
+
+    <style name="Theme.Ais.Login" parent="Theme.Ais">
+        <item name="android:windowBackground">@color/colorPrimaryVariant</item>
     </style>
 
     <style name="Login_Link">
