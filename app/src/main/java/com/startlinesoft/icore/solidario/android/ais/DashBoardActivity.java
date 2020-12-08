@@ -10,8 +10,10 @@ import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityDashboa
 import com.startlinesoft.icore.solidario.android.ais.models.SocioViewModel;
 import com.startlinesoft.icore.solidario.android.ais.models.SocioViewModelFactory;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
 import com.startlinesoft.icore.solidario.api.models.Ahorros;
 import com.startlinesoft.icore.solidario.api.models.Creditos;
+import com.startlinesoft.icore.solidario.api.models.Recaudo;
 import com.startlinesoft.icore.solidario.api.models.Socio;
 
 public class DashBoardActivity extends ICoreAppCompatActivity {
@@ -44,6 +46,34 @@ public class DashBoardActivity extends ICoreAppCompatActivity {
 
             // Título de la entidad
             this.bnd.tbToolbar.setTitle(socio.getSiglaEntidad());
+
+            this.bnd.ivImagen.setImageBitmap(ICoreGeneral.getSocioImagen(socio));
+
+            this.bnd.tvTotalAhorros.setText(String.format("$%s", ahorros.getTotalAhorros()));
+            this.bnd.pbPorcentajeIncremento.setProgress(ahorros.getPorcentajeIncremento());
+            this.bnd.tvPorcentajeIncremento.setText(String.format("%s%%", ahorros.getPorcentajeIncremento()));
+
+            if(creditos.getTotalSaldoCapital().contentEquals("0") == false || creditos.getCodeudas().size() > 0) {
+                this.bnd.cvCreditos.setVisibility(View.VISIBLE);
+                this.bnd.tvTotalCreditos.setText(String.format("$%s", creditos.getTotalSaldoCapital()));
+                this.bnd.pbPorcentajeAbonado.setProgress(creditos.getPorcentajeAbonado());
+                this.bnd.tvPorcentajeAbonado.setText(String.format("%s%%", creditos.getPorcentajeAbonado()));
+            }
+
+            if(socio.getRecaudo().size() > 0) {
+                this.bnd.cvRecaudos.setVisibility(View.VISIBLE);
+                Recaudo recaudo = socio.getRecaudo().get(0);
+                this.bnd.tvTotalAplicado.setText(String.format("$%s", recaudo.getTotalAplicado()));
+                this.bnd.tvFechaAplicacion.setText(ICoreGeneral.reverseFecha(recaudo.getFechaRecaudo()));
+            }
+            else {
+                this.bnd.cvRecaudos.setVisibility(View.GONE);
+                this.bnd.tvTotalAplicado.setText("$0");
+                this.bnd.tvFechaAplicacion.setText("00-00-0000");
+            }
+
+            //TODO: Aqui lógica de guardar en preferencias usuario para el login
+
         });
     }
 }
