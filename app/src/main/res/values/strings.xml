@@ -18,4 +18,7 @@
     <string name="del_total">of the total</string>
     <string name="recaudos_nomina">Payroll</string>
     <string name="aplicado">Apply on</string>
+    <string name="accion_documentacion">Documents</string>
+    <string name="accion_simulador">Simulator</string>
+    <string name="accion_solicitar_credito">Request credit</string>
 </resources>
