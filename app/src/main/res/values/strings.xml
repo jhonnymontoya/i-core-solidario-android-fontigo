@@ -16,4 +16,6 @@
     <string name="creditos">Credits</string>
     <string name="abonado">Paid</string>
     <string name="del_total">of the total</string>
+    <string name="recaudos_nomina">Payroll</string>
+    <string name="aplicado">Apply on</string>
 </resources>

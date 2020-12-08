@@ -15,4 +15,6 @@
     <string name="creditos">Créditos</string>
     <string name="abonado">Abonado</string>
     <string name="del_total">del total</string>
+    <string name="recaudos_nomina">Recaudos de nómina</string>
+    <string name="aplicado">Aplicado</string>
 </resources>
