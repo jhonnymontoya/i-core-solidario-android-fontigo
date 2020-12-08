@@ -15,7 +15,7 @@ public class SplashActivity extends ICoreAppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         this.inicializarPreferencias();
-        new Handler().postDelayed(tarea, 1000);
+        new Handler().postDelayed(tarea, 500);
     }
 
     private final Runnable tarea = () -> {
