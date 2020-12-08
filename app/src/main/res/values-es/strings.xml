@@ -9,4 +9,7 @@
     <string name="login_volver">Volver</string>
     <string name="login_restoreMessage">Ingrese su usuario, Le enviaremos un link para restaurar su contraseña.</string>
     <string name="login_restore">Enviar</string>
+    <string name="ahorros">Ahorros</string>
+    <string name="incremento_en">Incrementó</string>
+    <string name="ultimo_mes">en el último mes</string>
 </resources>

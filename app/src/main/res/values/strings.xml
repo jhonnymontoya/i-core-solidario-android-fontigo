@@ -9,4 +9,8 @@
     <string name="login_volver">Back</string>
     <string name="login_restoreMessage">Enter your user below, We\'ll send you a link to restore your password.</string>
     <string name="login_restore">Submit</string>
+    <string name="descripcion_imagen" translatable="false">Avatar</string>
+    <string name="ahorros">Savings</string>
+    <string name="incremento_en">Increased by</string>
+    <string name="ultimo_mes">in last month</string>
 </resources>
