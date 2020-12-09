@@ -1,5 +1,6 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -94,6 +95,13 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         super.onClick(v);
+
+        // Ir a Ahorros
+        if(v.equals(bnd.cvAhorros)) {
+            Intent i = new Intent(this, AhorrosActivity.class);
+            startActivity(i);
+            return;
+        }
     }
 
     @Override
