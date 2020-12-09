@@ -1,5 +1,6 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -100,8 +101,16 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
     }
 
     @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        this.bnd.tbToolbar.setTitle(getString(R.string.ahorros));
+    }
+
+    @Override
     public void onRecyclerViewItemClick(View v, int posicion, Integer id, TipoRecyclerViewItem tipo) {
-        //
+        if (this.isVibradorActivado()) {
+            this.vibrar();
+        }
     }
 
     @Override
