@@ -109,6 +109,13 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
             startActivity(i);
             return;
         }
+
+        // Ir a Créditos
+        if(v.equals(bnd.cvCreditos)) {
+            Intent i = new Intent(this, CreditosActivity.class);
+            startActivity(i);
+            return;
+        }
     }
 
     @Override
