@@ -35,4 +35,9 @@
     <string name="saldo">Balance</string>
     <string name="intereses_reconocidos">Recognized interests</string>
     <string name="estado">Status</string>
+    <string name="perfil">Profile</string>
+    <string name="beneficiarios">Beneficiaries</string>
+    <string name="actualizar_clave">Change password</string>
+    <string name="logout">Logout</string>
+    <string name="acerca_de">About</string>
 </resources>

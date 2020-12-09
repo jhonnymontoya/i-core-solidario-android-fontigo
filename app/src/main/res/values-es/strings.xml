@@ -34,4 +34,9 @@
     <string name="saldo">Saldo</string>
     <string name="intereses_reconocidos">Intereses reconocidos</string>
     <string name="estado">Estado</string>
+    <string name="perfil">Perfil</string>
+    <string name="beneficiarios">Beneficiarios</string>
+    <string name="actualizar_clave">Actualizar contraseña</string>
+    <string name="logout">Salir</string>
+    <string name="acerca_de">Acerca de</string>
 </resources>
