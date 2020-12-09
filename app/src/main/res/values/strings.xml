@@ -48,4 +48,6 @@
     <string name="configuracion_touchid_resumen">Use Touch ID to sign in</string>
     <string name="configuracion_vibrador_titulo">Activate vibrator</string>
     <string name="configuracion_vibrador_resumen">Use vibration effects</string>
+    <string name="login_hola">Hello</string>
+    <string name="login_nousuario">Not</string>
 </resources>
