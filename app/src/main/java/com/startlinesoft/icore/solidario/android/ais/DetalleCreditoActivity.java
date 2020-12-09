@@ -1,14 +1,65 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
-public class DetalleCreditoActivity extends AppCompatActivity {
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.CreditoDetalleAdapter;
+import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityDetallecreditoBinding;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
+import com.startlinesoft.icore.solidario.api.models.DetalleCredito;
+import com.startlinesoft.icore.solidario.api.models.MovimientoCredito;
+
+import java.util.List;
+
+public class DetalleCreditoActivity extends ICoreAppCompatActivity implements View.OnClickListener {
+
+    private ActivityDetallecreditoBinding bnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detallecredito);
+        this.bnd = ActivityDetallecreditoBinding.inflate(this.getLayoutInflater());
+        this.setContentView(this.bnd.getRoot());
+
+        //Se valida token activo
+        this.validarLogin();
+
+        DetalleCredito detalleCredito = (DetalleCredito) getIntent().getSerializableExtra("CREDITO");
+
+        this.setSupportActionBar(bnd.tbToolbar);
+        this.bnd.tbToolbar.setNavigationIcon(R.drawable.ic_angle_left);
+        this.bnd.tbToolbar.setNavigationOnClickListener(v -> this.finish());
+
+        this.bnd.ivImagen.setImageBitmap(ICoreGeneral.getSocioImagen());
+        this.bnd.ivImagen.setOnClickListener(this);
+
+        this.bnd.tvNombreModalidad.setText(detalleCredito.getModalidad());
+
+        bnd.rvCreditosDetalle.setLayoutManager(new LinearLayoutManager(this));
+        List<MovimientoCredito> movimientosCreditos = detalleCredito.getMovimientosCreditos();
+        bnd.rvCreditosDetalle.setAdapter(new CreditoDetalleAdapter(movimientosCreditos));
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        removerTituloBarra();
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+
+        // Ir a info de cuenta
+        if (v.equals(bnd.ivImagen)) {
+            Intent i = new Intent(this, InfoActivity.class);
+            startActivity(i);
+            return;
+        }
     }
 }
