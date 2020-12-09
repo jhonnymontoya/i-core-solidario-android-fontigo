@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/configuracion_seguridad">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            app:key="touchid"
+            app:summary="@string/configuracion_touchid_resumen"
+            app:title="@string/configuracion_touchid_titulo" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/configuracion_vibrador">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            app:key="vibrador"
+            app:summary="@string/configuracion_vibrador_resumen"
+            app:title="@string/configuracion_vibrador_titulo" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
