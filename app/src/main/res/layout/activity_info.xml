@@ -110,7 +110,7 @@
                 android:layout_marginTop="16dp"
                 android:background="?android:attr/listDivider" />
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/btnPerfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                 android:drawablePadding="15dp"
                 android:text="@string/perfil" />
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/btnBeneficiarios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
                 android:drawablePadding="15dp"
                 android:text="@string/beneficiarios" />
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/btnActualizarPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -143,7 +143,7 @@
                 android:drawablePadding="15dp"
                 android:text="@string/actualizar_clave" />
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/btnSalir"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -172,13 +172,33 @@
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/btnAcercaDe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/info_button"
             android:text="@string/acerca_de" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/progressBar"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/blanco"
+            android:indeterminateTintMode="multiply" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

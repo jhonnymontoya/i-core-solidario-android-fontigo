@@ -69,6 +69,7 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
 
         // Salir
         if (v.equals(bnd.btnSalir)) {
+            this.bnd.progressBar.setVisibility(View.VISIBLE);
             logout();
             return;
         }
