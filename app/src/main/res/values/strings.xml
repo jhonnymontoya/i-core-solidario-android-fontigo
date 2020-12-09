@@ -42,4 +42,10 @@
     <string name="acerca_de">About</string>
     <string name="codeudas">Codeudas</string>
     <string name="configuracion">Settings</string>
+    <string name="configuracion_seguridad">Security</string>
+    <string name="configuracion_vibrador">Vibrator</string>
+    <string name="configuracion_touchid_titulo">Use Touch ID</string>
+    <string name="configuracion_touchid_resumen">Use Touch ID to sign in</string>
+    <string name="configuracion_vibrador_titulo">Activate vibrator</string>
+    <string name="configuracion_vibrador_resumen">Use vibration effects</string>
 </resources>

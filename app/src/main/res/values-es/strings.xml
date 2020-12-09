@@ -41,4 +41,10 @@
     <string name="acerca_de">Acerca de</string>
     <string name="codeudas">Codeudas</string>
     <string name="configuracion">Configuración</string>
+    <string name="configuracion_seguridad">Seguridad</string>
+    <string name="configuracion_vibrador">Vibrador</string>
+    <string name="configuracion_touchid_titulo">Usar Touch ID</string>
+    <string name="configuracion_touchid_resumen">Usa el Touch ID para ingresar</string>
+    <string name="configuracion_vibrador_titulo">Activar vibrador</string>
+    <string name="configuracion_vibrador_resumen">Usar efectos de vibración</string>
 </resources>
