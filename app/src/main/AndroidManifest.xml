@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ais">
         <activity
+            android:name=".RecaudosActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".DetalleCreditoActivity"
             android:screenOrientation="portrait" />
         <activity
