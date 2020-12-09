@@ -22,7 +22,7 @@
     <string name="accion_solicitar_credito">Solicitar crédito</string>
     <string name="no_existen_registros_para_mostrar">No existen registros para mostrar</string>
     <string name="ahorros_generales">Generales</string>
-    <string name="ahorros_programados">Programados</string>
+    <string name="ahorros_programados">Programado</string>
     <string name="sdats">SDATs</string>
     <string name="tasa_ea">Tasa E.A.</string>
     <string name="deposito">Deposito</string>
