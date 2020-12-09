@@ -116,6 +116,13 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
             startActivity(i);
             return;
         }
+
+        // Ir a Recaudos
+        if(v.equals(bnd.cvRecaudos)) {
+            Intent i = new Intent(this, RecaudosActivity.class);
+            startActivity(i);
+            return;
+        }
     }
 
     @Override
