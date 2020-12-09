@@ -1,12 +1,12 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TabHost;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.AhorroGeneralAdapter;
 import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.AhorroProgramadoAdapter;
@@ -64,38 +64,35 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
         Ahorros ahorros = ICoreGeneral.getSocio().getAhorros();
 
         //Ahorros generales
-        if(ahorros.getAhorrosGenerales().size() > 0) {
+        if (ahorros.getAhorrosGenerales().size() > 0) {
             this.bnd.rvAhorrosGenerales.setLayoutManager(new LinearLayoutManager(this));
             List<AhorroGeneral> ahorrosGenerales = ahorros.getAhorrosGenerales();
             AhorroGeneralAdapter aga = new AhorroGeneralAdapter(ahorrosGenerales);
             aga.setOnItemClickListener(this);
             this.bnd.rvAhorrosGenerales.setAdapter(aga);
-        }
-        else {
+        } else {
             this.bnd.tvGeneralesSinRegistros.setVisibility(View.VISIBLE);
         }
 
         //Ahorros programados
-        if(ahorros.getAhorrosProgramados().size() > 0) {
+        if (ahorros.getAhorrosProgramados().size() > 0) {
             this.bnd.rvAhorrosProgramados.setLayoutManager(new LinearLayoutManager(this));
             List<AhorroProgramado> ahorrosProgramados = ahorros.getAhorrosProgramados();
             AhorroProgramadoAdapter apa = new AhorroProgramadoAdapter(ahorrosProgramados);
             apa.setOnItemClickListener(this);
             this.bnd.rvAhorrosProgramados.setAdapter(apa);
-        }
-        else {
+        } else {
             this.bnd.tvProgramadosSinRegistros.setVisibility(View.VISIBLE);
         }
 
         //SDATs
-        if(ahorros.getSdATs().size() > 0) {
+        if (ahorros.getSdATs().size() > 0) {
             this.bnd.rvSDAT.setLayoutManager(new LinearLayoutManager(this));
             sdats = ahorros.getSdATs();
             SDATAdapter sa = new SDATAdapter(sdats);
             sa.setOnItemClickListener(this);
             this.bnd.rvSDAT.setAdapter(sa);
-        }
-        else {
+        } else {
             this.bnd.tvSDATSinRegistros.setVisibility(View.VISIBLE);
         }
     }
@@ -111,10 +108,27 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
         if (this.isVibradorActivado()) {
             this.vibrar();
         }
+
+        //Se valida token activo
+        this.validarLogin();
+
+        if (tipo == TipoRecyclerViewItem.SDAT) {
+            SDAT sdat = sdats.get(posicion);
+            Intent i = new Intent(getBaseContext(), DetalleSDATActivity.class);
+            i.putExtra("SDAT", sdat);
+            startActivity(i);
+        }
     }
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
+
+        // Ir a info de cuenta
+        if (v.equals(bnd.ivImagen)) {
+            Intent i = new Intent(this, InfoActivity.class);
+            startActivity(i);
+            return;
+        }
     }
 }
