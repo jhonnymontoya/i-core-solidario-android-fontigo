@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityDashboardBinding;
@@ -73,9 +74,6 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
                 this.bnd.tvTotalAplicado.setText("$0");
                 this.bnd.tvFechaAplicacion.setText("00-00-0000");
             }
-
-            //TODO: Aqui lógica de guardar en preferencias usuario para el login
-
         });
 
         this.bnd.ivImagen.setOnClickListener(this);
@@ -90,6 +88,12 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
             this.bnd.bnvMenu.getMenu().getItem(i).setChecked(true);
             this.bnd.bnvMenu.getMenu().getItem(i).setOnMenuItemClickListener(this);
         }
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        this.guardarDatosDeUsuarioLogin();
     }
 
     @Override

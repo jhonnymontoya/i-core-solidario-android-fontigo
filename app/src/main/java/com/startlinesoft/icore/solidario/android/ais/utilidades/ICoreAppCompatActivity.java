@@ -9,6 +9,7 @@ import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Base64;
 import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
@@ -20,6 +21,7 @@ import com.startlinesoft.icore.solidario.ApiException;
 import com.startlinesoft.icore.solidario.android.ais.LoginActivity;
 import com.startlinesoft.icore.solidario.android.ais.R;
 import com.startlinesoft.icore.solidario.api.LoginApi;
+import com.startlinesoft.icore.solidario.api.models.Socio;
 
 public class ICoreAppCompatActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -55,16 +57,17 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
         ApiClient cliente = ICoreApiClient.getApiClient();
         LoginApi loginApi = new LoginApi(cliente);
 
-        Thread t = new Thread(() ->{
+        Thread t = new Thread(() -> {
             try {
                 loginApi.logout();
-            } catch (ApiException e) {
+            } catch (ApiException ignored) {
             }
         });
         t.start();
         try {
             t.join();
-        } catch (InterruptedException ignored) {}
+        } catch (InterruptedException ignored) {
+        }
         this.removerToken();
         Intent i = new Intent(getBaseContext(), LoginActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -177,15 +180,15 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
     protected void inicializarPreferencias() {
         SharedPreferences sp = this.getAlmacenPreferencias();
         SharedPreferences.Editor editor = null;
-        if(!sp.contains(ICoreConstantes.PREFERENCE_VIBRADOR)){
+        if (!sp.contains(ICoreConstantes.PREFERENCE_VIBRADOR)) {
             editor = sp.edit();
             editor.putBoolean(ICoreConstantes.PREFERENCE_VIBRADOR, true);
         }
-        if(!sp.contains(ICoreConstantes.PREFERENCE_TOUCHID)){
+        if (!sp.contains(ICoreConstantes.PREFERENCE_TOUCHID)) {
             editor = sp.edit();
             editor.putBoolean(ICoreConstantes.PREFERENCE_TOUCHID, false);
         }
-        if(editor != null){
+        if (editor != null) {
             editor.apply();
         }
     }
@@ -194,6 +197,88 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         if (this.isVibradorActivado()) {
             this.vibrar();
+        }
+    }
+
+    /**
+     * Almacena los datos del usuario en el almacen interno
+     */
+    protected void guardarDatosDeUsuarioLogin() {
+        Socio socio = ICoreGeneral.getSocio();
+        if (socio == null) {
+            return;
+        }
+
+        //Se limpian datos previos
+        this.limpiarDatosDeUsuarioLogin();
+
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        SharedPreferences.Editor editor = sp.edit();
+
+        String usuario = socio.getIdentificacion().replaceAll("[,\\.]", "");
+        editor.putString(ICoreConstantes.LOGIN_USUARIO, usuario);
+
+        editor.putString(ICoreConstantes.LOGIN_NOMBRE, socio.getPrimerNombre());
+
+        if (socio.getEsImagenReal()) {
+            String imagen = Base64.encodeToString(socio.getImagen(), Base64.DEFAULT);
+            editor.putString(ICoreConstantes.LOGIN_AVATAR, imagen);
+        }
+
+        editor.apply();
+
+    }
+
+    protected boolean existenDatosDeUsuarioLogin() {
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        return sp.contains(ICoreConstantes.LOGIN_USUARIO) && sp.contains(ICoreConstantes.LOGIN_NOMBRE);
+    }
+
+    protected boolean existeAvatarDeUsuarioLogin() {
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        return sp.contains(ICoreConstantes.LOGIN_AVATAR);
+    }
+
+    protected byte[] getAvatarDeUsuarioLogin() {
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        return Base64.decode(sp.getString(ICoreConstantes.LOGIN_AVATAR, null), Base64.DEFAULT);
+    }
+
+    protected String getUsuarioDeUsuarioLogin() {
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        return sp.getString(ICoreConstantes.LOGIN_USUARIO, null);
+    }
+
+    protected String getNombreDeUsuarioLogin() {
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        return sp.getString(ICoreConstantes.LOGIN_NOMBRE, null);
+    }
+
+    /**
+     * Limpia del almacen de preferencias datos de logueo del usuario
+     */
+    protected void limpiarDatosDeUsuarioLogin() {
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        SharedPreferences.Editor editor = sp.edit();
+        boolean borrar = false;
+
+        if (sp.contains(ICoreConstantes.LOGIN_USUARIO)) {
+            editor.remove(ICoreConstantes.LOGIN_USUARIO);
+            borrar = true;
+        }
+
+        if (sp.contains(ICoreConstantes.LOGIN_NOMBRE)) {
+            editor.remove(ICoreConstantes.LOGIN_NOMBRE);
+            borrar = true;
+        }
+
+        if (sp.contains(ICoreConstantes.LOGIN_AVATAR)) {
+            editor.remove(ICoreConstantes.LOGIN_AVATAR);
+            borrar = true;
+        }
+
+        if (borrar) {
+            editor.apply();
         }
     }
 }
