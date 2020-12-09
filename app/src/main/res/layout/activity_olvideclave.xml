@@ -43,8 +43,8 @@
 
                 <ImageView
                     android:id="@+id/ivLogo"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
                     android:contentDescription="@string/app_name"
                     android:src="@mipmap/ic_launcher" />
             </LinearLayout>
