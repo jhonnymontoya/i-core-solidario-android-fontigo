@@ -107,6 +107,9 @@ public class CreditosActivity extends ICoreAppCompatActivity implements View.OnC
 
     @Override
     public void onRecyclerViewItemClick(View v, int posicion, Integer id, TipoRecyclerViewItem tipo) {
+        if (this.isVibradorActivado()) {
+            this.vibrar();
+        }
 
         //Se valida token activo
         this.validarLogin();
