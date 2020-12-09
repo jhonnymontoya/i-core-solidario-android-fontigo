@@ -6,4 +6,179 @@
     android:layout_height="match_parent"
     tools:context=".InfoActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/blanco"
+        app:elevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="57dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tbToolbar"
+                android:layout_width="0dp"
+                android:layout_height="?actionBarSize"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/footer"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Imagen del socio -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="5dp">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    app:cardCornerRadius="80dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                    <ImageView
+                        android:id="@+id/ivImagen"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/descripcion_imagen" />
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Fin de la imagen del socio -->
+
+            <!-- Nombre del socio -->
+            <TextView
+                android:id="@+id/tvNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/calibri"
+                android:text="@null"
+                android:textColor="@color/negro"
+                android:textAlignment="center"
+                android:textSize="40sp"
+                android:textStyle="bold"/>
+            <!-- Fin del nombre del socio -->
+
+            <!-- Identificación del socio -->
+            <TextView
+                android:id="@+id/tvIdentificacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/calibri"
+                android:text="@null"
+                android:textAlignment="center"
+                android:textSize="24sp"/>
+            <!-- Fin de la identificación del socio -->
+
+            <!-- Nombre de la entidad -->
+            <TextView
+                android:id="@+id/tvNombreEntidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/calibri"
+                android:text="@null"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+            <!-- Fin de nombre de la entidad -->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="?android:attr/listDivider" />
+
+            <Button
+                android:id="@+id/btnPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textAlignment="textStart"
+                style="@style/info_button"
+                android:drawableStart="@drawable/ic_perfil"
+                android:drawablePadding="15dp"
+                android:text="@string/perfil" />
+
+            <Button
+                android:id="@+id/btnBeneficiarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textAlignment="textStart"
+                style="@style/info_button"
+                android:drawableStart="@drawable/ic_beneficiarios"
+                android:drawablePadding="15dp"
+                android:text="@string/beneficiarios" />
+
+            <Button
+                android:id="@+id/btnActualizarPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textAlignment="textStart"
+                style="@style/info_button"
+                android:drawableStart="@drawable/ic_cambiar_password"
+                android:drawablePadding="15dp"
+                android:text="@string/actualizar_clave" />
+
+            <Button
+                android:id="@+id/btnSalir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textAlignment="textStart"
+                style="@style/info_button"
+                android:drawableStart="@drawable/ic_logout"
+                android:drawablePadding="15dp"
+                android:text="@string/logout" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <Button
+            android:id="@+id/btnAcercaDe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/info_button"
+            android:text="@string/acerca_de" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
