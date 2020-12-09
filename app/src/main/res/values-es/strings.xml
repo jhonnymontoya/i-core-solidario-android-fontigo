@@ -25,4 +25,13 @@
     <string name="ahorros_programados">Programados</string>
     <string name="sdats">SDATs</string>
     <string name="tasa_ea">Tasa E.A.</string>
+    <string name="deposito">Deposito</string>
+    <string name="tipo">Tipo</string>
+    <string name="valor">Valor</string>
+    <string name="fecha_constitucion">Fecha de constitución</string>
+    <string name="plazo_dias">Plazo (días)</string>
+    <string name="fecha_vencimiento">Fecha de vencimiento</string>
+    <string name="saldo">Saldo</string>
+    <string name="intereses_reconocidos">Intereses reconocidos</string>
+    <string name="estado">Estado</string>
 </resources>
