@@ -96,8 +96,15 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
     public void onClick(View v) {
         super.onClick(v);
 
+        // Ir a info de cuenta
+        if (v.equals(bnd.ivImagen)) {
+            Intent i = new Intent(this, InfoActivity.class);
+            startActivity(i);
+            return;
+        }
+
         // Ir a Ahorros
-        if(v.equals(bnd.cvAhorros)) {
+        if (v.equals(bnd.cvAhorros)) {
             Intent i = new Intent(this, AhorrosActivity.class);
             startActivity(i);
             return;

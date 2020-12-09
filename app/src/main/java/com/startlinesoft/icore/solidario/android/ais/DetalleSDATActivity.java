@@ -3,6 +3,7 @@ package com.startlinesoft.icore.solidario.android.ais;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -56,5 +57,12 @@ public class DetalleSDATActivity extends ICoreAppCompatActivity implements View.
     @Override
     public void onClick(View v) {
         super.onClick(v);
+
+        // Ir a info de cuenta
+        if(v.equals(bnd.ivImagen)) {
+            Intent i = new Intent(this, InfoActivity.class);
+            startActivity(i);
+            return;
+        }
     }
 }
