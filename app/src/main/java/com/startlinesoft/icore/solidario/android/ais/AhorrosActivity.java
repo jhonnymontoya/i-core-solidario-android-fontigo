@@ -8,17 +8,21 @@ import android.widget.TabHost;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.startlinesoft.icore.solidario.ApiException;
 import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.AhorroGeneralAdapter;
 import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.AhorroProgramadoAdapter;
 import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.SDATAdapter;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityAhorrosBinding;
 import com.startlinesoft.icore.solidario.android.ais.enums.TipoRecyclerViewItem;
 import com.startlinesoft.icore.solidario.android.ais.listeners.ICoreRecyclerViewItemListener;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreApiClient;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
+import com.startlinesoft.icore.solidario.api.AhorrosApi;
 import com.startlinesoft.icore.solidario.api.models.AhorroGeneral;
 import com.startlinesoft.icore.solidario.api.models.AhorroProgramado;
 import com.startlinesoft.icore.solidario.api.models.Ahorros;
+import com.startlinesoft.icore.solidario.api.models.DetalleAhorro;
 import com.startlinesoft.icore.solidario.api.models.SDAT;
 
 import java.util.List;
@@ -117,6 +121,36 @@ public class AhorrosActivity extends ICoreAppCompatActivity implements View.OnCl
             Intent i = new Intent(getBaseContext(), DetalleSDATActivity.class);
             i.putExtra("SDAT", sdat);
             startActivity(i);
+        }
+
+        if (tipo == TipoRecyclerViewItem.AHORRO_PROGRAMADO || tipo == TipoRecyclerViewItem.AHORRO_GENERAL) {
+            AhorrosApi ahorrosApi = new AhorrosApi(ICoreApiClient.getApiClient());
+            bnd.progressBar.setVisibility(View.VISIBLE);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        DetalleAhorro detalleAhorro = ahorrosApi.obtenerAhorro(id);
+                        bnd.progressBar.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                bnd.progressBar.setVisibility(View.GONE);
+                                Intent i = new Intent(getBaseContext(), DetalleAhorroActivity.class);
+                                i.putExtra("AHORRO", detalleAhorro);
+                                startActivity(i);
+                            }
+                        });
+                    } catch (ApiException e) {
+                        bnd.progressBar.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                bnd.progressBar.setVisibility(View.GONE);
+                            }
+                        });
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         }
     }
 
