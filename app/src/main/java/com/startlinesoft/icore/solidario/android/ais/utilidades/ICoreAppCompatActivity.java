@@ -54,10 +54,17 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
 
         ApiClient cliente = ICoreApiClient.getApiClient();
         LoginApi loginApi = new LoginApi(cliente);
+
+        Thread t = new Thread(() ->{
+            try {
+                loginApi.logout();
+            } catch (ApiException e) {
+            }
+        });
+        t.start();
         try {
-            loginApi.logout();
-        } catch (ApiException ignored) {
-        }
+            t.join();
+        } catch (InterruptedException ignored) {}
         this.removerToken();
         Intent i = new Intent(getBaseContext(), LoginActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
