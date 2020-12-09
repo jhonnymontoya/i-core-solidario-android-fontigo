@@ -144,6 +144,17 @@
                 android:text="@string/actualizar_clave" />
 
             <android.widget.Button
+                android:id="@+id/btnConfiguracion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textAlignment="textStart"
+                style="@style/info_button"
+                android:drawableStart="@drawable/ic_configuracion"
+                android:drawablePadding="15dp"
+                android:text="@string/configuracion" />
+
+            <android.widget.Button
                 android:id="@+id/btnSalir"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

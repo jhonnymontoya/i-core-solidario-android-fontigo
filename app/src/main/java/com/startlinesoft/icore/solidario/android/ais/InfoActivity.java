@@ -1,5 +1,6 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -38,6 +39,7 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
         bnd.btnPerfil.setOnClickListener(this);
         bnd.btnBeneficiarios.setOnClickListener(this);
         bnd.btnActualizarPassword.setOnClickListener(this);
+        bnd.btnConfiguracion.setOnClickListener(this);
         bnd.btnSalir.setOnClickListener(this);
         bnd.btnAcercaDe.setOnClickListener(this);
     }
@@ -64,6 +66,13 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
 
         // Actualizar contraseña
         if (v.equals(bnd.btnActualizarPassword)) {
+            return;
+        }
+
+        // Configuración
+        if (v.equals(bnd.btnConfiguracion)) {
+            Intent i = new Intent(this, ConfiguracionActivity.class);
+            this.startActivity(i);
             return;
         }
 
