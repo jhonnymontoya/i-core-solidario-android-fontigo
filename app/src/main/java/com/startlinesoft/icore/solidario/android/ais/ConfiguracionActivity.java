@@ -23,6 +23,7 @@ public class ConfiguracionActivity extends ICoreAppCompatActivity {
         this.validarLogin();
 
         this.setSupportActionBar(this.bnd.tbToolbar);
+        this.getSupportActionBar().setTitle(R.string.configuracion);
         this.bnd.tbToolbar.setNavigationIcon(R.drawable.ic_angle_left);
         this.bnd.tbToolbar.setNavigationOnClickListener(v -> this.finish());
 
