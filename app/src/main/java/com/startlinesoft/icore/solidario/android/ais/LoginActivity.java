@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Toast;
 
 import com.startlinesoft.icore.solidario.ApiClient;
 import com.startlinesoft.icore.solidario.ApiException;
@@ -22,6 +23,9 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
 
     private ActivityLoginBinding bnd;
 
+    private boolean usuarioVisible = true;
+    private boolean passwordVisible = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +35,46 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
         this.bnd.etUser.addTextChangedListener(this.getTextWatcher());
         this.bnd.etPassword.addTextChangedListener(this.getTextWatcher());
         this.bnd.btnLogin.setOnClickListener(this);
+        this.bnd.tvNoUsuario.setOnClickListener(this);
         this.bnd.tvForgotPassword.setOnClickListener(this);
+
+        this.prepararLogin();
+    }
+
+    private void prepararLogin(){
+        if(!this.existenDatosDeUsuarioLogin()){
+            return;
+        }
+
+        String nombre = this.getNombreDeUsuarioLogin();
+        String mensajeNombre = String.format(
+                "%s %s",
+                this.getString(R.string.login_hola),
+                nombre
+        );
+        String mensajeNoUsuario = String.format(
+                "%s %s",
+                this.getString(R.string.login_nousuario),
+                nombre
+        );
+
+        //Caso cuando ya existe usuario pero no touchId
+        this.usuarioVisible = false;
+        this.bnd.etUser.setVisibility(View.GONE);
+        this.bnd.tvNombre.setText(mensajeNombre);
+        this.bnd.tvNombre.setVisibility(View.VISIBLE);
+        this.bnd.tvNoUsuario.setText(mensajeNoUsuario);
+        this.bnd.tvNoUsuario.setVisibility(View.VISIBLE);
+
+
+        //Imagen del asociado
+        if(this.existeAvatarDeUsuarioLogin()) {
+            this.bnd.ivAvatarContainer.setVisibility(View.VISIBLE);
+            this.bnd.ivImagen.setImageBitmap(this.getAvatarDeUsuarioLogin());
+            this.bnd.ivLogo.setVisibility(View.GONE);
+        }
+
+        this.actualizarEstadoBotonSubmit();
     }
 
     private TextWatcher getTextWatcher() {
@@ -42,15 +85,28 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int usuario = bnd.etUser.getText().toString().length();
-                int password = bnd.etPassword.getText().toString().length();
-                bnd.btnLogin.setEnabled(usuario > 0 && password > 0);
+                actualizarEstadoBotonSubmit();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
         };
+    }
+
+    private void actualizarEstadoBotonSubmit(){
+        if(this.usuarioVisible && this.passwordVisible){
+            int usuario = this.bnd.etUser.getText().toString().length();
+            int password = this.bnd.etPassword.getText().toString().length();
+            this.bnd.btnLogin.setEnabled(usuario > 0 && password > 0);
+        }
+        else if(this.passwordVisible){
+            int password = this.bnd.etPassword.getText().toString().length();
+            this.bnd.btnLogin.setEnabled(password > 0);
+        }
+        else{
+            this.bnd.btnLogin.setEnabled(true);
+        }
     }
 
     @Override
@@ -63,9 +119,14 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
             ApiClient cliente = ICoreApiClient.getApiClient();
             LoginApi loginApi = new LoginApi(cliente);
 
+            String usuario = this.usuarioVisible ?
+                    this.bnd.etUser.getText().toString() : this.getUsuarioDeUsuarioLogin();
+            String password = this.passwordVisible ?
+                    this.bnd.etPassword.getText().toString() : "pass desde huella";
+
             LoginInfo loginInfo = new LoginInfo();
-            loginInfo.setUsuario(bnd.etUser.getText().toString());
-            loginInfo.setPassword(bnd.etPassword.getText().toString());
+            loginInfo.setUsuario(usuario);
+            loginInfo.setPassword(password);
 
             bnd.progressBar.setVisibility(View.VISIBLE);
             new Thread(() -> {
@@ -112,6 +173,11 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
             }).start();
         }
 
+        if (v.equals(this.bnd.tvNoUsuario)) {
+            this.bnd.tvError.setVisibility(View.GONE);
+            this.noUsuario();
+        }
+
         if (v.equals(this.bnd.tvForgotPassword)) {
             this.bnd.tvError.setVisibility(View.GONE);
             String usuario = this.bnd.etUser.getText().toString().trim();
@@ -119,5 +185,20 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
             i.putExtra("USUARIO", usuario);
             startActivity(i);
         }
+    }
+
+    private void noUsuario(){
+        this.limpiarDatosDeUsuarioLogin();
+
+        this.usuarioVisible = true;
+        this.passwordVisible = true;
+
+        this.bnd.etUser.setVisibility(View.VISIBLE);
+        this.bnd.etPassword.setVisibility(View.VISIBLE);
+        this.bnd.tvNombre.setVisibility(View.GONE);
+        this.bnd.tvNoUsuario.setVisibility(View.GONE);
+
+        this.bnd.ivAvatarContainer.setVisibility(View.GONE);
+        this.bnd.ivLogo.setVisibility(View.VISIBLE);
     }
 }

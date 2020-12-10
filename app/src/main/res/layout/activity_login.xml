@@ -43,10 +43,35 @@
 
                 <ImageView
                     android:id="@+id/ivLogo"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
                     android:contentDescription="@string/app_name"
                     android:src="@mipmap/ic_launcher"/>
+
+                <!-- Imagen del socio -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ivAvatarContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
+                    android:visibility="gone">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        app:cardCornerRadius="80dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+                        <ImageView
+                            android:id="@+id/ivImagen"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@string/descripcion_imagen" />
+                    </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <!-- Fin de la imagen del socio -->
             </LinearLayout>
 
             <LinearLayout
@@ -55,6 +80,19 @@
                 android:gravity="center_horizontal"
                 android:layout_weight="0.6"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="25dp"
+                    android:padding="1dp"
+                    android:text=""
+                    android:textColor="@color/blanco"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/calibri"
+                    android:textAlignment="center"
+                    android:visibility="gone"/>
 
                 <EditText
                     android:id="@+id/etUser"
@@ -100,6 +138,18 @@
                     android:text="@string/login_login"
                     android:textAllCaps="false"
                     android:textColor="@color/blanco"/>
+
+                <TextView
+                    android:id="@+id/tvNoUsuario"
+                    style="@style/Login_Link"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoLink="all"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/tvForgotPassword"

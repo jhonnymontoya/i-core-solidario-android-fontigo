@@ -74,6 +74,8 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
                 this.bnd.tvTotalAplicado.setText("$0");
                 this.bnd.tvFechaAplicacion.setText("00-00-0000");
             }
+
+            this.guardarDatosDeUsuarioLogin();
         });
 
         this.bnd.ivImagen.setOnClickListener(this);
