@@ -3,6 +3,8 @@ package com.startlinesoft.icore.solidario.android.ais.utilidades;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -239,9 +241,10 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
         return sp.contains(ICoreConstantes.LOGIN_AVATAR);
     }
 
-    protected byte[] getAvatarDeUsuarioLogin() {
+    protected Bitmap getAvatarDeUsuarioLogin() {
         SharedPreferences sp = this.getAlmacenPreferencias();
-        return Base64.decode(sp.getString(ICoreConstantes.LOGIN_AVATAR, null), Base64.DEFAULT);
+        byte[] imagen = Base64.decode(sp.getString(ICoreConstantes.LOGIN_AVATAR, null), Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(imagen, 0, imagen.length);
     }
 
     protected String getUsuarioDeUsuarioLogin() {
