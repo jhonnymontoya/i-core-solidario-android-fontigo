@@ -233,6 +233,22 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
 
     }
 
+    protected void guardarPasswordEncriptadoDeUsuarioLogin(byte[] mensajeEncriptado, byte[] vectorIV) {
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        SharedPreferences.Editor editor = sp.edit();
+
+        String password = Base64.encodeToString(mensajeEncriptado, Base64.DEFAULT);
+        editor.putString(ICoreConstantes.LOGIN_PASSWORD, password);
+
+        String vector = Base64.encodeToString(vectorIV, Base64.DEFAULT);
+        editor.putString(ICoreConstantes.LOGIN_VECTORIV, vector);
+
+        editor.putBoolean(ICoreConstantes.PREFERENCE_TOUCHID, true);
+
+        editor.apply();
+
+    }
+
     protected boolean existenDatosDeUsuarioLogin() {
         SharedPreferences sp = this.getAlmacenPreferencias();
         return sp.contains(ICoreConstantes.LOGIN_USUARIO) && sp.contains(ICoreConstantes.LOGIN_NOMBRE);
@@ -333,10 +349,17 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
     }
 
     protected void validarDataTouchId(){
-        boolean valido = !ICoreKeyStore.llaveSecretaActiva() ||
-                (!this.existeBiometrico() && this.getTouchIdActivo());
+        if(!ICoreKeyStore.llaveSecretaActiva()){
+            //Se genera una nueva llave
+            ICoreKeyStore.generarLlaveSecreta();
 
-        if(!valido){
+            //Si el TouchID se encuentra activado, se desactiva
+            //ya que la llave secreta ha quedado invalidada
+            this.limpiarDatosDeTouchId();
+
+        }
+
+        if(!this.existeBiometrico() || !this.getTouchIdActivo()){
             //Se genera una nueva llave
             ICoreKeyStore.generarLlaveSecreta();
 
