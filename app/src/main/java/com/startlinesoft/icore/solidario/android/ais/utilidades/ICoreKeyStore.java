@@ -18,7 +18,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
-public class ICoreEncripccion {
+public class ICoreKeyStore {
 
     /**
      * Retorna los parametros con los cuales se debe crear la llave secreta
@@ -28,7 +28,7 @@ public class ICoreEncripccion {
     private static KeyGenParameterSpec generarParametros() {
         int propositos = KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT;
         return new KeyGenParameterSpec
-                .Builder(ICoreEncripccion.getAlias(), propositos)
+                .Builder(ICoreKeyStore.getAlias(), propositos)
                 .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
                 .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
                 .setUserAuthenticationRequired(true)
@@ -40,7 +40,7 @@ public class ICoreEncripccion {
      * Genera una llave secreta
      */
     public static void generarLlaveSecreta() {
-        KeyGenParameterSpec keyGenParameterSpec = ICoreEncripccion.generarParametros();
+        KeyGenParameterSpec keyGenParameterSpec = ICoreKeyStore.generarParametros();
         KeyGenerator keyGenerator = null;
         try {
             keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
@@ -63,7 +63,7 @@ public class ICoreEncripccion {
         try {
             keyStore = KeyStore.getInstance("AndroidKeyStore");
             keyStore.load(null);
-            return (SecretKey) keyStore.getKey(ICoreEncripccion.getAlias(), null);
+            return (SecretKey) keyStore.getKey(ICoreKeyStore.getAlias(), null);
         } catch (KeyStoreException e) {
         } catch (CertificateException e) {
         } catch (UnrecoverableKeyException e) {
@@ -100,7 +100,7 @@ public class ICoreEncripccion {
         try {
             keyStore = KeyStore.getInstance("AndroidKeyStore");
             keyStore.load(null);
-            if (keyStore.isKeyEntry(ICoreEncripccion.getAlias())) {
+            if (keyStore.isKeyEntry(ICoreKeyStore.getAlias())) {
                 return true;
             }
             return false;
@@ -116,8 +116,8 @@ public class ICoreEncripccion {
     }
 
     private static boolean llavePrivadaActiva() {
-        SecretKey secretKey = ICoreEncripccion.getLlaveSecreta();
-        Cipher cipher = ICoreEncripccion.getCipher();
+        SecretKey secretKey = ICoreKeyStore.getLlaveSecreta();
+        Cipher cipher = ICoreKeyStore.getCipher();
         try {
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
             return true;
@@ -127,7 +127,7 @@ public class ICoreEncripccion {
     }
 
     public static boolean llaveSecretaActiva() {
-        return ICoreEncripccion.hasSecretKey() && ICoreEncripccion.llavePrivadaActiva();
+        return ICoreKeyStore.hasSecretKey() && ICoreKeyStore.llavePrivadaActiva();
     }
 
     /**
