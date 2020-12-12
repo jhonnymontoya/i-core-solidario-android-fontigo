@@ -4,22 +4,19 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.biometric.BiometricManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
+import androidx.preference.SwitchPreference;
 
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreConstantes;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
 
 import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
 import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
@@ -28,12 +25,16 @@ public class ConfiguracionFragment extends PreferenceFragmentCompat implements P
 
     private Context context;
     private AlertDialog.Builder alert;
+    private Preference touchIdPreference;
+
+    private final int REQUESTCODE_ENROLL = 1;
+    private final int REQUESTCODE_ACTIVARTOUCHID = 2;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         this.setPreferencesFromResource(R.xml.configuraciones, rootKey);
 
-        Preference touchIdPreference = this.findPreference(ICoreConstantes.PREFERENCE_TOUCHID);
+        this.touchIdPreference = this.findPreference(ICoreConstantes.PREFERENCE_TOUCHID);
         touchIdPreference.setOnPreferenceChangeListener(this);
 
         if (!this.existeBiometrico()) {
@@ -52,18 +53,28 @@ public class ConfiguracionFragment extends PreferenceFragmentCompat implements P
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        //Si el biometrico no se encuentra enrolado
-        //se pregunta si se desea enrolar
-        if (!this.biometricoEnrolado()) {
-            this.alert.setMessage(R.string.configuracion_alert_touchid_title)
-                    .setCancelable(true)
-                    .setPositiveButton(R.string.configuracion_alert_touchid_yes, this)
-                    .setNegativeButton(R.string.configuracion_alert_touchid_no, this)
-                    .show();
-            return false;
+        if (preference.equals(this.touchIdPreference)) {
+            if ((boolean) newValue) {
+                //Si el biometrico no se encuentra enrolado
+                //se pregunta si se desea enrolar
+                if (!this.biometricoEnrolado()) {
+                    this.alert.setMessage(R.string.configuracion_alert_touchid_title)
+                            .setCancelable(true)
+                            .setPositiveButton(R.string.configuracion_alert_touchid_yes, this)
+                            .setNegativeButton(R.string.configuracion_alert_touchid_no, this)
+                            .show();
+                    return false;
+                }
+
+                //Se llama a actividad para activar TouchID
+                Intent i = new Intent(this.context, ActivarTouchIDActivity.class);
+                this.startActivityForResult(i, this.REQUESTCODE_ACTIVARTOUCHID);
+            } else {
+                desactivarTouch();
+            }
+            return true;
         }
-        Toast.makeText(this.getContext(), newValue.toString(), Toast.LENGTH_SHORT).show();
-        return false;
+        return true;
     }
 
     private boolean existeBiometrico() {
@@ -92,24 +103,47 @@ public class ConfiguracionFragment extends PreferenceFragmentCompat implements P
         }
     }
 
-    public static SecretKey generateKey() throws NoSuchAlgorithmException {
-        // Generate a 256-bit key
-        final int outputKeyLength = 256;
-
-        SecureRandom secureRandom = new SecureRandom();
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-        keyGenerator.init(outputKeyLength, secureRandom);
-        SecretKey key = keyGenerator.generateKey();
-        return key;
-    }
-
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (which == DialogInterface.BUTTON_POSITIVE) {
             final Intent enroll = new Intent(Settings.ACTION_BIOMETRIC_ENROLL);
             enroll.putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED, BIOMETRIC_STRONG | DEVICE_CREDENTIAL);
-            startActivityForResult(enroll, 1);
+            startActivityForResult(enroll, this.REQUESTCODE_ENROLL);
             return;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //Resultado por activar touchID
+        if (requestCode == this.REQUESTCODE_ACTIVARTOUCHID) {
+            if (resultCode == ICoreConstantes.RESULT_OK) {
+                SwitchPreference sp = (SwitchPreference)this.touchIdPreference;
+                sp.setChecked(true);
+            }
+            else if(resultCode == ICoreConstantes.RESULT_CANCEL){
+                SwitchPreference sp = (SwitchPreference)this.touchIdPreference;
+                sp.setChecked(false);
+            }
+        }
+    }
+
+    private SharedPreferences getAlmacenPreferencias() {
+        return PreferenceManager.getDefaultSharedPreferences(this.context);
+    }
+
+    private void desactivarTouch(){
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.remove(ICoreConstantes.LOGIN_PASSWORD);
+        editor.remove(ICoreConstantes.LOGIN_PASSWORD);
+
+        editor.putBoolean(ICoreConstantes.PREFERENCE_TOUCHID, false);
+
+        editor.apply();
+
     }
 }
