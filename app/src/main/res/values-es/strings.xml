@@ -49,4 +49,7 @@
     <string name="configuracion_vibrador_resumen">Usar efectos de vibración</string>
     <string name="login_hola">Hola</string>
     <string name="login_nousuario">No soy</string>
+    <string name="configuracion_alert_touchid_title">No existen datos biometricos en el dispositivo ¿Desea crear datos biometricos?</string>
+    <string name="configuracion_alert_touchid_yes">Ir a configuración</string>
+    <string name="configuracion_alert_touchid_no">No</string>
 </resources>
