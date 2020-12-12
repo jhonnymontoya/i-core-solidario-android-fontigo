@@ -10,4 +10,7 @@ public class ICoreConstantes {
     public static final String LOGIN_USUARIO = "usuario";
     public static final String LOGIN_NOMBRE = "nombre";
     public static final String LOGIN_AVATAR = "avatar";
+
+    public static final String TOUCHID_PASSWORD = "touchid_password";
+    public static final String TOUCHID_IV = "touchid_iv";
 }
