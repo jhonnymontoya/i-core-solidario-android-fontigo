@@ -52,4 +52,8 @@
     <string name="configuracion_alert_touchid_title">No existen datos biometricos en el dispositivo ¿Desea crear datos biometricos?</string>
     <string name="configuracion_alert_touchid_yes">Ir a configuración</string>
     <string name="configuracion_alert_touchid_no">No</string>
+    <string name="activartouch_cancelar">Cancelar</string>
+    <string name="activartouch_activar">Activar Touch ID</string>
+    <string name="activartouch_mensaje">%s, digita tu contraseña para activar el Touch ID</string>
+    <string name="touchid_titulo">Biometric login</string>
 </resources>

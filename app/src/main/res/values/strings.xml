@@ -53,4 +53,8 @@
     <string name="configuracion_alert_touchid_title">There is no biometric data on the device Do you want to create biometric data?</string>
     <string name="configuracion_alert_touchid_yes">Go to settings</string>
     <string name="configuracion_alert_touchid_no">No</string>
+    <string name="activartouch_cancelar">Cancel</string>
+    <string name="activartouch_activar">Enable Touch ID</string>
+    <string name="activartouch_mensaje">%s, enter your password to activate Touch ID</string>
+    <string name="touchid_titulo">Biometric login</string>
 </resources>
