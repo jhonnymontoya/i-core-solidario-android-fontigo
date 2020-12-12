@@ -19,6 +19,8 @@ public class ConfiguracionActivity extends ICoreAppCompatActivity {
         this.bnd = ActivityConfiguracionBinding.inflate(this.getLayoutInflater());
         this.setContentView(this.bnd.getRoot());
 
+        this.validarDataTouchId();
+
         //Se valida token activo
         this.validarLogin();
 

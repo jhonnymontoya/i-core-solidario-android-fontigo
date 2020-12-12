@@ -6,6 +6,7 @@ import android.os.Handler;
 
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreApiClient;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreKeyStore;
 
 public class SplashActivity extends ICoreAppCompatActivity {
 
@@ -15,6 +16,8 @@ public class SplashActivity extends ICoreAppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         this.inicializarPreferencias();
+        this.validarDataTouchId();
+
         new Handler().postDelayed(tarea, 500);
     }
 

@@ -16,12 +16,14 @@ import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricManager;
 import androidx.preference.PreferenceManager;
 
 import com.startlinesoft.icore.solidario.ApiClient;
 import com.startlinesoft.icore.solidario.ApiException;
 import com.startlinesoft.icore.solidario.android.ais.LoginActivity;
 import com.startlinesoft.icore.solidario.android.ais.R;
+import com.startlinesoft.icore.solidario.android.ais.SplashActivity;
 import com.startlinesoft.icore.solidario.api.LoginApi;
 import com.startlinesoft.icore.solidario.api.models.Socio;
 
@@ -35,14 +37,14 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
         if (this.isSetToken()) {
             if (!ICoreApiClient.esTokenValido()) {
                 //Token existe pero no es válido o ya venció
-                Intent i = new Intent(this.getBaseContext(), LoginActivity.class);
+                Intent i = new Intent(this.getBaseContext(), SplashActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 this.removerToken();
                 this.startActivity(i);
                 this.finish();
             }
         } else {
-            Intent i = new Intent(this.getBaseContext(), LoginActivity.class);
+            Intent i = new Intent(this.getBaseContext(), SplashActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             this.removerToken();
             this.startActivity(i);
@@ -71,7 +73,7 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
         } catch (InterruptedException ignored) {
         }
         this.removerToken();
-        Intent i = new Intent(getBaseContext(), LoginActivity.class);
+        Intent i = new Intent(getBaseContext(), SplashActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
         finish();
@@ -257,6 +259,11 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
         return sp.getString(ICoreConstantes.LOGIN_NOMBRE, null);
     }
 
+    protected boolean getTouchIdActivo() {
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        return sp.getBoolean(ICoreConstantes.PREFERENCE_TOUCHID, false);
+    }
+
     /**
      * Limpia del almacen de preferencias datos de logueo del usuario
      */
@@ -282,6 +289,61 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
 
         if (borrar) {
             editor.apply();
+        }
+    }
+
+    //Funciones para validacion de Biometrico
+
+    protected boolean existeBiometrico(){
+        BiometricManager biometricManager = BiometricManager.from(this);
+        switch (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)){
+            case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED: //Si se puede pero no hay huellas activas
+            case BiometricManager.BIOMETRIC_SUCCESS:
+            case BiometricManager.BIOMETRIC_STATUS_UNKNOWN:
+                return true;
+            case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
+            case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
+            case BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED:
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * Limpia los datos de TouchID ya que la clave segura asociada al biometrico
+     * ya no es valida, esto puede deberse a que hay cambios en las huellas o
+     * que el usuario a desactivado la función de TouchId
+     */
+    protected void limpiarDatosDeTouchId() {
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        SharedPreferences.Editor editor = sp.edit();
+
+        //Se limpia cualquier contraseña encriptada si esta se encuentra
+        if (sp.contains(ICoreConstantes.TOUCHID_PASSWORD)) {
+            editor.remove(ICoreConstantes.TOUCHID_PASSWORD);
+        }
+
+        //Se limpia el vector de inicialización del cipher
+        if (sp.contains(ICoreConstantes.TOUCHID_IV)) {
+            editor.remove(ICoreConstantes.TOUCHID_IV);
+        }
+
+        editor.putBoolean(ICoreConstantes.PREFERENCE_TOUCHID, false);
+        editor.apply();
+    }
+
+    protected void validarDataTouchId(){
+        boolean valido = !ICoreKeyStore.llaveSecretaActiva() ||
+                (!this.existeBiometrico() && this.getTouchIdActivo());
+
+        if(!valido){
+            //Se genera una nueva llave
+            ICoreKeyStore.generarLlaveSecreta();
+
+            //Si el TouchID se encuentra activado, se desactiva
+            //ya que la llave secreta ha quedado invalidada
+            this.limpiarDatosDeTouchId();
+
         }
     }
 }
