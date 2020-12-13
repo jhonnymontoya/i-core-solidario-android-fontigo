@@ -59,6 +59,9 @@ public class ActivarTouchIDActivity extends ICoreAppCompatActivity implements Vi
         //Se valida token activo
         this.validarLogin();
 
+        //Se genera una nueva llave secreta
+        ICoreKeyStore.generarLlaveSecreta();
+
         this.bnd.btnLogin.setOnClickListener(this);
         this.bnd.tvCancelar.setOnClickListener(this);
 
