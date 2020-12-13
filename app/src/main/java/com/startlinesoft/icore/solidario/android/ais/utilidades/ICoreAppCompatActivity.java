@@ -327,7 +327,6 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
 
         if (borrar) {
             editor.apply();
-            this.limpiarDatosDeTouchId();
         }
 
     }
