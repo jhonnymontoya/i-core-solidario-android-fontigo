@@ -5,13 +5,17 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 
 import com.startlinesoft.icore.solidario.ApiClient;
 import com.startlinesoft.icore.solidario.ApiException;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityLoginBinding;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreApiClient;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreKeyStore;
 import com.startlinesoft.icore.solidario.api.LoginApi;
 import com.startlinesoft.icore.solidario.api.models.LoginInfo;
 import com.startlinesoft.icore.solidario.api.models.LoginToken;
@@ -19,12 +23,26 @@ import com.startlinesoft.icore.solidario.api.models.LoginToken;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.util.concurrent.Executor;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+
 public class LoginActivity extends ICoreAppCompatActivity implements View.OnClickListener {
 
     private ActivityLoginBinding bnd;
 
     private boolean usuarioVisible = true;
     private boolean passwordVisible = true;
+
+    private Executor executor;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +59,8 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
         this.prepararLogin();
     }
 
-    private void prepararLogin(){
-        if(!this.existenDatosDeUsuarioLogin()){
+    private void prepararLogin() {
+        if (!this.existenDatosDeUsuarioLogin()) {
             return;
         }
 
@@ -66,9 +84,14 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
         this.bnd.tvNoUsuario.setText(mensajeNoUsuario);
         this.bnd.tvNoUsuario.setVisibility(View.VISIBLE);
 
+        //Caso cuando el logueo es por TouchID
+        if (this.getTouchIdActivo()) {
+            this.passwordVisible = false;
+            this.bnd.etPassword.setVisibility(View.GONE);
+        }
 
         //Imagen del asociado
-        if(this.existeAvatarDeUsuarioLogin()) {
+        if (this.existeAvatarDeUsuarioLogin()) {
             this.bnd.ivAvatarContainer.setVisibility(View.VISIBLE);
             this.bnd.ivImagen.setImageBitmap(this.getAvatarDeUsuarioLogin());
             this.bnd.ivLogo.setVisibility(View.GONE);
@@ -94,17 +117,15 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
         };
     }
 
-    private void actualizarEstadoBotonSubmit(){
-        if(this.usuarioVisible && this.passwordVisible){
+    private void actualizarEstadoBotonSubmit() {
+        if (this.usuarioVisible && this.passwordVisible) {
             int usuario = this.bnd.etUser.getText().toString().length();
             int password = this.bnd.etPassword.getText().toString().length();
             this.bnd.btnLogin.setEnabled(usuario > 0 && password > 0);
-        }
-        else if(this.passwordVisible){
+        } else if (this.passwordVisible) {
             int password = this.bnd.etPassword.getText().toString().length();
             this.bnd.btnLogin.setEnabled(password > 0);
-        }
-        else{
+        } else {
             this.bnd.btnLogin.setEnabled(true);
         }
     }
@@ -116,61 +137,12 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
         if (v.equals(this.bnd.btnLogin)) {
             this.verificarRed();
 
-            ApiClient cliente = ICoreApiClient.getApiClient();
-            LoginApi loginApi = new LoginApi(cliente);
-
-            String usuario = this.usuarioVisible ?
-                    this.bnd.etUser.getText().toString() : this.getUsuarioDeUsuarioLogin();
-            String password = this.passwordVisible ?
-                    this.bnd.etPassword.getText().toString() : "pass desde huella";
-
-            LoginInfo loginInfo = new LoginInfo();
-            loginInfo.setUsuario(usuario);
-            loginInfo.setPassword(password);
-
-            bnd.progressBar.setVisibility(View.VISIBLE);
-            new Thread(() -> {
-                try {
-                    LoginToken loginToken = loginApi.login(loginInfo);
-                    putToken(loginToken.getToken());
-                    ICoreApiClient.setToken(loginToken.getToken());
-
-                    Intent i = new Intent(getBaseContext(), DashBoardActivity.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(i);
-                    finish();
-                } catch (ApiException e) {
-                    bnd.tvError.post(() -> {
-                        String msg;
-                        switch (e.getCode()) {
-                            case 400: //Entradas no válidas
-                            case 422: //Entradas no procesables
-                            case 429: //Demasiados intentos
-                                msg = "Datos no válidos";
-                                break;
-                            case 426: //Se requiere actualización
-                                msg = "Se requiere actualización";
-                                break;
-                            case 401:
-                                msg = "Usuario o contraseña no válidos";
-                                break;
-                            case 412:
-                                try {
-                                    msg = new JSONObject(e.getResponseBody()).getString("message");
-                                } catch (JSONException je) {
-                                    msg = "App Movil no activa";
-                                }
-                                break;
-                            default:
-                                msg = "Entradas no válidos";
-                                break;
-                        }
-                        bnd.tvError.setText(msg);
-                        bnd.tvError.setVisibility(View.VISIBLE);
-                        bnd.progressBar.setVisibility(View.GONE);
-                    });
-                }
-            }).start();
+            if (this.getTouchIdActivo()) {
+                this.mostrarBiometrico();
+            } else {
+                String password = this.bnd.etPassword.getText().toString();
+                this.performLogin(password);
+            }
         }
 
         if (v.equals(this.bnd.tvNoUsuario)) {
@@ -187,7 +159,122 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
         }
     }
 
-    private void noUsuario(){
+    private void performLogin(String password) {
+        ApiClient cliente = ICoreApiClient.getApiClient();
+        LoginApi loginApi = new LoginApi(cliente);
+
+        String usuario = this.usuarioVisible ?
+                this.bnd.etUser.getText().toString() : this.getUsuarioDeUsuarioLogin();
+
+        LoginInfo loginInfo = new LoginInfo();
+        loginInfo.setUsuario(usuario);
+        loginInfo.setPassword(password);
+
+        bnd.progressBar.setVisibility(View.VISIBLE);
+        new Thread(() -> {
+            try {
+                LoginToken loginToken = loginApi.login(loginInfo);
+                putToken(loginToken.getToken());
+                ICoreApiClient.setToken(loginToken.getToken());
+
+                Intent i = new Intent(getBaseContext(), DashBoardActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                finish();
+            } catch (ApiException e) {
+                bnd.tvError.post(() -> {
+                    String msg;
+                    switch (e.getCode()) {
+                        case 400: //Entradas no válidas
+                        case 422: //Entradas no procesables
+                        case 429: //Demasiados intentos
+                            msg = "Datos no válidos";
+                            break;
+                        case 426: //Se requiere actualización
+                            msg = "Se requiere actualización";
+                            break;
+                        case 401:
+                            msg = "Usuario o contraseña no válidos";
+                            break;
+                        case 412:
+                            try {
+                                msg = new JSONObject(e.getResponseBody()).getString("message");
+                            } catch (JSONException je) {
+                                msg = "App Movil no activa";
+                            }
+                            break;
+                        default:
+                            msg = "Entradas no válidos";
+                            break;
+                    }
+                    bnd.tvError.setText(msg);
+                    bnd.tvError.setVisibility(View.VISIBLE);
+                    bnd.progressBar.setVisibility(View.GONE);
+                });
+            }
+        }).start();
+    }
+
+    private void mostrarBiometrico() {
+        this.executor = ContextCompat.getMainExecutor(this);
+
+        String titulo = this.getString(R.string.touchid_titulo);
+        String cancelar = this.getString(R.string.activartouch_cancelar);
+
+        this.promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle(titulo)
+                .setSubtitle(this.getNombreCortoDeUsuarioLogin())
+                .setNegativeButtonText(cancelar)
+                .build();
+
+        Cipher cipher = ICoreKeyStore.getCipher();
+        SecretKey secretKey = ICoreKeyStore.getLlaveSecreta();
+
+        byte[] mensaje = this.getPassword();
+        this.biometricPrompt = new BiometricPrompt(
+                this,
+                this.executor,
+                this.getBiometricCallbackDesencriptar(mensaje)
+        );
+        try {
+            IvParameterSpec ivParameterSpec = new IvParameterSpec(this.getVectorIV());
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParameterSpec);
+            this.biometricPrompt.authenticate(
+                    this.promptInfo,
+                    new BiometricPrompt.CryptoObject(cipher)
+            );
+        } catch (InvalidKeyException e) {
+        } catch (InvalidAlgorithmParameterException e) {
+        }
+    }
+
+    private BiometricPrompt.AuthenticationCallback getBiometricCallbackDesencriptar(byte[] password) {
+        return new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                try {
+                    String decripted = new String(result.getCryptoObject().getCipher().doFinal(password));
+                    performLogin(decripted);
+                } catch (BadPaddingException e) {
+                    //desencriptado.setText("Mensaje existe pero llave invalidada, mensaje perdido para siempre");
+                } catch (IllegalBlockSizeException e) {
+                }
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+            }
+        };
+    }
+
+    private void noUsuario() {
         this.limpiarDatosDeUsuarioLogin();
 
         this.usuarioVisible = true;
@@ -200,5 +287,7 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
 
         this.bnd.ivAvatarContainer.setVisibility(View.GONE);
         this.bnd.ivLogo.setVisibility(View.VISIBLE);
+
+        this.actualizarEstadoBotonSubmit();
     }
 }
