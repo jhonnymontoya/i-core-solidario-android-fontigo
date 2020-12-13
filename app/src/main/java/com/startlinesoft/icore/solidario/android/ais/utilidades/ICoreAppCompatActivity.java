@@ -224,6 +224,8 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
 
         editor.putString(ICoreConstantes.LOGIN_NOMBRE, socio.getPrimerNombre());
 
+        editor.putString(ICoreConstantes.LOGIN_NOMBRECORTO, socio.getNombre());
+
         if (socio.getEsImagenReal()) {
             String imagen = Base64.encodeToString(socio.getImagen(), Base64.DEFAULT);
             editor.putString(ICoreConstantes.LOGIN_AVATAR, imagen);
@@ -247,6 +249,16 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
 
         editor.apply();
 
+    }
+
+    protected byte[] getPassword(){
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        return Base64.decode(sp.getString(ICoreConstantes.LOGIN_PASSWORD, null), Base64.DEFAULT);
+    }
+
+    protected byte[] getVectorIV(){
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        return Base64.decode(sp.getString(ICoreConstantes.LOGIN_VECTORIV, null), Base64.DEFAULT);
     }
 
     protected boolean existenDatosDeUsuarioLogin() {
@@ -275,6 +287,11 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
         return sp.getString(ICoreConstantes.LOGIN_NOMBRE, null);
     }
 
+    protected String getNombreCortoDeUsuarioLogin() {
+        SharedPreferences sp = this.getAlmacenPreferencias();
+        return sp.getString(ICoreConstantes.LOGIN_NOMBRECORTO, null);
+    }
+
     protected boolean getTouchIdActivo() {
         SharedPreferences sp = this.getAlmacenPreferencias();
         return sp.getBoolean(ICoreConstantes.PREFERENCE_TOUCHID, false);
@@ -298,6 +315,11 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
             borrar = true;
         }
 
+        if (sp.contains(ICoreConstantes.LOGIN_NOMBRECORTO)) {
+            editor.remove(ICoreConstantes.LOGIN_NOMBRECORTO);
+            borrar = true;
+        }
+
         if (sp.contains(ICoreConstantes.LOGIN_AVATAR)) {
             editor.remove(ICoreConstantes.LOGIN_AVATAR);
             borrar = true;
@@ -305,7 +327,9 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
 
         if (borrar) {
             editor.apply();
+            this.limpiarDatosDeTouchId();
         }
+
     }
 
     //Funciones para validacion de Biometrico
@@ -335,13 +359,13 @@ public class ICoreAppCompatActivity extends AppCompatActivity implements View.On
         SharedPreferences.Editor editor = sp.edit();
 
         //Se limpia cualquier contraseña encriptada si esta se encuentra
-        if (sp.contains(ICoreConstantes.TOUCHID_PASSWORD)) {
-            editor.remove(ICoreConstantes.TOUCHID_PASSWORD);
+        if (sp.contains(ICoreConstantes.LOGIN_PASSWORD)) {
+            editor.remove(ICoreConstantes.LOGIN_PASSWORD);
         }
 
         //Se limpia el vector de inicialización del cipher
-        if (sp.contains(ICoreConstantes.TOUCHID_IV)) {
-            editor.remove(ICoreConstantes.TOUCHID_IV);
+        if (sp.contains(ICoreConstantes.LOGIN_VECTORIV)) {
+            editor.remove(ICoreConstantes.LOGIN_VECTORIV);
         }
 
         editor.putBoolean(ICoreConstantes.PREFERENCE_TOUCHID, false);
