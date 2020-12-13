@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.biometric.BiometricPrompt;
@@ -55,6 +56,7 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
         this.bnd.btnLogin.setOnClickListener(this);
         this.bnd.tvNoUsuario.setOnClickListener(this);
         this.bnd.tvForgotPassword.setOnClickListener(this);
+        this.bnd.ivFingerprint.setOnClickListener(this);
 
         this.prepararLogin();
     }
@@ -137,7 +139,7 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
         if (v.equals(this.bnd.btnLogin)) {
             this.verificarRed();
 
-            if (this.getTouchIdActivo()) {
+            if (this.getTouchIdActivo() && !this.passwordVisible) {
                 this.mostrarBiometrico();
             } else {
                 String password = this.bnd.etPassword.getText().toString();
@@ -156,6 +158,10 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
             Intent i = new Intent(getApplicationContext(), OlvideClaveActivity.class);
             i.putExtra("USUARIO", usuario);
             startActivity(i);
+        }
+
+        if (v.equals(this.bnd.ivFingerprint)) {
+            this.mostrarBiometrico();
         }
     }
 
@@ -254,6 +260,7 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
+                mostrarCampoPasswordBotonBiometrico();
             }
 
             @Override
@@ -275,8 +282,15 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
         };
     }
 
+    private void mostrarCampoPasswordBotonBiometrico() {
+        this.bnd.etPassword.setVisibility(View.VISIBLE);
+        this.bnd.ivFingerprint.setVisibility(View.VISIBLE);
+        this.passwordVisible = true;
+    }
+
     private void noUsuario() {
         this.limpiarDatosDeUsuarioLogin();
+        this.limpiarDatosDeTouchId();
 
         this.usuarioVisible = true;
         this.passwordVisible = true;

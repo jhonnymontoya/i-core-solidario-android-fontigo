@@ -12,14 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="24dp"/>
+        app:layout_constraintGuide_begin="24dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glDer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="24dp"/>
+        app:layout_constraintGuide_end="24dp" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -38,15 +38,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:layout_weight="0.4">
+                android:layout_weight="0.4"
+                android:gravity="center_horizontal|center_vertical">
 
                 <ImageView
                     android:id="@+id/ivLogo"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
                     android:contentDescription="@string/app_name"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@mipmap/ic_launcher" />
 
                 <!-- Imagen del socio -->
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,14 +56,16 @@
                     android:layout_gravity="center"
                     android:padding="5dp"
                     android:visibility="gone">
+
                     <androidx.cardview.widget.CardView
                         android:layout_width="160dp"
                         android:layout_height="160dp"
                         app:cardCornerRadius="80dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
+                        app:layout_constraintTop_toTopOf="parent">
+
                         <ImageView
                             android:id="@+id/ivImagen"
                             android:layout_width="match_parent"
@@ -77,8 +79,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:gravity="center_horizontal"
                 android:layout_weight="0.6"
+                android:gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <TextView
@@ -86,13 +88,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="25dp"
+                    android:fontFamily="@font/calibri"
                     android:padding="1dp"
                     android:text=""
+                    android:textAlignment="center"
                     android:textColor="@color/blanco"
                     android:textSize="30sp"
-                    android:fontFamily="@font/calibri"
-                    android:textAlignment="center"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/etUser"
@@ -103,18 +105,37 @@
                     android:autofillHints="@string/login_username"
                     android:drawableEnd="@drawable/ic_login_et_user"
                     android:hint="@string/login_username"
-                    android:inputType="number"/>
+                    android:inputType="number" />
 
-                <EditText
-                    android:id="@+id/etPassword"
-                    style="@style/Login_EditText"
+                <LinearLayout
+                    android:id="@+id/clPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:autofillHints="@string/login_password"
-                    android:drawableEnd="@drawable/ic_login_et_password"
-                    android:hint="@string/login_password"
-                    android:inputType="textPassword"/>
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etPassword"
+                        style="@style/Login_EditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_weight="0.9"
+                        android:autofillHints="@string/login_password"
+                        android:drawableEnd="@drawable/ic_login_et_password"
+                        android:hint="@string/login_password"
+                        android:inputType="textPassword" />
+
+                    <ImageView
+                        android:id="@+id/ivFingerprint"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_fingerprint"
+                        android:layout_marginBottom="16dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tvError"
@@ -125,7 +146,7 @@
                     android:text=""
                     android:textColor="@color/error"
                     android:textSize="18sp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <android.widget.Button
                     android:id="@+id/btnLogin"
@@ -137,7 +158,7 @@
                     android:stateListAnimator="@null"
                     android:text="@string/login_login"
                     android:textAllCaps="false"
-                    android:textColor="@color/blanco"/>
+                    android:textColor="@color/blanco" />
 
                 <TextView
                     android:id="@+id/tvNoUsuario"
@@ -149,7 +170,7 @@
                     android:focusable="true"
                     android:text=""
                     android:textAlignment="center"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tvForgotPassword"
@@ -160,7 +181,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:text="@string/login_forgotPassword"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
