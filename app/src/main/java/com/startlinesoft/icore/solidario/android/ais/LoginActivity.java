@@ -210,6 +210,7 @@ public class LoginActivity extends ICoreAppCompatActivity implements View.OnClic
                     bnd.tvError.setText(msg);
                     bnd.tvError.setVisibility(View.VISIBLE);
                     bnd.progressBar.setVisibility(View.GONE);
+                    this.bnd.etPassword.setText("");
                 });
             }
         }).start();
