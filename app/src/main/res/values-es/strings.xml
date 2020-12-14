@@ -56,4 +56,12 @@
     <string name="activartouch_activar">Activar Touch ID</string>
     <string name="activartouch_mensaje">%s, digita tu contraseña para activar el Touch ID</string>
     <string name="touchid_titulo">Biometric login</string>
+    <string name="perfil_empresa">Empresa</string>
+    <string name="perfil_nacimiento">Nacimiento</string>
+    <string name="prefil_ingreso_empresa">Ingreso empresa</string>
+    <string name="perfil_afiliacion">Afiliación</string>
+    <string name="perfil_mail">Correo</string>
+    <string name="perfil_telefono">Teléfono</string>
+    <string name="perfil_cupo">Cupo disponible</string>
+    <string name="cupo_endeudamiento">Endeudamiento</string>
 </resources>
