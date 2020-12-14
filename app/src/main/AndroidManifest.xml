@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ais">
         <activity
+            android:name=".PerfilActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ActivarTouchIDActivity"
             android:screenOrientation="portrait" />
         <activity
