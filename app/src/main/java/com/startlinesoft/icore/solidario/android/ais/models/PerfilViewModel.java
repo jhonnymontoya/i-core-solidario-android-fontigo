@@ -25,7 +25,7 @@ public class PerfilViewModel extends ViewModel {
         }).start();
     }
 
-    public LiveData<Perfil> getSocio() {
+    public LiveData<Perfil> getPerfil() {
         return this.perfil;
     }
 }
