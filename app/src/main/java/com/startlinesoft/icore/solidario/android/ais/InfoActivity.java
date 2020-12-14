@@ -56,6 +56,8 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
 
         // Perfil
         if (v.equals(bnd.btnPerfil)) {
+            Intent i = new Intent(this, PerfilActivity.class);
+            this.startActivity(i);
             return;
         }
 

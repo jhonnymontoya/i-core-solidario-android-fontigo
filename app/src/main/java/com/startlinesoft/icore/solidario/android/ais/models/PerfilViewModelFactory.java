@@ -12,7 +12,7 @@ public class PerfilViewModelFactory implements ViewModelProvider.Factory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(PerfilViewModel.class)) {
-            return (T) new SocioViewModel(ICoreApiClient.getApiClient());
+            return (T) new PerfilViewModel(ICoreApiClient.getApiClient());
         } else {
             throw new IllegalArgumentException("Clase ViewModel desconocida");
         }
