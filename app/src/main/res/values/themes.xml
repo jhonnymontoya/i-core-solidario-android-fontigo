@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <!-- Theme.MaterialComponents.DayNight.NoActionBar -->
     <!-- Theme.AppCompat.Light.NoActionBar -->
-    <style name="Theme.Ais" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Ais" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowAnimationStyle">@null</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
