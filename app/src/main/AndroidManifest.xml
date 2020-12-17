@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ais">
         <activity
+            android:name=".BeneficiariosActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".PerfilActivity"
             android:screenOrientation="portrait" />
         <activity
