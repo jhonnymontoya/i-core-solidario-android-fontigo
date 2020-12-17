@@ -15,6 +15,8 @@
     <color name="creditos">#ffc107</color>
     <color name="recaudos">#007bff</color>
 
+    <color name="detalleBeneficiarios">#e5e5e5</color>
+
     <color name="progressBar">#5E000000</color>
 
     <color name="login_boton_disabled">#ED6D94</color>
