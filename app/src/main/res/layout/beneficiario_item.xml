@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
     android:layout_marginBottom="5dp"
     android:minHeight="120dp"
     app:cardCornerRadius="5dp">
@@ -10,10 +13,55 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.1"
+        android:alpha="0.5"
         android:contentDescription="@null"
-        android:foreground="@color/ahorros"
+        android:foreground="@color/detalleBeneficiarios"
         android:scaleType="fitEnd"
         android:src="@drawable/ic_beneficiarios_item" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvPorcentaje"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/calibri"
+            android:text="@null"
+            android:textColor="@color/negro"
+            android:textSize="40sp"/>
+
+        <TextView
+            android:id="@+id/tvIdentificacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/calibri"
+            android:text="@null"
+            android:textColor="@color/negro"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tvNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/calibri"
+            android:text="@null"
+            android:textColor="@color/negro"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tvParentesco"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/calibri"
+            android:text="@null"
+            android:textColor="@color/negro"
+            android:textSize="20sp"
+            android:layout_marginBottom="15dp"/>
+
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

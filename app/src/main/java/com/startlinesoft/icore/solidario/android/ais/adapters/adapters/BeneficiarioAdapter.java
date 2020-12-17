@@ -31,20 +31,25 @@ public class BeneficiarioAdapter extends RecyclerView.Adapter<BeneficiarioItemHo
     @Override
     public void onBindViewHolder(@NonNull BeneficiarioItemHolder holder, int position) {
         Beneficiario beneficiario = this.beneficiarios.get(position);
-        /*
-        MovimientoAhorro movimientoAhorro = movimientosAhorros.get(position);
-        holder.getTvConcepto().setText(movimientoAhorro.getConcepto());
-        holder.getTvFecha().setText(ICoreGeneral.reverseFecha(movimientoAhorro.getFecha().toString()));
-        if (movimientoAhorro.getSignoValor() == Signo.POSITIVO) {
-            holder.getTvValorPositivo().setText(String.format("$%s", movimientoAhorro.getValor()));
-            holder.getTvValorPositivo().setVisibility(View.VISIBLE);
-            holder.getTvValorNegativo().setVisibility(View.GONE);
-        } else {
-            holder.getTvValorNegativo().setText(String.format("$%s", movimientoAhorro.getValor()));
-            holder.getTvValorPositivo().setVisibility(View.GONE);
-            holder.getTvValorNegativo().setVisibility(View.VISIBLE);
-        }
-         */
+
+        String porcentaje = "%s%%";
+        porcentaje = String.format(
+                porcentaje,
+                beneficiario.getPorcentajeBeneficio()
+        );
+        holder.getTvPorcentaje().setText(porcentaje);
+
+        String identificacion = "%s %s";
+        identificacion = String.format(
+                identificacion,
+                beneficiario.getCodigoTipoIdentificacion(),
+                beneficiario.getIdentificacion()
+        );
+        holder.getTvIdentificacion().setText(identificacion);
+
+        holder.getTvNombre().setText(beneficiario.getNombreCompleto());
+
+        holder.getTvParentesco().setText(beneficiario.getParentesco());
     }
 
     @Override
