@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 
@@ -58,11 +59,18 @@ public class ConfiguracionFragment extends PreferenceFragmentCompat implements P
                 //Si el biometrico no se encuentra enrolado
                 //se pregunta si se desea enrolar
                 if (!this.biometricoEnrolado()) {
-                    this.alert.setMessage(R.string.configuracion_alert_touchid_title)
-                            .setCancelable(true)
-                            .setPositiveButton(R.string.configuracion_alert_touchid_yes, this)
-                            .setNegativeButton(R.string.configuracion_alert_touchid_no, this)
-                            .show();
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) { //OREO 8, 8.1
+                        this.alert.setMessage(R.string.configuracion_alert_touchid_title_d)
+                                .setCancelable(true)
+                                .setPositiveButton(R.string.ok, null)
+                                .show();
+                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) { //PIE 9, Android 10
+                        this.alert.setMessage(R.string.configuracion_alert_touchid_title)
+                                .setCancelable(true)
+                                .setPositiveButton(R.string.configuracion_alert_touchid_yes, this)
+                                .setNegativeButton(R.string.configuracion_alert_touchid_no, this)
+                                .show();
+                    }
                     return false;
                 }
 
@@ -106,9 +114,14 @@ public class ConfiguracionFragment extends PreferenceFragmentCompat implements P
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (which == DialogInterface.BUTTON_POSITIVE) {
-            final Intent enroll = new Intent(Settings.ACTION_BIOMETRIC_ENROLL);
-            enroll.putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED, BIOMETRIC_STRONG | DEVICE_CREDENTIAL);
-            startActivityForResult(enroll, this.REQUESTCODE_ENROLL);
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.P) { //PiE 9
+                final Intent enroll = new Intent(Settings.ACTION_FINGERPRINT_ENROLL);
+                startActivityForResult(enroll, this.REQUESTCODE_ENROLL);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { //Android 10, ...
+                final Intent enroll = new Intent(Settings.ACTION_BIOMETRIC_ENROLL);
+                enroll.putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED, BIOMETRIC_STRONG | DEVICE_CREDENTIAL);
+                startActivityForResult(enroll, this.REQUESTCODE_ENROLL);
+            }
             return;
         }
     }
@@ -120,11 +133,10 @@ public class ConfiguracionFragment extends PreferenceFragmentCompat implements P
         //Resultado por activar touchID
         if (requestCode == this.REQUESTCODE_ACTIVARTOUCHID) {
             if (resultCode == ICoreConstantes.RESULT_OK) {
-                SwitchPreference sp = (SwitchPreference)this.touchIdPreference;
+                SwitchPreference sp = (SwitchPreference) this.touchIdPreference;
                 sp.setChecked(true);
-            }
-            else if(resultCode == ICoreConstantes.RESULT_CANCEL){
-                SwitchPreference sp = (SwitchPreference)this.touchIdPreference;
+            } else if (resultCode == ICoreConstantes.RESULT_CANCEL) {
+                SwitchPreference sp = (SwitchPreference) this.touchIdPreference;
                 sp.setChecked(false);
             }
         }
@@ -134,7 +146,7 @@ public class ConfiguracionFragment extends PreferenceFragmentCompat implements P
         return PreferenceManager.getDefaultSharedPreferences(this.context);
     }
 
-    private void desactivarTouch(){
+    private void desactivarTouch() {
         SharedPreferences sp = this.getAlmacenPreferencias();
         SharedPreferences.Editor editor = sp.edit();
 
