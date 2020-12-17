@@ -63,6 +63,8 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
 
         // Beneficiarios
         if (v.equals(bnd.btnBeneficiarios)) {
+            Intent i = new Intent(this, BeneficiariosActivity.class);
+            this.startActivity(i);
             return;
         }
 
