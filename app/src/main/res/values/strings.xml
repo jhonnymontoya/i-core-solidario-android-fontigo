@@ -67,4 +67,5 @@
     <string name="cupo_endeudamiento">Indebtedness</string>
     <string name="ok">Ok</string>
     <string name="configuracion_alert_touchid_title_d">There is no biometric data on the device, Please go and enroll biometric data</string>
+    <string name="beneficiarios_singular">Beneficiarie</string>
 </resources>
