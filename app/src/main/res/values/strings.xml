@@ -50,7 +50,7 @@
     <string name="configuracion_vibrador_resumen">Use vibration effects</string>
     <string name="login_hola">Hello</string>
     <string name="login_nousuario">Not</string>
-    <string name="configuracion_alert_touchid_title">There is no biometric data on the device Do you want to create biometric data?</string>
+    <string name="configuracion_alert_touchid_title">There is no biometric data on the device, Do you want to enroll biometric?</string>
     <string name="configuracion_alert_touchid_yes">Go to settings</string>
     <string name="configuracion_alert_touchid_no">No</string>
     <string name="activartouch_cancelar">Cancel</string>
@@ -65,4 +65,6 @@
     <string name="perfil_telefono">Phone</string>
     <string name="perfil_cupo">Amount available</string>
     <string name="cupo_endeudamiento">Indebtedness</string>
+    <string name="ok">Ok</string>
+    <string name="configuracion_alert_touchid_title_d">There is no biometric data on the device, Please go and enroll biometric data</string>
 </resources>
