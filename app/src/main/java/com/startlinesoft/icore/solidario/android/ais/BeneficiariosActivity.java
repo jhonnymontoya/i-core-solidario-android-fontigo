@@ -38,6 +38,22 @@ public class BeneficiariosActivity extends ICoreAppCompatActivity implements Vie
             this.bnd.progressBar.setVisibility(View.GONE);
 
             if(beneficiarios.size() > 0){
+                String cantidad = "%s %s";
+                if(beneficiarios.size() == 1) {
+                    cantidad = String.format(
+                            cantidad,
+                            beneficiarios.size(),
+                            this.getString(R.string.beneficiarios_singular)
+                    ).toLowerCase();
+                }
+                else{
+                    cantidad = String.format(
+                            cantidad,
+                            beneficiarios.size(),
+                            this.getString(R.string.beneficiarios)
+                    ).toLowerCase();
+                }
+                this.bnd.tvCantidad.setText(cantidad);
                 this.bnd.rvBeneficiarios.setLayoutManager(new LinearLayoutManager(this));
                 BeneficiarioAdapter ba = new BeneficiarioAdapter(beneficiarios);
                 this.bnd.rvBeneficiarios.setAdapter(ba);

@@ -66,10 +66,19 @@
         app:layout_constraintTop_toBottomOf="@id/appBarLayout">
 
         <LinearLayout
-            android:id="@+id/tabGenerales"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCantidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/calibri"
+                android:text="@null"
+                android:padding="18dp"
+                android:textColor="@color/negro"
+                android:textSize="22sp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvBeneficiarios"
