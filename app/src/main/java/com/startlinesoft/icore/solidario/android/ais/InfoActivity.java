@@ -70,6 +70,8 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
 
         // Actualizar contraseña
         if (v.equals(bnd.btnActualizarPassword)) {
+            Intent i = new Intent(this, CambiarPasswordActivity.class);
+            this.startActivity(i);
             return;
         }
 
