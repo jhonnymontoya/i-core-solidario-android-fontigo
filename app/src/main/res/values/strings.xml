@@ -68,4 +68,8 @@
     <string name="ok">Ok</string>
     <string name="configuracion_alert_touchid_title_d">There is no biometric data on the device, Please go and enroll biometric data</string>
     <string name="beneficiarios_singular">Beneficiarie</string>
+    <string name="cambiarpassword_nuevoPassword">New password</string>
+    <string name="cambiarpassword_confirmPassword">Confirm password</string>
+    <string name="cambiarpassword_cambiarPassword">Change password</string>
+    <string name="cambiarpassword_mensaje">%s, enter your current and new password</string>
 </resources>
