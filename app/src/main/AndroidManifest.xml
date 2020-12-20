@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ais">
         <activity
+            android:name=".CambiarPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".BeneficiariosActivity"
             android:screenOrientation="portrait" />
         <activity
