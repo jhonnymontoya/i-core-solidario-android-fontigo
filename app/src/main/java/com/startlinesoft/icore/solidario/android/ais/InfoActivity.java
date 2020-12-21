@@ -91,7 +91,7 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
 
         // Acerca de
         if (v.equals(bnd.btnAcercaDe)) {
-            Intent i = new Intent(this, InfoActivity.class);
+            Intent i = new Intent(this, AboutActivity.class);
             this.startActivity(i);
         }
     }
