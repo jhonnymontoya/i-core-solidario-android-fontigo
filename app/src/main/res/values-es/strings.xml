@@ -72,4 +72,8 @@
     <string name="cambiarpassword_cambiarPassword">Cambiar contraseña</string>
     <string name="cambiarpassword_mensaje">%s, ingrese su actual y nueva contraseña</string>
     <string name="powered_by">Powered by StartLineSoft.com</string>
+    <string name="documentacion_certificado_tributario">Certificado Tributario</string>
+    <string name="documentacion_solicitar_certificado_tributario">Solicitar certificado tributario</string>
+    <string name="documentacion_certificado_tributario_anio">Año</string>
+    <string name="solicitar">Solicitar</string>
 </resources>
