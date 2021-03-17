@@ -140,8 +140,8 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
         final int SIMULADOR_CREDITO = 1;
         final int SOLICITAR_CREDITO = 2;
         if (item.equals(bnd.bnvMenu.getMenu().getItem(DOCUMENTACION))) {
-            //TODO: Implementar redirección a la actividad de documentación
-            Toast.makeText(this, "Click documentación", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, DocumentacionActivity.class);
+            this.startActivity(i);
             return false;
         }
         if (item.equals(bnd.bnvMenu.getMenu().getItem(SIMULADOR_CREDITO))) {
