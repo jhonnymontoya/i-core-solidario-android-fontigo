@@ -50,6 +50,7 @@
                 android:layout_gravity="center"
                 android:padding="5dp">
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/contenedorImagen"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
                     app:cardCornerRadius="80dp"
@@ -63,6 +64,17 @@
                         android:layout_height="match_parent"
                         android:contentDescription="@string/descripcion_imagen" />
                 </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/ivCambiarImagen"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:elevation="5dp"
+                    app:layout_constraintEnd_toEndOf="@+id/contenedorImagen"
+                    app:layout_constraintBottom_toBottomOf="@+id/contenedorImagen"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_camera" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <!-- Fin de la imagen del socio -->
 
