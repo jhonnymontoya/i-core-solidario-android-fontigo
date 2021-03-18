@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityInfoBinding;
+import com.startlinesoft.icore.solidario.android.ais.enums.FuenteImagen;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
 import com.startlinesoft.icore.solidario.api.models.Socio;
@@ -106,7 +107,7 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
     }
 
     @Override
-    public void onItemClick(String item) {
-        Toast.makeText(this, item, Toast.LENGTH_SHORT).show();
+    public void onItemClick(FuenteImagen fuenteImagen) {
+        Toast.makeText(this, fuenteImagen.toString(), Toast.LENGTH_SHORT).show();
     }
 }

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.startlinesoft.icore.solidario.android.ais.enums.FuenteImagen;
 
 public class CambiarImagenFragment extends BottomSheetDialogFragment implements View.OnClickListener {
 
@@ -57,15 +58,15 @@ public class CambiarImagenFragment extends BottomSheetDialogFragment implements 
     @Override
     public void onClick(View view) {
         if(view.equals(this.tvCamara)){
-            mListener.onItemClick("CAMARA");
+            mListener.onItemClick(FuenteImagen.CAMARA);
         }
         if(view.equals(this.tvGaleria)){
-            mListener.onItemClick("GALERIA");
+            mListener.onItemClick(FuenteImagen.GALERIA);
         }
         dismiss();
     }
 
     public interface ItemClickListener {
-        void onItemClick(String item);
+        void onItemClick(FuenteImagen fuenteImagen);
     }
 }
