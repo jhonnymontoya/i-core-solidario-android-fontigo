@@ -3,6 +3,7 @@ package com.startlinesoft.icore.solidario.android.ais;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -11,7 +12,7 @@ import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatAc
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
 import com.startlinesoft.icore.solidario.api.models.Socio;
 
-public class InfoActivity extends ICoreAppCompatActivity implements View.OnClickListener {
+public class InfoActivity extends ICoreAppCompatActivity implements View.OnClickListener, CambiarImagenFragment.ItemClickListener {
 
     private ActivityInfoBinding bnd;
 
@@ -42,6 +43,8 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
         bnd.btnConfiguracion.setOnClickListener(this);
         bnd.btnSalir.setOnClickListener(this);
         bnd.btnAcercaDe.setOnClickListener(this);
+
+        bnd.ivCambiarImagen.setOnClickListener(this);
     }
 
     @Override
@@ -94,5 +97,16 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
             Intent i = new Intent(this, AboutActivity.class);
             this.startActivity(i);
         }
+
+        // Cambiar Imagen
+        if (v.equals(bnd.ivCambiarImagen)) {
+            CambiarImagenFragment cambiarImagenFragment = CambiarImagenFragment.newInstance();
+            cambiarImagenFragment.show(this.getSupportFragmentManager(), CambiarImagenFragment.TAG);
+        }
+    }
+
+    @Override
+    public void onItemClick(String item) {
+        Toast.makeText(this, item, Toast.LENGTH_SHORT).show();
     }
 }
