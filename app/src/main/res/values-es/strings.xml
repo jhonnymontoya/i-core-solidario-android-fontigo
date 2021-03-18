@@ -76,4 +76,6 @@
     <string name="documentacion_solicitar_certificado_tributario">Solicitar certificado tributario</string>
     <string name="documentacion_certificado_tributario_anio">Año</string>
     <string name="solicitar">Solicitar</string>
+    <string name="seleccionar_foto_de_galeria">Seleccionar foto de galería</string>
+    <string name="tomar_foto_de_camara">Tomar una foto</string>
 </resources>

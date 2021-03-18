@@ -77,4 +77,6 @@
     <string name="documentacion_solicitar_certificado_tributario">Request tax certificate</string>
     <string name="documentacion_certificado_tributario_anio">Year</string>
     <string name="solicitar">Request</string>
+    <string name="tomar_foto_de_camara">Take a photo</string>
+    <string name="seleccionar_foto_de_galeria">Select photo from gallery</string>
 </resources>
