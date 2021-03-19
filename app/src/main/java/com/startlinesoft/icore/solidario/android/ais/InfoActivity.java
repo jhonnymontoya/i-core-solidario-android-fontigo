@@ -184,7 +184,11 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
         new Thread(() -> {
             try {
                 socioApi.actualizarImagen(cambioImagen);
+                Socio socio = socioApi.socio();
+                ICoreGeneral.setSocio(socio);
+                this.guardarDatosDeUsuarioLogin();
                 this.bnd.progressBar.post(() -> {
+                    this.bnd.ivImagen.setImageBitmap(ICoreGeneral.getSocioImagen());
                     this.bnd.progressBar.setVisibility(View.GONE);
                 });
             } catch (ApiException e) {
