@@ -89,7 +89,7 @@ public class DocumentacionActivity extends ICoreAppCompatActivity implements Vie
 
             new Thread(() -> {
                 try {
-                    RespuestaGeneral respuestaGeneral = documentacionApi.certificadoTributario(anio);
+                    RespuestaGeneral respuestaGeneral = documentacionApi.documentacionCertificadoTributario(anio);
                     this.bnd.progressBar.post(() -> {
                         this.bnd.progressBar.setVisibility(View.GONE);
                         this.bnd.tvMensaje.setText(respuestaGeneral.getRespuesta());
