@@ -1,21 +1,40 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.ImageDecoder;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.startlinesoft.icore.solidario.ApiClient;
+import com.startlinesoft.icore.solidario.ApiException;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityInfoBinding;
 import com.startlinesoft.icore.solidario.android.ais.enums.FuenteImagen;
+import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreApiClient;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
+import com.startlinesoft.icore.solidario.api.SocioApi;
+import com.startlinesoft.icore.solidario.api.models.CambioImagen;
+import com.startlinesoft.icore.solidario.api.models.CambioPasswordObject;
 import com.startlinesoft.icore.solidario.api.models.Socio;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.util.Base64;
 
 public class InfoActivity extends ICoreAppCompatActivity implements View.OnClickListener, CambiarImagenFragment.ItemClickListener {
 
     private ActivityInfoBinding bnd;
+    private static final int CAMARA = 0;
+    private static final int GALERIA = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,22 +49,24 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
         String identificacion = String.format("%s %s", socio.getTipoIdentificacion(), socio.getIdentificacion());
 
         setSupportActionBar(bnd.tbToolbar);
-        bnd.tbToolbar.setNavigationIcon(R.drawable.ic_cerrar);
-        bnd.tbToolbar.setNavigationOnClickListener(v -> this.finish());
+        this.bnd.tbToolbar.setNavigationIcon(R.drawable.ic_cerrar);
+        this.bnd.tbToolbar.setNavigationOnClickListener(v -> this.finish());
 
-        bnd.ivImagen.setImageBitmap(ICoreGeneral.getSocioImagen());
-        bnd.tvNombre.setText(socio.getNombre());
-        bnd.tvIdentificacion.setText(identificacion);
-        bnd.tvNombreEntidad.setText(socio.getEntidad());
+        this.bnd.ivImagen.setImageBitmap(ICoreGeneral.getSocioImagen());
+        this.bnd.tvNombre.setText(socio.getNombre());
+        this.bnd.tvIdentificacion.setText(identificacion);
+        this.bnd.tvNombreEntidad.setText(socio.getEntidad());
 
-        bnd.btnPerfil.setOnClickListener(this);
-        bnd.btnBeneficiarios.setOnClickListener(this);
-        bnd.btnActualizarPassword.setOnClickListener(this);
-        bnd.btnConfiguracion.setOnClickListener(this);
-        bnd.btnSalir.setOnClickListener(this);
-        bnd.btnAcercaDe.setOnClickListener(this);
+        this.bnd.btnPerfil.setOnClickListener(this);
+        this.bnd.btnBeneficiarios.setOnClickListener(this);
+        this.bnd.btnActualizarPassword.setOnClickListener(this);
+        this.bnd.btnConfiguracion.setOnClickListener(this);
+        this.bnd.btnSalir.setOnClickListener(this);
+        this.bnd.btnAcercaDe.setOnClickListener(this);
 
-        bnd.ivCambiarImagen.setOnClickListener(this);
+        this.bnd.ivCambiarImagen.setOnClickListener(this);
+        this.bnd.ivImagen.setOnClickListener(this);
+
     }
 
     @Override
@@ -100,7 +121,7 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
         }
 
         // Cambiar Imagen
-        if (v.equals(bnd.ivCambiarImagen)) {
+        if (v.equals(bnd.ivCambiarImagen) || v.equals(this.bnd.ivImagen)) {
             CambiarImagenFragment cambiarImagenFragment = CambiarImagenFragment.newInstance();
             cambiarImagenFragment.show(this.getSupportFragmentManager(), CambiarImagenFragment.TAG);
         }
@@ -108,6 +129,131 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
 
     @Override
     public void onItemClick(FuenteImagen fuenteImagen) {
-        Toast.makeText(this, fuenteImagen.toString(), Toast.LENGTH_SHORT).show();
+        if (fuenteImagen == FuenteImagen.CAMARA) {
+            Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            this.startActivityForResult(i, InfoActivity.CAMARA);
+        }
+
+        if (fuenteImagen == FuenteImagen.GALERIA) {
+            Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            this.startActivityForResult(i, InfoActivity.GALERIA);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != InfoActivity.RESULT_OK) return;
+
+        Bitmap bitmap = null;
+
+        Uri uriImagen = null;
+        switch (requestCode) {
+            case InfoActivity.CAMARA:
+                uriImagen = Uri.parse(data.toUri(0));
+                /*Bundle extras = data.getExtras();
+                bitmap = (Bitmap) extras.get("data");
+                break;*/
+            case InfoActivity.GALERIA:
+                Uri selectedImage = data.getData();
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(this.getContentResolver(), selectedImage));
+                    } else {
+                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+
+        if (bitmap == null) return;
+
+        String base64 = this.bitmapToBase64(bitmap);
+
+        this.bnd.progressBar.setVisibility(View.VISIBLE);
+
+        this.verificarRed();
+
+        ApiClient cliente = ICoreApiClient.getApiClient();
+        SocioApi socioApi = new SocioApi(cliente);
+
+        CambioImagen cambioImagen = new CambioImagen();
+        cambioImagen.setImagen(base64);
+
+        new Thread(() -> {
+            try {
+                socioApi.actualizarImagen(cambioImagen);
+                this.bnd.progressBar.post(() -> {
+                    this.bnd.progressBar.setVisibility(View.GONE);
+                });
+            } catch (ApiException e) {
+            }
+        }).start();
+    }
+
+    private String bitmapToBase64(Bitmap bitmap) {
+        bitmap = this.escalarBitmap(bitmap);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+        return Base64.getEncoder().encodeToString(byteArray);
+    }
+
+    private Bitmap escalarBitmap(Bitmap bitmap) {
+        bitmap = this.normalizarBitmap(bitmap);
+
+        Bitmap destino = null;
+        if (bitmap.getWidth() >= bitmap.getHeight()) {
+            destino = Bitmap.createBitmap(
+                    bitmap,
+                    bitmap.getWidth() / 2 - bitmap.getHeight() / 2,
+                    0,
+                    250,
+                    250
+            );
+        } else {
+            destino = Bitmap.createBitmap(
+                    bitmap,
+                    0,
+                    bitmap.getHeight() / 2 - bitmap.getWidth() / 2,
+                    250,
+                    250
+            );
+        }
+
+        return destino;
+    }
+
+    private Bitmap normalizarBitmap(Bitmap bitmap) {
+        if (bitmap.getWidth() == 250 || bitmap.getHeight() == 250) return bitmap;
+
+        int ancho = 0;
+        int alto = 0;
+        int diferencia = 0;
+        float p = 0;
+
+        if (bitmap.getWidth() < bitmap.getHeight()) {
+            //menor ancho
+            diferencia = 250 - bitmap.getWidth();
+            ancho = 250;
+            p = (diferencia * 100) / bitmap.getWidth();
+            p = Math.abs(p);
+            p = (bitmap.getHeight() > 250) ? 100 - p : p + 100;
+            alto = (int) (p * bitmap.getHeight()) / 100;
+        } else {
+            //menor alto
+            diferencia = 250 - bitmap.getHeight();
+            alto = 250;
+            p = (diferencia * 100) / bitmap.getHeight();
+            p = Math.abs(p);
+            p = (bitmap.getWidth() > 250) ? 100 - p : p + 100;
+            ancho = (int) (p * bitmap.getWidth()) / 100;
+        }
+
+        return Bitmap.createScaledBitmap(bitmap, ancho, alto, false);
     }
 }
