@@ -12,19 +12,25 @@ import com.startlinesoft.icore.solidario.api.models.Socio;
 public class SocioViewModel extends ViewModel {
 
     private MutableLiveData<Socio> socio;
+    private ApiClient cliente;
+    private SocioApi socioApi;
 
     public SocioViewModel(ApiClient cliente) {
         this.socio = new MutableLiveData<>();
-        SocioApi socioApi = new SocioApi(cliente);
+        this.cliente = cliente;
+        this.socioApi = new SocioApi(cliente);
+    }
+
+    private void recuperarSocioServicio(){
         new Thread(() -> {
             try {
                 this.socio.postValue(socioApi.socio());
-            } catch (ApiException ignored) {
-            }
+            } catch (ApiException ignored) {}
         }).start();
     }
 
     public LiveData<Socio> getSocio() {
+        this.recuperarSocioServicio();
         return this.socio;
     }
 }
