@@ -33,14 +33,31 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
 
         //Se valida token activo
         this.validarLogin();
-
         this.setSupportActionBar(this.bnd.tbToolbar);
 
         this.socioViewModel = new ViewModelProvider(this.getViewModelStore(), new SocioViewModelFactory())
                 .get(SocioViewModel.class);
 
         this.bnd.progressBar.setVisibility(View.VISIBLE);
-        socioViewModel.getSocio().observe(this, socio -> {
+
+        this.bnd.ivImagen.setOnClickListener(this);
+
+        this.bnd.cvAhorros.setOnClickListener(this);
+        this.bnd.cvCreditos.setOnClickListener(this);
+        this.bnd.cvRecaudos.setOnClickListener(this);
+
+        // Barra de navegación inferior
+        this.bnd.bnvMenu.getMenu().setGroupCheckable(0, true, false);
+        for (int i = 0; i < this.bnd.bnvMenu.getMenu().size(); i++) {
+            this.bnd.bnvMenu.getMenu().getItem(i).setChecked(true);
+            this.bnd.bnvMenu.getMenu().getItem(i).setOnMenuItemClickListener(this);
+        }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        this.socioViewModel.getSocio().observe(this, socio -> {
             this.socio = socio;
             ICoreGeneral.setSocio(socio);
             this.bnd.progressBar.setVisibility(View.GONE);
@@ -77,19 +94,6 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
 
             this.guardarDatosDeUsuarioLogin();
         });
-
-        this.bnd.ivImagen.setOnClickListener(this);
-
-        this.bnd.cvAhorros.setOnClickListener(this);
-        this.bnd.cvCreditos.setOnClickListener(this);
-        this.bnd.cvRecaudos.setOnClickListener(this);
-
-        // Barra de navegación inferior
-        this.bnd.bnvMenu.getMenu().setGroupCheckable(0, true, false);
-        for (int i = 0; i < this.bnd.bnvMenu.getMenu().size(); i++) {
-            this.bnd.bnvMenu.getMenu().getItem(i).setChecked(true);
-            this.bnd.bnvMenu.getMenu().getItem(i).setOnMenuItemClickListener(this);
-        }
     }
 
     @Override
