@@ -148,13 +148,11 @@ public class InfoActivity extends ICoreAppCompatActivity implements View.OnClick
 
         Bitmap bitmap = null;
 
-        Uri uriImagen = null;
         switch (requestCode) {
             case InfoActivity.CAMARA:
-                uriImagen = Uri.parse(data.toUri(0));
-                /*Bundle extras = data.getExtras();
+                Bundle extras = data.getExtras();
                 bitmap = (Bitmap) extras.get("data");
-                break;*/
+                break;
             case InfoActivity.GALERIA:
                 Uri selectedImage = data.getData();
                 try {
