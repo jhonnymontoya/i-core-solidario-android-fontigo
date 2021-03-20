@@ -88,13 +88,13 @@
                     android:textStyle="bold"
                     android:textAlignment="center"
                     android:layout_marginBottom="15dp"
-                    android:text="Complete el formulario para simular su crédito" />
+                    android:text="@string/simulador_descripcion" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Modalidad de Crédito">
+                    android:hint="@string/modalidad_credito">
 
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/modalidadCredito"
@@ -109,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:hint="Periodicidad de pago">
+                    android:hint="@string/periodicidad_pago">
 
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/periodicidad"
@@ -123,7 +123,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:hint="Valor del crédito">
+                    android:hint="@string/valor_credito">
 
                     <EditText
                         android:id="@+id/valorCredito"
@@ -131,7 +131,9 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:text="1000000"
-                        android:inputType="number" />
+                        android:hint="@string/valor_credito"
+                        android:inputType="number"
+                        tools:ignore="HardcodedText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -139,7 +141,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:hint="Plazo en cuotas">
+                    android:hint="@string/plazo_credito">
 
                     <EditText
                         android:id="@+id/plazo"
@@ -147,7 +149,9 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:text="12"
-                        android:inputType="number" />
+                        android:hint="@string/plazo_credito"
+                        android:inputType="number"
+                        tools:ignore="HardcodedText"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -184,7 +188,7 @@
         android:background="@drawable/login_btn_bg"
         android:enabled="true"
         android:stateListAnimator="@null"
-        android:text="Simular crédito"
+        android:text="@string/simular_credito"
         android:textAllCaps="false"
         android:textColor="@color/blanco"
         app:layout_constraintBottom_toBottomOf="parent" />
