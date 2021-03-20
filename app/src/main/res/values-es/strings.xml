@@ -84,4 +84,10 @@
     <string name="valor_credito">Valor del crédito</string>
     <string name="plazo_credito">Plazo</string>
     <string name="simular_credito">Simular crédito</string>
+    <string name="simulacion_de_crédito">Simulación de crédito</string>
+    <string name="fecha_simulacion">Fecha simulación</string>
+    <string name="tasa">Tasa</string>
+    <string name="fecha_primer_pago">Fecha primer pago</string>
+    <string name="fecha_ultimo_pago">Fecha último pago</string>
+    <string name="valor_cuota">Valor cuota</string>
 </resources>
