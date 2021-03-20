@@ -78,4 +78,10 @@
     <string name="solicitar">Solicitar</string>
     <string name="seleccionar_foto_de_galeria">Seleccionar foto de galería</string>
     <string name="tomar_foto_de_camara">Tomar una foto</string>
+    <string name="simulador_descripcion">Complete el formulario para simular su crédito</string>
+    <string name="modalidad_credito">Modalidad de crédito</string>
+    <string name="periodicidad_pago">Periodicidad de pago</string>
+    <string name="valor_credito">Valor del crédito</string>
+    <string name="plazo_credito">Plazo</string>
+    <string name="simular_credito">Simular crédito</string>
 </resources>
