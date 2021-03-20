@@ -149,8 +149,8 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
             return false;
         }
         if (item.equals(bnd.bnvMenu.getMenu().getItem(SIMULADOR_CREDITO))) {
-            //TODO: Implementar redirección a la actividad del simulador de crédito
-            Toast.makeText(this, "Click Simulador de crédito", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, SimuladorActivity.class);
+            this.startActivity(i);
             return false;
         }
         if (item.equals(bnd.bnvMenu.getMenu().getItem(SOLICITAR_CREDITO))) {
