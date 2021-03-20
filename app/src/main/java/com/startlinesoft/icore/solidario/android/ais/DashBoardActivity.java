@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -121,14 +120,14 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
         }
 
         // Ir a Créditos
-        if(v.equals(bnd.cvCreditos)) {
+        if (v.equals(bnd.cvCreditos)) {
             Intent i = new Intent(this, CreditosActivity.class);
             startActivity(i);
             return;
         }
 
         // Ir a Recaudos
-        if(v.equals(bnd.cvRecaudos)) {
+        if (v.equals(bnd.cvRecaudos)) {
             Intent i = new Intent(this, RecaudosActivity.class);
             startActivity(i);
             return;
@@ -154,8 +153,8 @@ public class DashBoardActivity extends ICoreAppCompatActivity implements View.On
             return false;
         }
         if (item.equals(bnd.bnvMenu.getMenu().getItem(SOLICITAR_CREDITO))) {
-            //TODO: Implementar redirección a la actividad de solicitud de crédito
-            Toast.makeText(this, "Click solicitud de crédito", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, SolicitarCreditoActivity.class);
+            this.startActivity(i);
             return false;
         }
         return false;
