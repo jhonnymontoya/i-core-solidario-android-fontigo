@@ -21,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ais">
         <activity
+            android:name=".SolicitarCreditoActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".SimuladorActivity"
             android:screenOrientation="portrait" />
         <activity
