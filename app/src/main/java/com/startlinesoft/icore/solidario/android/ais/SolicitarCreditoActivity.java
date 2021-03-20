@@ -130,6 +130,8 @@ public class SolicitarCreditoActivity extends ICoreAppCompatActivity implements 
                     RespuestaGeneral respuesta = this.creditosApi.solicitarCredito(solicitudCredito);
                     this.bnd.progressBar.post(() -> {
 
+                        this.bnd.mensajeResultado.setText(respuesta.getRespuesta());
+
                         this.bnd.contenedorSolicitarCredito.setVisibility(View.GONE);
                         this.bnd.btnSolicitarCredito.setVisibility(View.GONE);
                         this.bnd.btnVolverSolicitarCredito.setVisibility(View.VISIBLE);
