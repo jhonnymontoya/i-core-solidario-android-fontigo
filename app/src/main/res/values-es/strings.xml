@@ -90,4 +90,6 @@
     <string name="fecha_primer_pago">Fecha primer pago</string>
     <string name="fecha_ultimo_pago">Fecha último pago</string>
     <string name="valor_cuota">Valor cuota</string>
+    <string name="observaciones">Observaciones</string>
+    <string name="solicitar_credito_descripcion">Complete el formulario para solicitar su crédito</string>
 </resources>

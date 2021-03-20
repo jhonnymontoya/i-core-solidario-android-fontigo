@@ -91,4 +91,6 @@
     <string name="fecha_primer_pago">First payment date</string>
     <string name="fecha_ultimo_pago">Last payment date</string>
     <string name="valor_cuota">Quota value</string>
+    <string name="solicitar_credito_descripcion">Fill the form to request a credit</string>
+    <string name="observaciones">Observations</string>
 </resources>
