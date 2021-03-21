@@ -1,11 +1,9 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.biometric.BiometricPrompt;
@@ -21,7 +19,6 @@ import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreKeyStore;
 import com.startlinesoft.icore.solidario.api.LoginApi;
 import com.startlinesoft.icore.solidario.api.models.LoginInfo;
-import com.startlinesoft.icore.solidario.api.models.LoginToken;
 import com.startlinesoft.icore.solidario.api.models.Socio;
 
 import org.json.JSONException;
@@ -30,8 +27,6 @@ import org.json.JSONObject;
 import java.nio.charset.Charset;
 import java.security.InvalidKeyException;
 import java.util.concurrent.Executor;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -73,7 +68,7 @@ public class ActivarTouchIDActivity extends ICoreAppCompatActivity implements Vi
         this.bnd.etPassword.addTextChangedListener(this.getTextWatcher());
 
         //Imagen del asociado
-        if(this.existeAvatarDeUsuarioLogin()) {
+        if (this.existeAvatarDeUsuarioLogin()) {
             this.bnd.ivAvatarContainer.setVisibility(View.VISIBLE);
             this.bnd.ivImagen.setImageBitmap(this.getAvatarDeUsuarioLogin());
             this.bnd.ivLogo.setVisibility(View.GONE);
@@ -103,7 +98,7 @@ public class ActivarTouchIDActivity extends ICoreAppCompatActivity implements Vi
         super.onClick(v);
 
         //Activar
-        if(v.equals(this.bnd.btnLogin)){
+        if (v.equals(this.bnd.btnLogin)) {
             this.bnd.progressBar.setVisibility(View.VISIBLE);
 
             this.verificarRed();
@@ -162,7 +157,7 @@ public class ActivarTouchIDActivity extends ICoreAppCompatActivity implements Vi
         }
 
         //Cancelar
-        if(v.equals(this.bnd.tvCancelar)){
+        if (v.equals(this.bnd.tvCancelar)) {
             this.setResult(ICoreConstantes.RESULT_CANCEL);
             this.finish();
         }
@@ -199,12 +194,12 @@ public class ActivarTouchIDActivity extends ICoreAppCompatActivity implements Vi
         };
     }
 
-    private void finalizar(){
+    private void finalizar() {
         this.setResult(ICoreConstantes.RESULT_OK);
         this.finish();
     }
 
-    private void activarBiometrico(){
+    private void activarBiometrico() {
         this.executor = ContextCompat.getMainExecutor(this);
 
         String titulo = this.getString(R.string.touchid_titulo);

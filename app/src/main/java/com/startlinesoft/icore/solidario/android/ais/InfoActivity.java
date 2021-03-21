@@ -2,14 +2,12 @@ package com.startlinesoft.icore.solidario.android.ais;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -22,12 +20,10 @@ import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatAc
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
 import com.startlinesoft.icore.solidario.api.SocioApi;
 import com.startlinesoft.icore.solidario.api.models.CambioImagen;
-import com.startlinesoft.icore.solidario.api.models.CambioPasswordObject;
 import com.startlinesoft.icore.solidario.api.models.Socio;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.util.Base64;
 
 public class InfoActivity extends ICoreAppCompatActivity implements View.OnClickListener, CambiarImagenFragment.ItemClickListener {

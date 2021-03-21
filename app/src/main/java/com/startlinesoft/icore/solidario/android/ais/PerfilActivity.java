@@ -1,10 +1,9 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.lifecycle.ViewModelProvider;
 
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityPerfilBinding;
 import com.startlinesoft.icore.solidario.android.ais.models.PerfilViewModel;
@@ -32,7 +31,7 @@ public class PerfilActivity extends ICoreAppCompatActivity {
                 .get(PerfilViewModel.class);
 
         this.bnd.progressBar.setVisibility(View.VISIBLE);
-        this.perfilViewModel.getPerfil().observe(this, perfil ->{
+        this.perfilViewModel.getPerfil().observe(this, perfil -> {
             this.bnd.progressBar.setVisibility(View.GONE);
 
             String fechaPatron = "%s (%s)";
@@ -50,17 +49,15 @@ public class PerfilActivity extends ICoreAppCompatActivity {
             this.bnd.tvFechaAfiliacion.setText(fechaAfiliacion);
             this.bnd.tvEmail.setText(perfil.getEmail());
             this.bnd.tvTelefono.setText(perfil.getTelefono());
-            if(perfil.getSignoCupoDisponible() == Signo.POSITIVO){
+            if (perfil.getSignoCupoDisponible() == Signo.POSITIVO) {
                 this.bnd.tvCupo.setTextColor(this.getColor(R.color.azul));
-            }
-            else{
+            } else {
                 this.bnd.tvCupo.setTextColor(this.getColor(R.color.rojo));
             }
             this.bnd.tvCupo.setText(String.format("$%s", perfil.getCupoDisponible()));
-            if(perfil.getSignoEndeudamiento() == Signo.POSITIVO){
+            if (perfil.getSignoEndeudamiento() == Signo.POSITIVO) {
                 this.bnd.tvEndeudamiento.setTextColor(this.getColor(R.color.azul));
-            }
-            else{
+            } else {
                 this.bnd.tvEndeudamiento.setTextColor(this.getColor(R.color.rojo));
             }
             this.bnd.tvEndeudamiento.setText(String.format("%s%%", perfil.getEndeudamiento()));

@@ -67,8 +67,8 @@ public class OlvideClaveActivity extends ICoreAppCompatActivity implements View.
             new Thread(() -> {
                 try {
                     loginApi.sendResetLinkEmail(forgotPassword);
+                } catch (ApiException ignored) {
                 }
-                catch (ApiException ignored){}
                 bnd.progressBar.post(() -> {
                     bnd.progressBar.setVisibility(View.GONE);
                     finish();

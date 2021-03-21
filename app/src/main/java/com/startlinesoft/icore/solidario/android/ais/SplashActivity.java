@@ -6,7 +6,6 @@ import android.os.Handler;
 
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreApiClient;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
-import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreKeyStore;
 
 public class SplashActivity extends ICoreAppCompatActivity {
 

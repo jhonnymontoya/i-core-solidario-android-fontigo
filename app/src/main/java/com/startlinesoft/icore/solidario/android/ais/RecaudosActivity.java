@@ -1,13 +1,12 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TabHost;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.startlinesoft.icore.solidario.android.ais.adapters.adapters.RecaudoAdapter;
 import com.startlinesoft.icore.solidario.android.ais.databinding.ActivityRecaudosBinding;
@@ -53,13 +52,12 @@ public class RecaudosActivity extends ICoreAppCompatActivity implements View.OnC
 
         List<Recaudo> recaudos = ICoreGeneral.getSocio().getRecaudo();
 
-        if(recaudos.size() > 0) {
+        if (recaudos.size() > 0) {
             bnd.rvRecaudos.setLayoutManager(new LinearLayoutManager(this));
             RecaudoAdapter adapter = new RecaudoAdapter(recaudos);
             adapter.setOnItemClickListener(this);
             bnd.rvRecaudos.setAdapter(adapter);
-        }
-        else {
+        } else {
             bnd.tvRecaudosSinRegistros.setVisibility(View.VISIBLE);
         }
     }
@@ -75,7 +73,7 @@ public class RecaudosActivity extends ICoreAppCompatActivity implements View.OnC
         super.onClick(v);
 
         // Ir a info de cuenta
-        if(v.equals(bnd.ivImagen)) {
+        if (v.equals(bnd.ivImagen)) {
             Intent i = new Intent(this, InfoActivity.class);
             startActivity(i);
             return;

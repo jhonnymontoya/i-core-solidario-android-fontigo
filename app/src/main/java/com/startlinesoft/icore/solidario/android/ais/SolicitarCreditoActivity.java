@@ -1,13 +1,12 @@
 package com.startlinesoft.icore.solidario.android.ais;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+
+import androidx.annotation.Nullable;
 
 import com.startlinesoft.icore.solidario.ApiClient;
 import com.startlinesoft.icore.solidario.ApiException;
@@ -16,12 +15,9 @@ import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreApiClient;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreAppCompatActivity;
 import com.startlinesoft.icore.solidario.android.ais.utilidades.ICoreGeneral;
 import com.startlinesoft.icore.solidario.api.CreditosApi;
-import com.startlinesoft.icore.solidario.api.models.CreditoSimulado;
 import com.startlinesoft.icore.solidario.api.models.ModalidadCredito;
-import com.startlinesoft.icore.solidario.api.models.Periodicidad;
 import com.startlinesoft.icore.solidario.api.models.RespuestaGeneral;
 import com.startlinesoft.icore.solidario.api.models.SolicitudCredito;
-import com.startlinesoft.icore.solidario.api.models.SolicitudCreditoSimulado;
 
 import org.json.JSONException;
 import org.json.JSONObject;
