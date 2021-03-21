@@ -64,7 +64,7 @@ public class SolicitarCreditoActivity extends ICoreAppCompatActivity implements 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        this.bnd.tbToolbar.setTitle(getString(R.string.accion_simulador));
+        this.bnd.tbToolbar.setTitle(getString(R.string.accion_solicitar_credito));
 
         new Thread(() -> {
             try {
