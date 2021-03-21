@@ -114,9 +114,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:hint="@string/valor_credito"
                         android:inputType="number"
-                        android:text="1000000"
                         tools:ignore="HardcodedText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -132,9 +130,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:hint="@string/plazo_credito"
                         android:inputType="number"
-                        android:text="12"
                         tools:ignore="HardcodedText" />
 
                 </com.google.android.material.textfield.TextInputLayout>

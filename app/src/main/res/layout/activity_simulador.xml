@@ -130,8 +130,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:text="1000000"
-                        android:hint="@string/valor_credito"
                         android:inputType="number"
                         tools:ignore="HardcodedText" />
 
@@ -148,8 +146,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:text="12"
-                        android:hint="@string/plazo_credito"
                         android:inputType="number"
                         tools:ignore="HardcodedText"/>
 
